@@ -8,3 +8,6 @@ package-lock.json
 # Visual studio
 .vscode
 .vs
+
+# expo
+.expo/web/cache/

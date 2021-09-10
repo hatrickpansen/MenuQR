@@ -10,8 +10,9 @@ import {
 import Restaurant from "../components/Restaurant";
 import Menu from "../components/Menu";
 
-const Home = (props) => {
+const HomeScreen = (props: any) => {
   const [text, setText] = useState("");
+
   return (
     <ScrollView>
       <Text style={style.title}>MenuQR</Text>
@@ -24,8 +25,8 @@ const Home = (props) => {
       <Restaurant
         name="McD"
         source="http://ringstedoutlet.dk/wp-content/uploads/mcd.jpg"
+        navigation={props.navigation}
       ></Restaurant>
-      <Menu></Menu>
     </ScrollView>
   );
 };
@@ -38,4 +39,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeScreen;
