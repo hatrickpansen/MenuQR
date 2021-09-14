@@ -10,4 +10,4 @@ package-lock.json
 .vs
 
 # expo
-.expo/web/cache/
+.expo
