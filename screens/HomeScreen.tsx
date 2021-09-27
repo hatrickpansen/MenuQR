@@ -1,33 +1,44 @@
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import {
-  View,
   Text,
   TextInput,
-  ScrollView,
+  View,
   StyleSheet,
   Button,
+  Image,
+  FlatList,
 } from "react-native";
-import Restaurant from "../components/Restaurant";
-import Menu from "../components/Menu";
+import * as data from "./data.json";
 
-const HomeScreen = (props: any) => {
+const HomeScreen = ({ navigation }: any) => {
   const [text, setText] = useState("");
-
   return (
-    <ScrollView>
+    <View>
       <Text style={style.title}>MenuQR</Text>
       <TextInput
         placeholder="Search for restaurant"
         onChangeText={(text) => setText(text)}
         defaultValue={text}
         textAlign="center"
+        style={style.search}
       />
-      <Restaurant
-        name="McD"
-        source="http://ringstedoutlet.dk/wp-content/uploads/mcd.jpg"
-        navigation={props.navigation}
-      ></Restaurant>
-    </ScrollView>
+      <Button
+        title="Go to menu"
+        onPress={() =>
+          navigation.navigate("Menu", {
+            hello: "pat",
+            hi: "pat",
+          })
+        }
+      />
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.key}
+        renderItem={({item, index}) => {
+          return <View>
+        }}
+      />
+    </View>
   );
 };
 
@@ -36,6 +47,16 @@ const style = StyleSheet.create({
     fontSize: 76,
     textAlign: "center",
     color: "#000",
+  },
+  search: {
+    fontSize: 24,
+    textAlign: "center",
+    shadowColor: "black",
+    borderWidth: 3,
+    borderRadius: 25,
+    backgroundColor: "white",
+    opacity: 0.25,
+    margin: "auto",
   },
 });
 

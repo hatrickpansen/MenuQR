@@ -7,19 +7,21 @@ import MenuScreen from "./screens/MenuScreen";
 
 const Stack = createNativeStackNavigator();
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Menu" component={MenuScreen} />
-    </Stack.Navigator>
-  );
-}
-
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "MenuQR" }}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={MenuScreen}
+          options={{ title: "Menu" }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

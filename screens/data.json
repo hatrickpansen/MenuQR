@@ -1,0 +1,20 @@
+{
+  "mcd": {
+    "logo": "https://1000logos.net/wp-content/uploads/2017/03/symbol-McDonalds.jpg",
+    "menus": [
+      {
+        "breakfast": [
+          {
+            "item": {
+              "name": "mcmuffin",
+              "imgsrc": "https://www.mcdonalds.com/content/dam/dk/nfl/productimages/thumbs/mcdonalds_mcmuffin-med-aeg-og-bacon.jpg"
+            }
+          }
+        ]
+      },
+      {
+        "dinner": ["cheeseburger", "bigmac"]
+      }
+    ]
+  }
+}

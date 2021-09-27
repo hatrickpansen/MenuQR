@@ -1,18 +1,13 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  StyleSheet,
-  Button,
-} from "react-native";
-import Menu from "../components/Menu";
+import { ScrollView, Text } from "react-native";
 
-const MenuScreen = () => {
+const MenuScreen = ({ route, navigation }: any) => {
+  const { hello, hi } = route.params;
   return (
     <ScrollView>
-      <Menu />
+      <Text>MenuScreen</Text>
+      <Text>hello: {hello}</Text>
+      <Text>hi: {hi}</Text>
     </ScrollView>
   );
 };
