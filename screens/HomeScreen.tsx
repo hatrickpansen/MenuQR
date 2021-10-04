@@ -1,48 +1,37 @@
 import React, { useState } from "react";
 import {
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  Button,
   Image,
-  FlatList,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
+import styles from "../styles/homescreen";
+import tw from "tailwind-react-native-classnames";
+
 import * as data from "./data.json";
+const image = { uri: "https://reactjs.org/logo-og.png" };
 
 const HomeScreen = ({ navigation }: any) => {
   const [text, setText] = useState("");
   return (
-    <View>
-      <Text style={style.title}>MenuQR</Text>
-      <TextInput
-        placeholder="Search for restaurant"
-        onChangeText={(text) => setText(text)}
-        defaultValue={text}
-        textAlign="center"
-        style={style.search}
-      />
-      <Button
-        title="Go to menu"
-        onPress={() =>
-          navigation.navigate("Menu", {
-            hello: "pat",
-            hi: "pat",
-          })
-        }
-      />
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.key}
-        renderItem={({item, index}) => {
-          return <View>
-        }}
-      />
-    </View>
+    <SafeAreaView style={tw`bg-white w-full h-full`}>
+      <View style={tw`p-4 android:pt-2 bg-gray-900 flex-row `}>
+        {/*<Image
+          style={{
+            width: "100%",
+            height: 100,
+            resizeMode: "contain",
+          }}
+          source={require("../assets/logo.png")}
+        />*/}
+      </View>
+    </SafeAreaView>
   );
 };
 
-const style = StyleSheet.create({
+/*const style = StyleSheet.create({
   title: {
     fontSize: 76,
     textAlign: "center",
@@ -58,6 +47,6 @@ const style = StyleSheet.create({
     opacity: 0.25,
     margin: "auto",
   },
-});
+});*/
 
 export default HomeScreen;
