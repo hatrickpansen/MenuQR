@@ -1,23 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import tw from "tailwind-react-native-classnames";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  ImageBackground,
-  Dimensions,
-  Alert,
-  Button,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import HomeScreenButton from "./components/homescreen/button";
+
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+/*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
 const styles = StyleSheet.create({
@@ -40,61 +32,30 @@ const styles = StyleSheet.create({
   textOrange: {
     color: "#FF470B",
   },
+  textHeader: {
+    fontSize: 54,
+    fontFamily: "sansation-bold",
+  },
 });
 
 export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground
-        style={{
-          width: Dimensions.get("screen").width,
-          height: Dimensions.get("screen").height,
-        }}
-        source={require("./assets/backgroundimage.png")}
-      >
-        <View style={styles.container}>
-          <View
-            style={tw`flex-row flex-wrap justify-between pt-4 px-4 items-center`}
-          >
-            <Image
-              style={{ height: 60, width: 60, resizeMode: "contain" }}
-              source={require("./assets/logo.png")}
-              resizeMode="contain"
-              resizeMethod="resize"
-            />
-            <Image
-              style={{ height: 20, width: 20, resizeMode: "contain" }}
-              source={require("./assets/user.png")}
-              resizeMode="contain"
-              resizeMethod="resize"
-            />
-          </View>
-          <View>
-            <View style={tw`flex justify-center items-center`}>
-              <View style={tw`flex-row flex-wrap pt-4 items-center`}>
-                <Text style={tw.style("text-4xl font-bold", styles.textOrange)}>
-                  Menu
-                </Text>
-                <Image
-                  style={{ height: 30, resizeMode: "contain" }}
-                  source={require("./assets/qr.png")}
-                  resizeMode="contain"
-                  resizeMethod="resize"
-                />
-                <Text style={tw.style("text-4xl font-bold", styles.textOrange)}>
-                  R
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={tw`h-48`}>
-          <View style={tw`px-8 flex`}>
-            <HomeScreenButton title="Browse Restaurants" />
-            <HomeScreenButton title="Scan QR" />
-          </View>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
-  );
+  const getFonts = () =>
+    Font.loadAsync({
+      "sansation-regular": require("./assets/fonts/Sansation_Regular.ttf"),
+      "sansation-bold": require("./assets/fonts/Sansation_Regular.ttf"),
+    });
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  if (fontsLoaded) {
+    return <HomeScreen />;
+  } else {
+    return (
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={() => setFontsLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
 }

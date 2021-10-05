@@ -4,9 +4,9 @@
     "slug": "MenuQR",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "",
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
