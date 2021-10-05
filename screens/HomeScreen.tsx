@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { LinearGradient } from "expo-linear-gradient";
+
 import tw from "tailwind-react-native-classnames";
 import {
   View,
@@ -41,6 +43,24 @@ const styles = StyleSheet.create({
   textHeader: {
     fontSize: 54,
     fontFamily: "sansation-bold",
+  },
+  /*gradientOrange: {
+    backgroundColor: "rgb(255,71,11)",
+    background:
+      "linear-gradient(180deg, rgba(255,71,11,0.10407913165266103) 16%, rgba(255,71,11,1) 54%, rgba(255,71,11,1) 100%)",
+  },*/
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 18,
+    textAlign: "center",
+    margin: 10,
+    color: "#ffffff",
+    backgroundColor: "transparent",
   },
 });
 
@@ -105,12 +125,29 @@ const HomeScreen = () => {
             </View>
           </View>
         </View>
-        <View style={tw`h-52`}>
-          <View style={tw``} />
-          <View style={tw`px-8 flex`}>
-            <HomeScreenButton title="Browse Restaurants" />
-            <HomeScreenButton title="Scan QR" />
-          </View>
+        <View style={tw`h-72`}>
+          <LinearGradient
+            colors={[
+              "rgba(255,71,11,0.002)",
+              "rgba(255,71,11,0.2)",
+              "rgba(255,71,11,0.4)",
+              "rgba(255,71,11,0.6)",
+              "rgba(255,71,11,1)",
+              "rgba(255,71,11,1)",
+            ]}
+            style={styles.container}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          >
+            {/*background: rgb(255,71,11); background: linear-gradient(180deg,
+          rgba(255,71,11,0.10407913165266103) 16%, rgba(255,71,11,1) 54%,
+          rgba(255,71,11,1) 100%);*/}
+            {/*<View style={styles.gradientOrange} />*/}
+            <View style={tw`px-8 flex pt-24`}>
+              <HomeScreenButton title="Browse Restaurants" />
+              <HomeScreenButton title="Scan QR" />
+            </View>
+          </LinearGradient>
         </View>
       </ImageBackground>
     </SafeAreaView>
