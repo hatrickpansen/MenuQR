@@ -20,6 +20,7 @@ import {
 import HomeScreenButton from "../components/homescreen/button";
 
 const Stack = createNativeStackNavigator();
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -79,7 +80,7 @@ const HomeScreen = () => {
             style={tw`flex-row flex-wrap justify-between pt-8 px-4 items-center`}
           >
             <Image
-              style={{ height: 60, width: 60, resizeMode: "contain" }}
+              style={{ height: 60, width: 60 }}
               source={require("../assets/logo.png")}
               resizeMode="contain"
               resizeMethod="resize"
@@ -125,13 +126,13 @@ const HomeScreen = () => {
             </View>
           </View>
         </View>
-        <View style={tw`h-72`}>
+        <View style={tw`ios:h-80 android:h-72 `}>
           <LinearGradient
             colors={[
               "rgba(255,71,11,0.002)",
               "rgba(255,71,11,0.2)",
               "rgba(255,71,11,0.4)",
-              "rgba(255,71,11,0.6)",
+              "rgba(255,71,11,0.7)",
               "rgba(255,71,11,1)",
               "rgba(255,71,11,1)",
             ]}
@@ -144,8 +145,14 @@ const HomeScreen = () => {
           rgba(255,71,11,1) 100%);*/}
             {/*<View style={styles.gradientOrange} />*/}
             <View style={tw`px-8 flex pt-24`}>
-              <HomeScreenButton title="Browse Restaurants" />
-              <HomeScreenButton title="Scan QR" />
+              <HomeScreenButton
+                title="Browse Restaurants"
+                onPress={() => navigation.navigate("Menu")}
+              />
+              <HomeScreenButton
+                title="Scan QR"
+                onPress={() => navigation.navigate("QR")}
+              />
             </View>
           </LinearGradient>
         </View>

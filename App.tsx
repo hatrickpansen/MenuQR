@@ -9,53 +9,53 @@ import HomeScreenButton from "./components/homescreen/button";
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import QrScreen from "./screens/QrScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: "100%",
-    width: "100%",
-  },
-  title: {
-    fontSize: 25,
-    padding: 15,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  textStyle: {
-    color: "white",
-    padding: 10,
-  },
-  textOrange: {
-    color: "#FF470B",
-  },
-  textHeader: {
-    fontSize: 54,
-    fontFamily: "sansation-bold",
-  },
-});
 
 export default function App() {
   const getFonts = () =>
     Font.loadAsync({
-      "sansation-regular": require("./assets/fonts/Sansation_Regular.ttf"),
-      "sansation-bold": require("./assets/fonts/Sansation_Regular.ttf"),
+      "sansation-regular": require("./assets/fonts/Sansation/Sansation_Regular.ttf"),
+      "sansation-bold": require("./assets/fonts/Sansation/Sansation_Regular.ttf"),
+      "roboto-regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+      "roboto-bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
     });
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   if (fontsLoaded) {
-    return <HomeScreen />;
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Menu"
+            component={MenuScreen}
+            options={{ title: "Menu", headerShown: true }}
+          />
+          <Stack.Screen
+            name="QR"
+            component={QrScreen}
+            options={{ title: "QR", headerShown: true }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
   } else {
     return (
-      <AppLoading
-        startAsync={getFonts}
-        onFinish={() => setFontsLoaded(true)}
-        onError={(err) => console.log(err)}
-      />
+      <NavigationContainer>
+        <AppLoading
+          startAsync={getFonts}
+          onFinish={() => setFontsLoaded(true)}
+          onError={(err) => console.log(err)}
+        />
+      </NavigationContainer>
     );
   }
 }
