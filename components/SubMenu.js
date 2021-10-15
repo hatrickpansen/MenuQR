@@ -1,34 +1,19 @@
 import React from "react";
-import {
-  View,
-  Image,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-  Dimensions,
-  Text,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, FlatList, Dimensions } from "react-native";
 import DATA from "../assets/data.json";
+import ListItem from "./ListItem";
 
 const SubMenu = (props) => {
-  const renderItem = ({ item }) => (
-    <TouchableHighlight>
-      <View>
-        <Text style={SubMenuItemStyle.title}>{item.title}</Text>
-        <Image source={{ uri: item.image }} style={SubMenuItemStyle.image} />
-      </View>
-    </TouchableHighlight>
-  );
-  console.log("submenu rendered");
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
   return (
     <FlatList
       data={DATA}
-      renderItem={renderItem}
+      renderItem={({ item }) => (
+        <ListItem item={item} navigation={props.navigation} />
+      )}
       keyExtractor={(item) => item.id}
-      horizontal={true}
+      //horizontal={true}
       style={{
         width: screenWidth,
       }}

@@ -4,7 +4,7 @@ import SubMenu from "../components/SubMenu";
 
 const MenuScreen = () => {
   return (
-    <View>
+    <View style={{ alignItems: "center" }}>
       <Text>MenuScreen</Text>
       <SubMenu></SubMenu>
     </View>

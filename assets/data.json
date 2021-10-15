@@ -2,12 +2,18 @@
   {
     "id": 0,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "burgir",
+    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
+    "description": "this good burgir",
+    "price": 69
   },
   {
-    "id": 0,
+    "id": 1,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "nuggit",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/McDonalds-Chicken-McNuggets.jpg",
+    "description": "they r good",
+    "price": 420
   },
   {
     "id": 0,

@@ -11,6 +11,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import QrScreen from "./screens/QrScreen";
+import ItemScreen from "./screens/ItemScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ export default function App() {
             component={QrScreen}
             options={{ title: "QR", headerShown: true }}
           />
+          <Stack.Screen name="Item" component={ItemScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
