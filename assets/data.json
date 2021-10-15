@@ -2,37 +2,49 @@
   {
     "id": 0,
     "title": "mcd",
-    "name": "burgir",
+    "name": "McFeast",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
-    "description": "this good burgir",
+    "description": "Kæmpe burger kæmpe bøf",
     "price": 69
   },
   {
     "id": 1,
     "title": "mcd",
-    "name": "nuggit",
+    "name": "McNuggets",
     "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/McDonalds-Chicken-McNuggets.jpg",
-    "description": "they r good",
-    "price": 420
+    "description": "Sprøde døde kyllinger",
+    "price": 42
   },
   {
-    "id": 0,
+    "id": 2,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "burger",
+    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
+    "description": "burger",
+    "price": 40
   },
   {
-    "id": 0,
+    "id": 3,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "burger",
+    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
+    "description": "burger",
+    "price": 40
   },
   {
-    "id": 0,
+    "id": 4,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "burger",
+    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
+    "description": "burger",
+    "price": 40
   },
   {
-    "id": 0,
+    "id": 5,
     "title": "mcd",
-    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$"
+    "name": "burger",
+    "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
+    "description": "burger",
+    "price": 40
   }
 ]

@@ -1,6 +1,21 @@
 import React from "react";
-import { Text, Image } from "react-native";
+import { Text, Image, View, StyleSheet } from "react-native";
 
 const Item = (props) => {
-  return <View></View>;
+  return (
+    <View>
+      <View>
+        <Text>{item.title}</Text>
+        <Text>{"Price \n" + item.price} </Text>
+      </View>
+      <View>
+        <Text>{"Description \n" + item.description}</Text>
+      </View>
+      <View>
+        <Text>Allergens</Text>
+      </View>
+    </View>
+  );
 };
+
+// description fontWeight bold fontsize 24

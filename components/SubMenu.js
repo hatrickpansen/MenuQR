@@ -1,27 +1,30 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, FlatList, Dimensions } from "react-native";
+import { StyleSheet, FlatList, Dimensions, View, Image } from "react-native";
 import DATA from "../assets/data.json";
 import ListItem from "./ListItem";
+const { width, height } = Dimensions.get("screen");
 
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
   return (
-    <FlatList
-      data={DATA}
-      renderItem={({ item }) => (
-        <ListItem item={item} navigation={props.navigation} />
-      )}
-      keyExtractor={(item) => item.id}
-      //horizontal={true}
-      style={{
-        width: screenWidth,
-      }}
-    />
+    <View>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => (
+          <ListItem item={item} navigation={props.navigation} />
+        )}
+        keyExtractor={(item) => item.id}
+        style={{
+          width: screenWidth,
+        }}
+      />
+    </View>
   );
 };
 
-const SubMenuItemStyle = StyleSheet.create({
+const SubMenuStyle = StyleSheet.create({
   image: {
     borderRadius: 20,
     width: 100,
@@ -31,6 +34,10 @@ const SubMenuItemStyle = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+  },
+  flatList: {
+    padding: 10,
+    paddingTop: StatusBar.currentHeight || 42,
   },
 });
 
