@@ -1,11 +1,13 @@
 import React from "react";
-import { ScrollView, Text } from "react-native";
+import { View, Text } from "react-native";
+import SubMenu from "../components/SubMenu";
 
 const MenuScreen = () => {
   return (
-    <ScrollView>
+    <View>
       <Text>MenuScreen</Text>
-    </ScrollView>
+      <SubMenu></SubMenu>
+    </View>
   );
 };
 
