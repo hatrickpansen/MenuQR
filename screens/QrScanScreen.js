@@ -14,6 +14,7 @@ import MyText from "../components/myText";
 import { styleOrangeColor } from "../styles/customStyles";
 import AnimatedLoader from "react-native-animated-loader";
 import loader from "../components/qrscanner/loader.json";
+import dotsLoader from "../components/qrscanner/dotsLoader.json";
 import LottieView from "lottie-react-native";
 
 const QrScanScreen = ({ navigation }) => {
@@ -119,21 +120,25 @@ const QrScanScreen = ({ navigation }) => {
           </View>
         </Camera>
         {!scanned && (
-          <View style={tw`rounded-lg bg-gray-800 my-4`}>
-            <Text style={tw`text-yellow-500 px-2 py-1`}>
+          <View
+            style={tw.style(
+              `rounded-lg my-4 flex-row justify-end bg-gray-400 items-center pl-4 pr-1`
+            )}
+          >
+            <Text style={tw.style(`text-white  py-1 text-base`)}>
               Looking for QR CODE
             </Text>
+            <LottieView
+              style={tw`w-9`}
+              source={dotsLoader}
+              autoPlay={true}
+              loop={true}
+            />
           </View>
         )}
 
         {scanned && (
-          <View>
-            <Text>{text}</Text>
-            <Button
-              title={"Scan again?"}
-              onPress={() => setScanned(false)}
-              color="tomato"
-            />
+          <View style={tw`mt-4`}>
             <TouchableOpacity
               onPress={() => setScanned(false)}
               style={tw.style(
@@ -145,6 +150,7 @@ const QrScanScreen = ({ navigation }) => {
                 Scan again
               </MyText>
             </TouchableOpacity>
+            <Text style={`py-8`}>Output: {text}</Text>
           </View>
         )}
       </View>
