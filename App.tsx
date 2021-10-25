@@ -10,8 +10,8 @@ import HomeScreenButton from "./components/homescreen/button";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
-import QrScreen from "./screens/QrScreen";
 import ItemScreen from "./screens/ItemScreen";
+import QrScanScreen from "./screens/QrScanScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
@@ -41,9 +41,9 @@ export default function App() {
             options={{ title: "Menu", headerShown: true }}
           />
           <Stack.Screen
-            name="QR"
-            component={QrScreen}
-            options={{ title: "QR", headerShown: true }}
+            name="QR Scan"
+            component={QrScanScreen}
+            options={{ title: "QR Scan", headerShown: true }}
           />
           <Stack.Screen name="Item" component={ItemScreen} />
         </Stack.Navigator>
