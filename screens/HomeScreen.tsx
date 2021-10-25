@@ -146,8 +146,8 @@ const HomeScreen = ({ navigation }: any) => {
             {/*<View style={styles.gradientOrange} />*/}
             <View style={tw`px-8 flex pt-24`}>
               <HomeScreenButton
-                title="Browse Restaurants"
-                onPress={() => navigation.navigate("Menu")}
+                title="Continue"
+                onPress={() => navigation.navigate("Frontpage")}
               />
               <HomeScreenButton
                 title="Scan QR"

@@ -12,6 +12,7 @@ import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import QrScreen from "./screens/QrScreen";
 import ItemScreen from "./screens/ItemScreen";
+import FrontpageScreen from "./screens/FrontpageScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Frontpage" component={FrontpageScreen} />
           <Stack.Screen
             name="Menu"
             component={MenuScreen}

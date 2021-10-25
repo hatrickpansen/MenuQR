@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, Image, View, StyleSheet } from "react-native";
 
-const Item = (props) => {
+const Item = () => {
+  // AM I EVEN USING THIS CAUSE I DONT THINK SO
   return (
     <View>
       <View>
