@@ -126,7 +126,7 @@ const QrScanScreen = ({ navigation }) => {
             )}
           >
             <Text style={tw.style(`text-white  py-1 text-base`)}>
-              Looking for QR CODE
+              Please scan QR CODE
             </Text>
             <LottieView
               style={tw`w-9`}
