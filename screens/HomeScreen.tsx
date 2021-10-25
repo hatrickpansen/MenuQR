@@ -151,7 +151,7 @@ const HomeScreen = ({ navigation }: any) => {
               />
               <HomeScreenButton
                 title="Scan QR"
-                onPress={() => navigation.navigate("QR")}
+                onPress={() => navigation.navigate("QR Scan")}
               />
             </View>
           </LinearGradient>
