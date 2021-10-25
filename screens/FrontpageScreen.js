@@ -67,9 +67,9 @@ const FrontPageScreen = ({ navigation }) => {
         <View style={tw`flex bg-gray-500 rounded-2xl overflow-hidden`}>
           <View>
             <Image
-              style={{ width: "100%" }}
+              style={{ width: "100%", height: 100 }}
               source={require("../assets/food1.jpg")}
-              resizeMode="contain"
+              resizeMode="cover"
               resizeMethod="resize"
             />
           </View>
