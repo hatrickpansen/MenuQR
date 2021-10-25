@@ -12,6 +12,9 @@ import { Camera } from "expo-camera";
 import tw from "tailwind-react-native-classnames";
 import MyText from "../components/myText";
 import { styleOrangeColor } from "../styles/customStyles";
+import AnimatedLoader from "react-native-animated-loader";
+import loader from "../components/qrscanner/loader.json";
+import LottieView from "lottie-react-native";
 
 const QrScanScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -34,7 +37,7 @@ const QrScanScreen = ({ navigation }) => {
     })();
   };
 
-  // Ask for camera permission when the app loads
+  // Ask for camera permission when the page loads give permission
   useEffect(() => {
     askForCameraPermission();
   }, []);
@@ -98,10 +101,30 @@ const QrScanScreen = ({ navigation }) => {
       <View style={tw`flex justify-center items-center`}>
         <Camera
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={tw.style(`h-96`, { width: Dimensions.get("screen").width })}
-        />
-        {scanned && <Text>{text}</Text>}
-        {!scanned && <Text>Looking for QR CODE</Text>}
+          style={tw.style(`h-96 flex justify-center items-center`, {
+            width: Dimensions.get("screen").width,
+          })}
+        >
+          <View
+            style={tw.style(`h-20 flex justify-center items-center`, {
+              width: Dimensions.get("screen").width,
+            })}
+          >
+            <LottieView
+              style={tw`h-64`}
+              source={loader}
+              autoPlay={true}
+              loop={true}
+            />
+          </View>
+        </Camera>
+        {!scanned && (
+          <View style={tw`rounded-lg bg-gray-800 my-4`}>
+            <Text style={tw`text-yellow-500 px-2 py-1`}>
+              Looking for QR CODE
+            </Text>
+          </View>
+        )}
 
         {scanned && (
           <View>
