@@ -38,7 +38,7 @@ const ItemScreenStyle = StyleSheet.create({
     marginBottom: 5,
   },
   name: {
-    fontSize: 72,
+    fontSize: 64,
     fontWeight: "bold",
     color: "#ff4b3a",
   },

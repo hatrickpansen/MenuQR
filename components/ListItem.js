@@ -70,7 +70,6 @@ const ListItemStyle = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 20,
     borderRadius: 12,
-    // flexWrap: "wrap",  # this is fucky but the text wont wrap properly and goes outside the screen
   },
 });
 

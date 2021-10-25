@@ -15,7 +15,7 @@ const SubMenu = (props) => {
         renderItem={({ item }) => (
           <ListItem item={item} navigation={props.navigation} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         style={{
           width: screenWidth,
         }}
