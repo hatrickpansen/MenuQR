@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import placeholderDataResturants from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -11,6 +12,8 @@ import {
   Button,
   Dimensions,
   Image,
+  RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 
 /*
@@ -19,13 +22,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 /*import RestaurantCard from "../components/RestaurantCard";*/
 import { SearchBar } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
+import { styleOrangeColor } from "../styles/customStyles";
 
 const FrontPageScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((responseJson) => {
@@ -35,6 +39,14 @@ const FrontPageScreen = ({ navigation }) => {
       .catch((error) => {
         console.error(error);
       });
+  }, []);*/
+
+  useEffect(() => {
+    return () => {
+      setFilteredDataSource(placeholderDataResturants);
+      setMasterDataSource(placeholderDataResturants);
+      console.log("working fetch useffect");
+    };
   }, []);
 
   const searchFilterFunction = (text) => {
@@ -63,25 +75,26 @@ const FrontPageScreen = ({ navigation }) => {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
-      <View style={tw`py-4 px-2`}>
-        <View style={tw`flex bg-gray-500 rounded-2xl overflow-hidden`}>
-          <View>
-            <Image
-              style={{ width: "100%", height: 100 }}
-              source={require("../assets/food1.jpg")}
-              resizeMode="cover"
-              resizeMethod="resize"
-            />
+      <TouchableOpacity onPress={() => getItem(item)}>
+        <View style={tw`py-4 px-2 shadow bg-gray-100`}>
+          <View
+            style={tw`flex bg-white rounded-2xl shadow-2xl overflow-hidden`}
+          >
+            <View>
+              <Image
+                style={{ width: "100%", height: 100 }}
+                source={require("../assets/food1.jpg")}
+                resizeMode="cover"
+                resizeMethod="resize"
+              />
+            </View>
+            <View style={tw`flex-row justify-between py-3`}>
+              <Text style={styles.itemStyle}>{item.title}</Text>
+              <Text style={styles.itemStyle}>{item.address}</Text>
+            </View>
           </View>
-
-          <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-            {item.id}
-            {". "}
-            {item.title.charAt(0).toUpperCase() + item.title.slice(1)}
-            {/*Make first letter in word Uppercase*/}
-          </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -89,11 +102,11 @@ const FrontPageScreen = ({ navigation }) => {
     return (
       // Flat List Item Separator
       <View
-        style={{
+        style={tw.style({
           height: 0.4,
           width: "100%",
           backgroundColor: "#FF470B",
-        }}
+        })}
       />
     );
   };
@@ -102,33 +115,54 @@ const FrontPageScreen = ({ navigation }) => {
     // Function for click on an item
     alert("Id : " + item.id + " Title : " + item.title);
   };
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setFilteredDataSource(placeholderDataResturants);
+    setMasterDataSource(placeholderDataResturants);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
-    <SafeAreaView>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View
-          style={tw.style(styles.container, {
-            height: Dimensions.get("screen").height,
-          })}
-        >
-          <SearchBar
-            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
-            inputContainerStyle={tw.style(`bg-gray-50`)}
-            style={tw.style(`bg-gray-50`)}
-            round={false}
-            searchIcon={{ size: 24 }}
-            onChangeText={(text) => searchFilterFunction(text)}
-            onClear={(text) => searchFilterFunction("")}
-            placeholder="Search for restaurant"
-            value={search}
-          />
-          <FlatList
-            data={filteredDataSource}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
-          />
-        </View>
-      </SafeAreaView>
+    <SafeAreaView style={tw.style(`flex`, styleOrangeColor.backgroundColor)}>
+      <View
+        style={tw.style(styles.container, {
+          height: Dimensions.get("screen").height,
+        })}
+      >
+        <SearchBar
+          containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+          inputContainerStyle={tw.style(`bg-gray-50`)}
+          style={tw.style(`bg-gray-50`)}
+          round={false}
+          searchIcon={{ size: 24 }}
+          onChangeText={(text) => searchFilterFunction(text)}
+          onClear={(text) => searchFilterFunction("")}
+          placeholder="Search for restaurant"
+          value={search}
+        />
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              tintColor="white"
+              style={styleOrangeColor.backgroundColor}
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+          data={filteredDataSource}
+          keyExtractor={(item, index) => index.toString()}
+          /*ItemSeparatorComponent={ItemSeparatorView}*/
+          renderItem={ItemView}
+        />
+      </View>
+
       {/* <View>
         <TextInput
           placeholder="Search for restaurant"
