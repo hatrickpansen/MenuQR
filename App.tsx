@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import tw from "tailwind-react-native-classnames";
-import { StyleSheet } from "react-native";
+import {Button, StyleSheet} from "react-native";
 import HomeScreenButton from "./components/homescreen/button";
 
 import * as Font from "expo-font";
@@ -17,7 +17,7 @@ import QrScanScreen from "./screens/QrScanScreen";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function App({navigation}) {
   const getFonts = () =>
     Font.loadAsync({
       "sansation-regular": require("./assets/fonts/Sansation/Sansation_Regular.ttf"),
@@ -45,7 +45,11 @@ export default function App() {
           <Stack.Screen
             name="QR Scan"
             component={QrScanScreen}
-            options={{ title: "QR Scan", headerShown: true }}
+            options={{ title: "QR Scan", headerShown: true, headerLeft: () => (<Button
+                    onPress={() => navigation.navigate('QR Scan')}
+                    title="go back yallah"
+                    color="#fff"
+                />)}}
           />
           <Stack.Screen name="Item" component={ItemScreen} />
         </Stack.Navigator>
