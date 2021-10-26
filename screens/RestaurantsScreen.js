@@ -23,6 +23,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
+import Svg, { Path } from "react-native-svg";
 
 const RestaurantsScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -88,9 +89,27 @@ const RestaurantsScreen = ({ navigation }) => {
                 resizeMethod="resize"
               />
             </View>
-            <View style={tw`flex-row justify-between py-3`}>
-              <Text style={styles.itemStyle}>{item.title}</Text>
-              <Text style={styles.itemStyle}>{item.address}</Text>
+            <View style={tw`flex-row justify-between p-3 items-center`}>
+              <Text
+                style={tw.style(`font-medium`, styleOrangeColor.textOrange)}
+              >
+                {item.title}
+              </Text>
+              <View style={tw`flex-row items-center`}>
+                <Svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Path
+                    d="M9 1.5C6.0975 1.5 3.75 3.8475 3.75 6.75C3.75 10.6875 9 16.5 9 16.5C9 16.5 14.25 10.6875 14.25 6.75C14.25 3.8475 11.9025 1.5 9 1.5ZM9 8.625C7.965 8.625 7.125 7.785 7.125 6.75C7.125 5.715 7.965 4.875 9 4.875C10.035 4.875 10.875 5.715 10.875 6.75C10.875 7.785 10.035 8.625 9 8.625Z"
+                    fill="#FF470B"
+                  />
+                </Svg>
+                <Text style={tw.style(`font-medium pl-1`)}>{item.address}</Text>
+              </View>
             </View>
           </View>
         </View>
@@ -130,7 +149,7 @@ const RestaurantsScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={tw.style(`flex`, styleOrangeColor.backgroundColor)}>
+    <SafeAreaView style={tw.style(`flex bg-black`)}>
       <View
         style={tw.style(styles.container, {
           height: Dimensions.get("screen").height,
@@ -152,6 +171,7 @@ const RestaurantsScreen = ({ navigation }) => {
             <RefreshControl
               tintColor="white"
               style={styleOrangeColor.backgroundColor}
+              // style={tw`bg-gray-500`}
               refreshing={refreshing}
               onRefresh={onRefresh}
             />
@@ -162,21 +182,6 @@ const RestaurantsScreen = ({ navigation }) => {
           renderItem={ItemView}
         />
       </View>
-
-      {/* <View>
-        <TextInput
-          placeholder="Search for restaurant"
-          onChangeText={(text) => setText(text)}
-          defaultValue={text}
-          textAlign="center"
-          style={style.search}
-        />
-        <RestaurantCard />
-        <Button
-          title="Go to menu"
-          onPress={() => navigation.navigate("Menu")}
-        />
-      </View>*/}
     </SafeAreaView>
   );
 };
@@ -184,9 +189,6 @@ const RestaurantsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-  },
-  itemStyle: {
-    padding: 10,
   },
   search: {
     fontSize: 24,
