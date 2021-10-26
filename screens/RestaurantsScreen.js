@@ -24,7 +24,7 @@ import { SearchBar } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 
-const FrontPageScreen = ({ navigation }) => {
+const RestaurantsScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -200,4 +200,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FrontPageScreen;
+export default RestaurantsScreen;

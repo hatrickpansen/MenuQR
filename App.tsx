@@ -11,7 +11,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import ItemScreen from "./screens/ItemScreen";
-import FrontpageScreen from "./screens/FrontpageScreen";
+import RestaurantsScreen from "./screens/RestaurantsScreen";
 import QrScanScreen from "./screens/QrScanScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
@@ -36,7 +36,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Frontpage" component={FrontpageScreen} />
+          <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
           <Stack.Screen
             name="Menu"
             component={MenuScreen}

@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import HomeScreenButton from "../components/homescreen/button";
+import {styleOrangeColor} from "../styles/customStyles";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
 
 const HomeScreen = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.container}>
+    // <SafeAreaView style={styles.container}>
+    <SafeAreaView style={tw.style(`flex bg-black`)}>
       <ImageBackground
         style={{
           width: Dimensions.get("screen").width,
@@ -140,14 +142,10 @@ const HomeScreen = ({ navigation }: any) => {
             start={{ x: 1, y: 0 }}
             end={{ x: 1, y: 1 }}
           >
-            {/*background: rgb(255,71,11); background: linear-gradient(180deg,
-          rgba(255,71,11,0.10407913165266103) 16%, rgba(255,71,11,1) 54%,
-          rgba(255,71,11,1) 100%);*/}
-            {/*<View style={styles.gradientOrange} />*/}
             <View style={tw`px-8 flex pt-24`}>
               <HomeScreenButton
                 title="Continue"
-                onPress={() => navigation.navigate("Frontpage")}
+                onPress={() => navigation.navigate("Restaurants")}
               />
               <HomeScreenButton
                 title="Scan QR"
