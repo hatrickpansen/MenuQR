@@ -24,6 +24,7 @@ import { SearchBar } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
+import {useFocusEffect} from "@react-navigation/native";
 
 const RestaurantsScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -140,6 +141,16 @@ const RestaurantsScreen = ({ navigation }) => {
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
+
+  //focus screen on everytime page is rendered
+  useFocusEffect(
+      React.useCallback(() => {
+        setFilteredDataSource(placeholderDataResturants);
+        setMasterDataSource(placeholderDataResturants);
+      }, [])
+  );
+
+
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
