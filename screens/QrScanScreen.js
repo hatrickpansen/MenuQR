@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Dimensions,
@@ -17,10 +17,23 @@ import AnimatedLoader from "react-native-animated-loader";
 import loader from "../components/qrscanner/loader.json";
 import dotsLoader from "../components/qrscanner/dotsLoader.json";
 import LottieView from "lottie-react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const QrScanScreen = ({ navigation }) => {
+  const useToggle = (initialState = false) => {
+    // Initialize the state
+    const [state, setState] = useState(initialState);
+
+    // Define and memorize toggler function in case we pass down the comopnent,
+    // This function change the boolean value to it's opposite value
+    const toggle = useCallback(() => setState((state) => !state), []);
+
+    return [state, toggle];
+  };
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [flashed, setFlashed] = useToggle();
   const [text, setText] = useState("Please scan qr");
 
   const styles = StyleSheet.create({
@@ -107,6 +120,7 @@ const QrScanScreen = ({ navigation }) => {
       <View style={tw.style(``)}>
         <View style={tw`flex justify-center items-center`}>
           <Camera
+            flashMode={flashed ? "torch" : "off"}
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={tw.style(`h-96 flex justify-center items-center`, {
               width: Dimensions.get("screen").width,
@@ -123,6 +137,23 @@ const QrScanScreen = ({ navigation }) => {
                 autoPlay={true}
                 loop={true}
               />
+            </View>
+            <View style={tw`top-28 left-36`}>
+              <TouchableOpacity
+                onPress={setFlashed}
+                style={tw.style(
+                  `h-12 w-full rounded-full items-center justify-center mb-3 shadow-md w-12`,
+                  styleOrangeColor.backgroundColor
+                )}
+              >
+                <MyText style={tw`text-base text-white font-bold`}>
+                  <MaterialCommunityIcons
+                    name="flashlight"
+                    size={24}
+                    color={flashed ? "white" : "black"}
+                  />
+                </MyText>
+              </TouchableOpacity>
             </View>
           </Camera>
           {!scanned && (
