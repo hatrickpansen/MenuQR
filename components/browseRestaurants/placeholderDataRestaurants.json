@@ -36,13 +36,37 @@
     "featured": false
   },
   {
-    "id": 5,
+    "id": 7,
     "title": "First Item",
     "address": "Campusvej 55",
     "featured": false
   },
   {
-    "id": 6,
+    "id": 8,
+    "title": "First Item",
+    "address": "Campusvej 55",
+    "featured": false
+  },
+  {
+    "id": 9,
+    "title": "First Item",
+    "address": "Campusvej 55",
+    "featured": false
+  },
+  {
+    "id": 10,
+    "title": "First Item",
+    "address": "Campusvej 55",
+    "featured": false
+  },
+  {
+    "id": 11,
+    "title": "First Item",
+    "address": "Campusvej 55",
+    "featured": false
+  },
+  {
+    "id": 12,
     "title": "First Item",
     "address": "Campusvej 55",
     "featured": false
