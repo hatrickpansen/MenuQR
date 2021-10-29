@@ -26,7 +26,7 @@ import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
-import FlatListItem from "../components/browseRestaurants/flatListItem";
+import FlatListRestaurant from "../components/browseRestaurants/flatListRestaurant";
 
 /*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
 
@@ -145,7 +145,7 @@ const RestaurantsScreen = ({ navigation }) => {
           renderItem={({ item, index }) => {
             //make small animation
             return (
-              <FlatListItem
+              <FlatListRestaurant
                 item={item}
                 index={index}
                 scrollY={scrollY}

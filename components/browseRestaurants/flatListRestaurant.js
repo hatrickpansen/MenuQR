@@ -8,7 +8,7 @@ const SPACING = 1;
 const AVATAR_SIZE = 160;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
-const FlatListItem = ({ item, index, scrollY, navigation }) => {
+const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
     navigation.navigate("QR Scan"); //navigation testing get item
@@ -95,4 +95,4 @@ const FlatListItem = ({ item, index, scrollY, navigation }) => {
   );
 };
 
-export default FlatListItem;
+export default FlatListRestaurant;
