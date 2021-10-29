@@ -124,38 +124,81 @@ const RestaurantsScreen = ({ navigation }) => {
           placeholder="Search for restaurant"
           value={search}
         />
-        <Animated.FlatList
-          style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          refreshControl={
-            <RefreshControl
-              tintColor="white"
-              style={styleOrangeColor.backgroundColor}
-              // style={tw`bg-gray-500`}
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          /*ItemSeparatorComponent={ItemSeparatorView}*/
-          renderItem={({ item, index }) => {
-            //make small animation
-            return (
-              <FlatListItem
-                item={item}
-                index={index}
-                scrollY={scrollY}
-                navigation={navigation}
-              />
-            );
-          }}
-        />
+        <Text style={tw.style(`text-green-300 font-xl`)}>Featured</Text>
+        <RestaurantCategory category="featured" />
       </View>
     </SafeAreaView>
+  );
+};
+
+const SearchListRestaurants = () => {
+  return (
+    <Animated.FlatList
+      style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        { useNativeDriver: true }
+      )}
+      refreshControl={
+        <RefreshControl
+          tintColor="white"
+          style={styleOrangeColor.backgroundColor}
+          // style={tw`bg-gray-500`}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
+      data={filteredDataSource}
+      keyExtractor={(item, index) => index.toString()}
+      /*ItemSeparatorComponent={ItemSeparatorView}*/
+      renderItem={({ item, index }) => {
+        //make small animation
+        return (
+          <FlatListItem
+            item={item}
+            index={index}
+            scrollY={scrollY}
+            navigation={navigation}
+          />
+        );
+      }}
+    />
+  );
+};
+
+const RestaurantCategory = ({ category }) => {
+  return (
+    <Animated.FlatList
+      style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        { useNativeDriver: true }
+      )}
+      refreshControl={
+        <RefreshControl
+          tintColor="white"
+          style={styleOrangeColor.backgroundColor}
+          // style={tw`bg-gray-500`}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
+      data={filteredDataSource}
+      keyExtractor={(item, index) => index.toString()}
+      horizontal={true}
+      /*ItemSeparatorComponent={ItemSeparatorView}*/
+      renderItem={({ item, index }) => {
+        //make small animation
+        return (
+          <FlatListItem
+            item={item}
+            index={index}
+            scrollY={scrollY}
+            navigation={navigation}
+          />
+        );
+      }}
+    />
   );
 };
 
