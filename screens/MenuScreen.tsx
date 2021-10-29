@@ -34,7 +34,7 @@ const MenuScreen = ({route}: any) => {
             <Text
                 style={tw.style(`pt-2`, styleOrangeColor.titleOrange)}
             >
-                Resaurant
+                Restaurant
             </Text>
             <Text>
                 Opening hours:

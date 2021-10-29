@@ -8,11 +8,13 @@ import {
   StyleSheet,
 } from "react-native";
 
+import tw from "tailwind-react-native-classnames";
+
 const ItemScreen = ({ route }) => {
   const { name, description, image, price } = route.params;
   return (
     <SafeAreaView>
-      <View style={{ alignItems: "center" }}>
+      <View style={tw.style(`items-center pt-6`)}>
         <Image source={{ uri: image }} style={ItemScreenStyle.image}></Image>
         <Text style={ItemScreenStyle.name}>{name}</Text>
         <Text style={ItemScreenStyle.prices}>{price} DKK</Text>
