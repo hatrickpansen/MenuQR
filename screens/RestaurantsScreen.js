@@ -16,15 +16,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-/*
-import { SafeAreaView } from "react-native-safe-area-context";
-*/
-/*import RestaurantCard from "../components/RestaurantCard";*/
 import { SearchBar } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import {useFocusEffect} from "@react-navigation/native";
+import BackButton from "../components/BackButton";
 
 const RestaurantsScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -162,21 +159,25 @@ const RestaurantsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={tw.style(`flex bg-black`)}>
       <View
-        style={tw.style(styles.container, {
+        style={tw.style(styles.container, `android:pt-8`, { // Android issue with padding for the top of the search bar
           height: Dimensions.get("screen").height,
         })}
       >
-        <SearchBar
-          containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
-          inputContainerStyle={tw.style(`bg-gray-50`)}
-          style={tw.style(`bg-gray-50`)}
-          round={false}
-          searchIcon={{ size: 24 }}
-          onChangeText={(text) => searchFilterFunction(text)}
-          onClear={(text) => searchFilterFunction("")}
-          placeholder="Search for restaurant"
-          value={search}
-        />
+        {/*<View style={tw.style(`flew-row justify-content`)}>*/}
+        <View>
+        {/*  <BackButton/>*/}
+          <SearchBar
+              containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+              inputContainerStyle={tw.style(`bg-gray-50`)}
+              style={tw.style(`bg-gray-50`)}
+              round={false}
+              searchIcon={{ size: 24 }}
+              onChangeText={(text) => searchFilterFunction(text)}
+              onClear={(text) => searchFilterFunction("")}
+              placeholder="Search for restaurant"
+              value={search}
+          />
+        </View>
         <FlatList
           refreshControl={
             <RefreshControl
