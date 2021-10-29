@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 import React, { useRef } from "react";
 
 const SPACING = 1;
-const AVATAR_SIZE = 160;
+const AVATAR_SIZE = 60;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
 const FlatListItem = ({ item, index, scrollY, navigation }) => {

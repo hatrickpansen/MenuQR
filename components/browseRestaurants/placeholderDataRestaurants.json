@@ -3,7 +3,8 @@
     "id": 1,
     "title": "Flammen",
     "address": "Campusvej 55",
-    "featured": true
+    "featured": true,
+    "recent": true
   },
   {
     "id": 2,
@@ -64,7 +65,9 @@
     "id": 11,
     "title": "First Item",
     "address": "Campusvej 55",
-    "featured": false
+    "featured": false,
+    "recent": true
+
   },
   {
     "id": 12,
