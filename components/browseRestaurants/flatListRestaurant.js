@@ -11,7 +11,6 @@ const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
-    alert(item.id)
     navigation.navigate("Menu", {
       restaurantID: item.id
     }); //navigation testing get item

@@ -14,7 +14,8 @@
     "name": "McNuggets",
     "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/McDonalds-Chicken-McNuggets.jpg",
     "description": "Sprøde døde kyllinger",
-    "price": 42
+    "price": 42,
+    "restId": 1
   },
   {
     "id": 2,

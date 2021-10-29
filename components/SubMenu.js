@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("screen");
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
-  console.log(props.items);
+  
   return (
     <View>
       <FlatList
