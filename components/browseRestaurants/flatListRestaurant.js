@@ -11,7 +11,7 @@ const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
-    navigation.navigate("QR Scan"); //navigation testing get item
+    navigation.navigate("Menu"); //navigation testing get item
     alert("Id : " + item.id + " Title : " + item.title);
   };
 
