@@ -12,26 +12,25 @@ import { useNavigation } from "@react-navigation/core";
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <View style={ListItemStyle.card}>
-      <TouchableOpacity
+    <TouchableOpacity
+        style={ListItemStyle.card}
         onPress={() => {
-          navigation.navigate("Item", {
-            name: item.name,
-            description: item.description,
-            image: item.image,
-            price: item.price,
-          });
-        }}
-      >
+            navigation.navigate("Item", {
+                name: item.name,
+                description: item.description,
+                image: item.image,
+                price: item.price,
+            });
+        }}>
         <Image source={{ uri: item.image }} style={ListItemStyle.image} />
-      </TouchableOpacity>
       <View>
-        <Text style={ListItemStyle.title}>
-          {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
-        </Text>
-        <Text style={ListItemStyle.description}>{item.description}</Text>
+          <Text style={ListItemStyle.title}>
+              {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
+          </Text>
+          <Text style={ListItemStyle.description}>{item.description}</Text>
       </View>
-    </View>
+      </TouchableOpacity>
+
   );
 };
 
