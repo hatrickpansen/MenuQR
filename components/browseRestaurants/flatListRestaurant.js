@@ -12,7 +12,6 @@ const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
     navigation.navigate("Menu"); //navigation testing get item
-    alert("Id : " + item.id + " Title : " + item.title);
   };
 
   const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];
