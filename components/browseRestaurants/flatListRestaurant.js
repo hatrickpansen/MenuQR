@@ -11,7 +11,10 @@ const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
-    navigation.navigate("Menu"); //navigation testing get item
+    alert(item.id)
+    navigation.navigate("Menu", {
+      restaurantID: item.id
+    }); //navigation testing get item
   };
 
   const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];

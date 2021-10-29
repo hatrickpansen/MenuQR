@@ -1,17 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, FlatList, Dimensions, View, Image } from "react-native";
-import DATA from "../assets/data.json";
 import ListItem from "./ListItem";
 const { width, height } = Dimensions.get("screen");
 
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
+  console.log(props.items);
   return (
     <View>
       <FlatList
-        data={DATA}
+        data={props.items}
         renderItem={({ item }) => (
           <ListItem item={item} navigation={props.navigation} />
         )}

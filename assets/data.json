@@ -5,7 +5,8 @@
     "name": "McFeast",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "Kæmpe burger kæmpe bøf",
-    "price": 69
+    "price": 69,
+    "restId": 1
   },
   {
     "id": 1,
