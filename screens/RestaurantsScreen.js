@@ -27,9 +27,9 @@ import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
 import FlatListItem from "../components/browseRestaurants/flatListItem";
+import data from "../components/browseRestaurants/placeholderDataRestaurants.json";
 
 /*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
-
 const RestaurantsScreen = ({ navigation }) => {
   const scrollY = useRef(new Animated.Value(0)).current; //remember initial value
 
@@ -124,8 +124,10 @@ const RestaurantsScreen = ({ navigation }) => {
           placeholder="Search for restaurant"
           value={search}
         />
-        <Text style={tw.style(`text-green-300 font-xl`)}>Featured</Text>
-        <RestaurantCategory category="featured" />
+        <Text style={tw.style(`text-green-300`)}>Featured</Text>
+        <RestaurantCategory category={"featured"} navigation={navigation} />
+        <Text style={tw.style(`text-black`)}>Recent</Text>
+        <RestaurantCategory category={"recent"} navigation={navigation} />
       </View>
     </SafeAreaView>
   );
@@ -166,24 +168,13 @@ const SearchListRestaurants = () => {
   );
 };
 
-const RestaurantCategory = ({ category }) => {
+const RestaurantCategory = ({ category, navigation }) => {
+  const restaurants = data.filter((element) => element[category] == true);
+  const scrollY = useRef(new Animated.Value(0)).current;
   return (
-    <Animated.FlatList
-      style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        { useNativeDriver: true }
-      )}
-      refreshControl={
-        <RefreshControl
-          tintColor="white"
-          style={styleOrangeColor.backgroundColor}
-          // style={tw`bg-gray-500`}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }
-      data={filteredDataSource}
+    <FlatList
+      style={tw.style(`bg-gray-100`, { marginBottom: 5 })}
+      data={restaurants}
       keyExtractor={(item, index) => index.toString()}
       horizontal={true}
       /*ItemSeparatorComponent={ItemSeparatorView}*/
