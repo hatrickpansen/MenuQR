@@ -105,35 +105,75 @@ const RestaurantsScreen = ({ navigation }) => {
     setMasterDataSource(placeholderDataResturants);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+  if (search == "") {
+    return (
+      <SafeAreaView style={tw.style(`flex bg-black`)}>
+        <View
+          style={tw.style(styles.container, {
+            height: Dimensions.get("screen").height,
+          })}
+        >
+          <SearchBar
+            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+            inputContainerStyle={tw.style(`bg-gray-50`)}
+            style={tw.style(`bg-gray-50`)}
+            round={false}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text) => searchFilterFunction(text)}
+            onClear={(text) => searchFilterFunction("")}
+            placeholder="Search for restaurant"
+            value={search}
+          />
+          <Text style={tw.style(`text-lg text-black bg-gray-100`)}>
+            Featured
+          </Text>
+          <RestaurantCategory category={"featured"} navigation={navigation} />
+          <Text style={tw.style(`text-lg text-black bg-gray-100`)}>Recent</Text>
+          <RestaurantCategory category={"recent"} navigation={navigation} />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
-  return (
-    <SafeAreaView style={tw.style(`flex bg-black`)}>
-      <View
-        style={tw.style(styles.container, {
-          height: Dimensions.get("screen").height,
-        })}
-      >
-        <SearchBar
-          containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
-          inputContainerStyle={tw.style(`bg-gray-50`)}
-          style={tw.style(`bg-gray-50`)}
-          round={false}
-          searchIcon={{ size: 24 }}
-          onChangeText={(text) => searchFilterFunction(text)}
-          onClear={(text) => searchFilterFunction("")}
-          placeholder="Search for restaurant"
-          value={search}
-        />
-        <Text style={tw.style(`text-green-300`)}>Featured</Text>
-        <RestaurantCategory category={"featured"} navigation={navigation} />
-        <Text style={tw.style(`text-black`)}>Recent</Text>
-        <RestaurantCategory category={"recent"} navigation={navigation} />
-      </View>
-    </SafeAreaView>
-  );
+  if (search != "") {
+    return (
+      <SafeAreaView style={tw.style(`flex bg-black`)}>
+        <View
+          style={tw.style(styles.container, {
+            height: Dimensions.get("screen").height,
+          })}
+        >
+          <SearchBar
+            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+            inputContainerStyle={tw.style(`bg-gray-50`)}
+            style={tw.style(`bg-gray-50`)}
+            round={false}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text) => searchFilterFunction(text)}
+            onClear={(text) => searchFilterFunction("")}
+            placeholder="Search for restaurant"
+            value={search}
+          />
+          <SearchListRestaurants
+            scrollY={scrollY}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            filteredDataSource={filteredDataSource}
+            navigation={navigation}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
 };
 
-const SearchListRestaurants = () => {
+const SearchListRestaurants = ({
+  scrollY,
+  refreshing,
+  onRefresh,
+  filteredDataSource,
+  navigation,
+}) => {
   return (
     <Animated.FlatList
       style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
