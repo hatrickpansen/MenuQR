@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
@@ -12,24 +12,9 @@ import RestaurantsData from "../components/browseRestaurants/placeholderDataRest
 const MenuScreen = ({route}: any) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   //   const { id, title, address, openingHours} = route.params;
-    // return(
-    // <View>
-    //     <Text
-    //         style={tw.style(`pt-2`, styleOrangeColor.titleOrange)}
-    //     >
-    //         {title}
-    //     </Text>
-    //     <Text>
-    //         Opening hours: {openingHours}
-    //     </Text>
-    //     <Text>
-    //         Address:
-    //     </Text>
-    // </View>
-    // )
 
   return (
-    <View style={tw.style(`items-center`)}>
+    <View style={tw.style(`items-center pt-8`)}>
         <View style={tw.style(`items-center`)}>
             <Text
                 style={tw.style(`pt-2`, styleOrangeColor.titleOrange)}
@@ -42,6 +27,34 @@ const MenuScreen = ({route}: any) => {
             <Text>
                 Address:
             </Text>
+            <View>
+                <View style={tw`flex-row justify-between`}>
+                    <TouchableOpacity>
+                        <View style={tw.style(`border-b-2 border-gray-900 p-4`)}>
+                            <Text style={tw.style(`text-xl font-medium`)}>
+                                Food
+                            </Text>
+                        </View>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={tw.style(`border-b-2 border-gray-900 p-4`)}>
+                            <Text style={tw.style(`text-xl font-medium`)}>
+                                Drinks
+                            </Text>
+                        </View>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={tw.style(`border-b-2 border-gray-900 p-4`)}>
+                            <Text style={tw.style(`text-xl font-medium`)}>
+                                Sauce
+                            </Text>
+                        </View>
+
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
 
         {/*renderItem={MenuScreen}*/}
@@ -49,6 +62,8 @@ const MenuScreen = ({route}: any) => {
     </View>
   );
 };
+
+
 
 export default MenuScreen;
 

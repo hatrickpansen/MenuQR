@@ -29,8 +29,7 @@ const ListItem = ({ item }) => {
           </Text>
           <Text style={ListItemStyle.description}>{item.description}</Text>
       </View>
-      </TouchableOpacity>
-
+    </TouchableOpacity>
   );
 };
 
@@ -58,7 +57,8 @@ const ListItemStyle = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    padding: 10,
+    paddingTop: 5,
+    // paddingLeft: -8,
     marginBottom: 10,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     shadowColor: "#000",
