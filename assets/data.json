@@ -6,7 +6,20 @@
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "Kæmpe burger kæmpe bøf",
     "price": 69,
-    "restId": 1
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": true,
+      "crustacean": true,
+      "fish": true,
+      "gluten": true,
+      "milk": true,
+      "nuts": true,
+      "sesame": true,
+      "shellfish": true,
+      "sulfates": true
+      }
+    
   },
   {
     "id": 1,
@@ -15,7 +28,11 @@
     "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/McDonalds-Chicken-McNuggets.jpg",
     "description": "Sprøde døde kyllinger",
     "price": 42,
-    "restId": 1
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": false
+      }
   },
   {
     "id": 2,
@@ -23,7 +40,12 @@
     "name": "burger",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "burger",
-    "price": 40
+    "price": 40,
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": false
+      }
   },
   {
     "id": 3,
@@ -31,7 +53,12 @@
     "name": "burger",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "burger",
-    "price": 40
+    "price": 40,
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": false
+      }
   },
   {
     "id": 4,
@@ -39,7 +66,12 @@
     "name": "burger",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "burger",
-    "price": 40
+    "price": 40,
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": false
+      }
   },
   {
     "id": 5,
@@ -47,6 +79,11 @@
     "name": "burger",
     "image": "https://www.mcdonalds.com/is/image/content/dam/dk/nfl/productimages/thumbs/mcdonalds_big-tasty-bacon.jpg?$Category_Desktop$",
     "description": "burger",
-    "price": 40
+    "price": 40,
+    "restId": 1,
+    "allergenes": 
+      {"egg": true,
+      "peanuts": false
+      }
   }
 ]

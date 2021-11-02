@@ -7,9 +7,14 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
+import Allergene from "../components/Allergene";
 
 const ItemScreen = ({ route }) => {
-  const { name, description, image, price } = route.params;
+  const {id, name, description, image, price } = route.params;
+  const imageSource = "../assets/allergenesphotos/egg.jpg";
+
+  const egg = "egg";
+  const hex = "#ef9fac";
   return (
     <SafeAreaView>
       <View style={{ alignItems: "center" }}>
@@ -24,6 +29,7 @@ const ItemScreen = ({ route }) => {
           </Text>
           {description}
         </Text>
+        <Allergene id={id} imageSource={imageSource} text={egg} colorHex={hex}/>
       </View>
     </SafeAreaView>
   );
