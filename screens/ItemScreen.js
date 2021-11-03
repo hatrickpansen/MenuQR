@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {
   Image,
   SafeAreaView,
   ScrollView,
   View,
   Text,
-  StyleSheet,
+  StyleSheet, Animated
 } from "react-native";
 import Allergene from "../components/Allergene";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
@@ -18,7 +18,13 @@ const ItemScreen = ({ route }) => {
   const [dynDesc, setDynDesc] = useState(description);
   const [dynImage, setDynImage] = useState(image);
   const [dynPrice, setDynPrice] = useState(price);
-
+  
+  const [fadeAnim, setFadeAnmin] = useState(new Animated.Value(1));
+  
+  const swipeConfig = {
+    velocityThreshold: 0.2,
+    directionalOffsetThreshold: 80
+  };
   //console.log(dynId);
   const restaurantID = restId
   const items = data.filter(element => element.restId==restaurantID)
@@ -28,28 +34,66 @@ const ItemScreen = ({ route }) => {
     ids.push(element["id"])
   });
 
+
+
+
+  console.log("onload of itemscreen id: " + dynId);
+
+  function swipeLeftAnimation() {
+    fadeAnim.setValue(0);
+    Animated.timing(
+    fadeAnim,
+    {
+      toValue: -400,
+      duration: 300,
+      useNativeDriver: false,
+    }
+  ).start(() => {
+    fadeAnim.setValue(0);;
+    console.log("finished");
+  });
+  }
+  function swipeRightAnimation() {
+    fadeAnim.setValue(0);
+    Animated.timing(
+    fadeAnim,
+    {
+      toValue: 400,
+      duration: 300,
+      useNativeDriver: false,
+    }
+  ).start(() => {
+    fadeAnim.setValue(0);;
+    console.log("finished");
+  });
+  }
+
   //console.log(items);
   const onSwipeLeft = () => {
-    alert("swipe left!");
+    swipeLeftAnimation()
     setDynId(ids[(dynId +1) %ids.length]);
-    console.log(dynId);
+    console.log("after left swipe dynId: " + dynId);
     loadNewItem(dynId);
+    
+
+    
   }
   const onSwipeRight = () => {
     if(dynId > 0){
-      alert("swipe right!");
+      swipeRightAnimation()
       setDynId(ids[(dynId - 1) %ids.length]);
-      console.log(dynId);
+      console.log("after right swipe dynId: " + dynId);
       loadNewItem(dynId);
     } else if (dynId == 0){
-      alert("swipe right!");
+      swipeRightAnimation()
       setDynId(ids[ids.length-1]);
-      console.log(dynId);
+      console.log("after right swipe dynId: " + dynId);
       loadNewItem(dynId);
     }
   }
 
   function loadNewItem(id){
+    console.log("id inside loadNewItem after swipe: " + id);
     const item = items.filter(element => element.id==id)[0];
     setDynName(item.name);
     setDynPrice(item.price);
@@ -60,9 +104,10 @@ const ItemScreen = ({ route }) => {
     <GestureRecognizer
           onSwipeLeft={onSwipeLeft}
           onSwipeRight={onSwipeRight}
+          config={swipeConfig}
         >
     <SafeAreaView>
-      
+      <Animated.View style={{ translateX: fadeAnim,}}>
         <View style={{ alignItems: "center" }}>
         
             <Image source={{ uri: dynImage }} style={ItemScreenStyle.image}></Image>
@@ -80,6 +125,7 @@ const ItemScreen = ({ route }) => {
         </Text>
         <Allergene id={dynId}/>
       </View>
+      </Animated.View>
     </SafeAreaView>
     </GestureRecognizer>
   ) 
