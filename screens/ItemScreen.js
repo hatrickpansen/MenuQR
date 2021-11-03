@@ -35,7 +35,9 @@ const ItemScreen = ({ route }) => {
   });
 
 
-
+useEffect(() => {
+  loadNewItem(dynId);
+});
 
   console.log("onload of itemscreen id: " + dynId);
 
@@ -73,7 +75,7 @@ const ItemScreen = ({ route }) => {
     swipeLeftAnimation()
     setDynId(ids[(dynId +1) %ids.length]);
     console.log("after left swipe dynId: " + dynId);
-    loadNewItem(dynId);
+    
     
 
     
@@ -83,12 +85,12 @@ const ItemScreen = ({ route }) => {
       swipeRightAnimation()
       setDynId(ids[(dynId - 1) %ids.length]);
       console.log("after right swipe dynId: " + dynId);
-      loadNewItem(dynId);
+      
     } else if (dynId == 0){
       swipeRightAnimation()
       setDynId(ids[ids.length-1]);
       console.log("after right swipe dynId: " + dynId);
-      loadNewItem(dynId);
+      
     }
   }
 
