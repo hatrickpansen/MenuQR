@@ -21,6 +21,7 @@ const ListItem = ({ item }) => {
             description: item.description,
             image: item.image,
             price: item.price,
+            restId: item.restId
           });
         }}
       >

@@ -44,7 +44,15 @@
     "restId": 1,
     "allergenes": 
       {"egg": true,
-      "peanuts": false
+      "peanuts": true,
+      "crustacean": true,
+      "fish": true,
+      "gluten": true,
+      "milk": true,
+      "nuts": true,
+      "sesame": true,
+      "shellfish": true,
+      "sulfates": true
       }
   },
   {
@@ -70,7 +78,15 @@
     "restId": 1,
     "allergenes": 
       {"egg": true,
-      "peanuts": false
+      "peanuts": true,
+      "crustacean": true,
+      "fish": true,
+      "gluten": true,
+      "milk": true,
+      "nuts": true,
+      "sesame": true,
+      "shellfish": true,
+      "sulfates": true
       }
   },
   {
