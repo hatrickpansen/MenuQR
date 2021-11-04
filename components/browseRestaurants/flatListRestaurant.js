@@ -12,7 +12,8 @@ const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
     navigation.navigate("Menu", {
-      restaurantID: item.id
+      restaurantID: item.id,
+      title: item.title
     }); //navigation testing get item
   };
 
@@ -46,13 +47,13 @@ const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
         },
         `bg-gray-100`
       )}
-      /* style={tw.style(
-              {
-                padding: SPACING,
-                transform: [{ scale }],
-              },
-              `bg-gray-100`
-            )}*/
+    /* style={tw.style(
+            {
+              padding: SPACING,
+              transform: [{ scale }],
+            },
+            `bg-gray-100`
+          )}*/
     >
       <TouchableOpacity onPress={() => getItem(item)}>
         <View style={tw`py-2 px-2 bg-gray-100`}>
