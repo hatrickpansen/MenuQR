@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity,Easing, Animated} from "react-native";
-
+import {styleOrangeColor} from "../styles/customStyles"
 
 const AllergeneCard = (props) => {
     const [animatedValue, setAnimatedValue ]= useState(new Animated.Value(1));
@@ -37,7 +37,7 @@ const AllergeneCard = (props) => {
                     style={[styles.pic]} 
                     
                     />
-                    <Text>{alName}</Text>
+                    <Text style={styleOrangeColor.textOrange}>{alName}</Text>
                 </TouchableOpacity>
 
     );
