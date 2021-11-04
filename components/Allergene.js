@@ -1,29 +1,34 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Image, TouchableHighlight} from "react-native";
-import data from "../assets/data.json";
+import { View, Text, StyleSheet, Image, TouchableOpacity,Easing, Animated, FlatList} from "react-native";
 import imageManager from "./imageManager";
+import AllergeneCard from "./AllergeneCard";
 
 const Allergene = (props) => {
-    const {id} = props;
-    const items = data.filter(element => element.id==id);
-    //console.log(items)
-    const allergenes = items[0].allergenes;
+    const {allergenes} = props;
     const allergenesImages = imageManager.allergenes;
-    var imgs = [];
-    function loadImages(){
+    const alData = createImageAlRelation();
+    const [animatedValue, setAnimatedValue ]= useState(new Animated.Value(1));
+    const renderItem = ({ item }) => (
+        <View>
+            <AllergeneCard name={item.name} image={item.image}  style={styles.card}/>
+        </View>
+        
+      );
+    function createImageAlRelation(){
+        var data = [];
+        var i = 0;
         Object.keys(allergenes).forEach(function(key) {
-            Object.keys(allergenesImages).forEach( keyStr => {
-                if(key == keyStr){
-                    imgs.push(<TouchableHighlight style={styles.imgContainer}>
-                                <Image source={allergenesImages[key]} style={styles.pic} />
-                            </TouchableHighlight>);
-                }
-            })
-    
+            if(allergenes[key]){
+                Object.keys(allergenesImages).forEach( keyStr => {
+                    if(key == keyStr){
+                        data[i] = {id: i, name: key, image: allergenesImages[key]}
+                    }
+                })
+                i++;
+            }    
         })
-
+        return data;
     }
-   loadImages();
     
     return(
     <View>
@@ -32,9 +37,15 @@ const Allergene = (props) => {
                 Allergenes
             </Text>
         </Text>
-        <View style={styles.al}>
-            {imgs}
+        <View  style={styles.al} >
+            <FlatList style={styles.al}
+                data={alData}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                horizontal={true}
+            /> 
         </View>
+        
     </View>
     );
 
@@ -50,15 +61,14 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20
     },
-    pic: {
-        width: 30,
-        height: 30,
-        
-    },
+  
     al: {
         flexDirection: "row",
         flexWrap: "wrap",
+        marginRight: 20
         
+    },
+    card: {
         
     },
     imgContainer: {
@@ -67,7 +77,8 @@ const styles = StyleSheet.create({
         marginRight: 5,
         justifyContent: 'center',
         marginBottom: 5,
-    }
+    },
+    
 })
 
 export default Allergene

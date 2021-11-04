@@ -18,28 +18,30 @@ const ItemScreen = ({ route }) => {
   const [dynDesc, setDynDesc] = useState(description);
   const [dynImage, setDynImage] = useState(image);
   const [dynPrice, setDynPrice] = useState(price);
+
+  
   
   const [fadeAnim, setFadeAnmin] = useState(new Animated.Value(1));
+  const [fadeAnim1, setFadeAnmin1] = useState(new Animated.Value(1));
   
   const swipeConfig = {
     velocityThreshold: 0.2,
     directionalOffsetThreshold: 80
   };
-  //console.log(dynId);
   const restaurantID = restId
   const items = data.filter(element => element.restId==restaurantID)
+  const [dynAl, setDynAl] = useState(loadFirstAllergenes(id));
+  
   var ids = []
   items.forEach(element => {
-    //console.log(element["id"])
     ids.push(element["id"])
   });
 
 
 useEffect(() => {
+  fadeInAnimation();
   loadNewItem(dynId);
 });
-
-  console.log("onload of itemscreen id: " + dynId);
 
   function swipeLeftAnimation() {
     fadeAnim.setValue(0);
@@ -52,7 +54,18 @@ useEffect(() => {
     }
   ).start(() => {
     fadeAnim.setValue(0);;
-    console.log("finished");
+  });
+  }
+  function fadeInAnimation() {
+    fadeAnim1.setValue(0);
+    Animated.timing(
+    fadeAnim1,
+    {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: false,
+    }
+  ).start(() => {
   });
   }
   function swipeRightAnimation() {
@@ -66,41 +79,33 @@ useEffect(() => {
     }
   ).start(() => {
     fadeAnim.setValue(0);;
-    console.log("finished");
   });
   }
 
-  //console.log(items);
   const onSwipeLeft = () => {
     swipeLeftAnimation()
     setDynId(ids[(dynId +1) %ids.length]);
-    console.log("after left swipe dynId: " + dynId);
-    
-    
-
-    
   }
   const onSwipeRight = () => {
     if(dynId > 0){
       swipeRightAnimation()
-      setDynId(ids[(dynId - 1) %ids.length]);
-      console.log("after right swipe dynId: " + dynId);
-      
+      setDynId(ids[(dynId - 1) %ids.length]);      
     } else if (dynId == 0){
       swipeRightAnimation()
-      setDynId(ids[ids.length-1]);
-      console.log("after right swipe dynId: " + dynId);
-      
+      setDynId(ids[ids.length-1]);      
     }
   }
-
+  function loadFirstAllergenes(id){
+    const item = items.filter(element => element.id==id)[0];
+    return item.allergenes;
+  }
   function loadNewItem(id){
-    console.log("id inside loadNewItem after swipe: " + id);
     const item = items.filter(element => element.id==id)[0];
     setDynName(item.name);
     setDynPrice(item.price);
     setDynDesc(item.description);
     setDynImage(item.image);
+    setDynAl(item.allergenes);
   }
   return (
     <GestureRecognizer
@@ -109,7 +114,7 @@ useEffect(() => {
           config={swipeConfig}
         >
     <SafeAreaView>
-      <Animated.View style={{ translateX: fadeAnim,}}>
+      <Animated.View style={{ translateX: fadeAnim, opacity: fadeAnim1}}>
         <View style={{ alignItems: "center" }}>
         
             <Image source={{ uri: dynImage }} style={ItemScreenStyle.image}></Image>
@@ -125,7 +130,7 @@ useEffect(() => {
           </Text>
           {dynDesc}
         </Text>
-        <Allergene id={dynId}/>
+        <Allergene allergenes={dynAl}/>
       </View>
       </Animated.View>
     </SafeAreaView>
