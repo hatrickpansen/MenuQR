@@ -39,7 +39,8 @@ export default function App() {
           <Stack.Screen
             name="Restaurants"
             component={RestaurantsScreen}
-            options={{ title: "Restaurants", headerShown: true }}
+            // options={{ title: "Restaurants", headerShown: true }}
+            options={headerIconOptions}
           />
           <Stack.Screen
             name="Menu"
@@ -50,7 +51,8 @@ export default function App() {
           <Stack.Screen
             name="QR Scan"
             component={QrScanScreen}
-            options={{ title: "QR Scan", headerShown: true }}
+            // options={{ title: "QR Scan", headerShown: true }}
+            options={headerIconOptions}
           />
           <Stack.Screen
             name="Item"
