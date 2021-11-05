@@ -26,7 +26,8 @@ import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
-import FlatListItem from "../components/browseRestaurants/flatListItem";
+
+import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
 import data from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
