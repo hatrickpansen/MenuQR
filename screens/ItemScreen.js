@@ -20,6 +20,7 @@ const ItemScreen = ({ route }) => {
   const [dynDesc, setDynDesc] = useState(description);
   const [dynImage, setDynImage] = useState(image);
   const [dynPrice, setDynPrice] = useState(price);
+  const [reset, setReset] = useState(false);
 
 
 
@@ -44,7 +45,9 @@ const ItemScreen = ({ route }) => {
     fadeInAnimation();
     loadNewItem(dynId);
     navigation.setOptions({ title: dynName })
+    setReset(false);
   });
+  
 
   function swipeLeftAnimation() {
     fadeAnim.setValue(0);
@@ -88,6 +91,7 @@ const ItemScreen = ({ route }) => {
   const onSwipeLeft = () => {
     swipeLeftAnimation()
     setDynId(ids[(dynId + 1) % ids.length]);
+    setReset(true)
   }
   const onSwipeRight = () => {
     if (dynId > 0) {
@@ -97,6 +101,7 @@ const ItemScreen = ({ route }) => {
       swipeRightAnimation()
       setDynId(ids[ids.length - 1]);
     }
+    setReset(true)
   }
   function loadFirstAllergenes(id) {
     const item = items.filter(element => element.id == id)[0];
@@ -133,7 +138,7 @@ const ItemScreen = ({ route }) => {
               </Text>
               {dynDesc}
             </Text>
-            <Allergene allergenes={dynAl} />
+            <Allergene allergenes={dynAl} reset={reset} />
           </View>
         </Animated.View>
       </SafeAreaView>

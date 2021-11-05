@@ -4,15 +4,22 @@ import imageManager from "./imageManager";
 import AllergeneCard from "./AllergeneCard";
 
 const Allergene = (props) => {
-    const { allergenes } = props;
+    const { allergenes, reset } = props;
     const allergenesImages = imageManager.allergenes;
     const arrow = imageManager.arrows.expandArrow;
     const alData = createImageAlRelation();
     const [animatedValue, setAnimatedValue] = useState(new Animated.Value(1));
-    const [flat, setFlat] = useState();
+    const [flat, setFlat] = useState(<Text></Text>);
     const [isFlatExpanded, setIsFlatExpanded] = useState(false);
     const [spinValue, setSpinValue] = useState(new Animated.Value(0))
     
+    useEffect( () => {
+       if(reset){
+           arrowSpinUp();
+           setFlat();
+           setIsFlatExpanded(false);
+       }
+    });
 
 // First set up animation 
     function arrowSpinDown(){
@@ -26,7 +33,7 @@ const Allergene = (props) => {
                 useNativeDriver: true  // To make use of native driver for performance
             }
             ).start(()=> {
-                console.log("hey")
+                
             })
     }
 
@@ -40,7 +47,7 @@ const Allergene = (props) => {
             useNativeDriver: true  // To make use of native driver for performance
         }
         ).start(()=> {
-            console.log("hey")
+            
         })
     }
     
