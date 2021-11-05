@@ -36,7 +36,11 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+          <Stack.Screen
+            name="Restaurants"
+            component={RestaurantsScreen}
+            options={{ title: "Restaurants", headerShown: true }}
+          />
           <Stack.Screen
             name="Menu"
             component={MenuScreen}

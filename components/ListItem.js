@@ -15,13 +15,16 @@ const ListItem = ({ item }) => {
     <TouchableOpacity
         style={ListItemStyle.card}
         onPress={() => {
-            navigation.navigate("Item", {
-                name: item.name,
-                description: item.description,
-                image: item.image,
-                price: item.price,
-            });
-        }}>
+          navigation.navigate("Item", {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            image: item.image,
+            price: item.price,
+            restId: item.restId
+          });
+        }}
+      >
         <Image source={{ uri: item.image }} style={ListItemStyle.image} />
       <View>
           <Text style={ListItemStyle.title}>

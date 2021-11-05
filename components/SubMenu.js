@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, FlatList, Dimensions, View, Image } from "react-native";
-import DATA from "../assets/data.json";
 import ListItem from "./ListItem";
 const { width, height } = Dimensions.get("screen");
 import tw from "tailwind-react-native-classnames";
@@ -9,10 +8,11 @@ import tw from "tailwind-react-native-classnames";
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
+  
   return (
     <View style={tw.style(`pt-4`)}>
       <FlatList
-        data={DATA}
+        data={props.items}
         renderItem={({ item }) => (
           <ListItem item={item} navigation={props.navigation} />
         )}

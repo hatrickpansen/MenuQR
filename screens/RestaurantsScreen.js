@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import placeholderDataResturants from "../components/browseRestaurants/placeholderDataRestaurants.json";
+import React, { useEffect, useRef, useState } from "react";
+import placeholderDataResturants from "../db/placeholderDataRestaurants.json";
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -14,16 +14,34 @@ import {
   Image,
   RefreshControl,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 
-import { SearchBar } from "react-native-elements";
+/*
+import { SafeAreaView } from "react-native-safe-area-context";
+*/
+/*import RestaurantCard from "../components/RestaurantCard";*/
+import { SearchBar, Overlay } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import {useFocusEffect} from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 
+import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
+import data from "../components/browseRestaurants/placeholderDataRestaurants.json";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+
+/*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
 const RestaurantsScreen = ({ navigation }) => {
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const scrollY = useRef(new Animated.Value(0)).current; //remember initial value
+
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -39,14 +57,6 @@ const RestaurantsScreen = ({ navigation }) => {
         console.error(error);
       });
   }, []);*/
-
-  useEffect(() => {
-    return () => {
-      setFilteredDataSource(placeholderDataResturants);
-      setMasterDataSource(placeholderDataResturants);
-      console.log("working fetch useffect");
-    };
-  }, []);
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
@@ -71,50 +81,6 @@ const RestaurantsScreen = ({ navigation }) => {
     }
   };
 
-  const ItemView = ({ item }) => {
-    return (
-      // Flat List Item
-      <TouchableOpacity onPress={() => getItem(item)}>
-        <View style={tw`py-4 px-2 shadow bg-gray-100`}>
-          <View
-            style={tw`flex bg-white rounded-2xl shadow-2xl overflow-hidden`}
-          >
-            <View>
-              <Image
-                style={{ width: "100%", height: 100 }}
-                source={require("../assets/food1.jpg")}
-                resizeMode="cover"
-                resizeMethod="resize"
-              />
-            </View>
-            <View style={tw`flex-row justify-between p-3 items-center`}>
-              <Text
-                style={tw.style(`font-medium`, styleOrangeColor.textOrange)}
-              >
-                {item.title}
-              </Text>
-              <View style={tw`flex-row items-center`}>
-                <Svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path
-                    d="M9 1.5C6.0975 1.5 3.75 3.8475 3.75 6.75C3.75 10.6875 9 16.5 9 16.5C9 16.5 14.25 10.6875 14.25 6.75C14.25 3.8475 11.9025 1.5 9 1.5ZM9 8.625C7.965 8.625 7.125 7.785 7.125 6.75C7.125 5.715 7.965 4.875 9 4.875C10.035 4.875 10.875 5.715 10.875 6.75C10.875 7.785 10.035 8.625 9 8.625Z"
-                    fill="#FF470B"
-                  />
-                </Svg>
-                <Text style={tw.style(`font-medium pl-1`)}>{item.address}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   const ItemSeparatorView = () => {
     return (
       // Flat List Item Separator
@@ -128,11 +94,6 @@ const RestaurantsScreen = ({ navigation }) => {
     );
   };
 
-  const getItem = (item) => {
-    // Function for click on an item
-    alert("Id : " + item.id + " Title : " + item.title);
-  };
-
   const [refreshing, setRefreshing] = React.useState(false);
 
   const wait = (timeout) => {
@@ -141,13 +102,11 @@ const RestaurantsScreen = ({ navigation }) => {
 
   //focus screen on everytime page is rendered
   useFocusEffect(
-      React.useCallback(() => {
-        setFilteredDataSource(placeholderDataResturants);
-        setMasterDataSource(placeholderDataResturants);
-      }, [])
+    React.useCallback(() => {
+      setFilteredDataSource(placeholderDataResturants);
+      setMasterDataSource(placeholderDataResturants);
+    }, [])
   );
-
-
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -155,46 +114,207 @@ const RestaurantsScreen = ({ navigation }) => {
     setMasterDataSource(placeholderDataResturants);
     wait(2000).then(() => setRefreshing(false));
   }, []);
-
-  return (
-    <SafeAreaView style={tw.style(`flex bg-black`)}>
-      <View
-        style={tw.style(styles.container, `android:pt-8`, { // Android issue with padding for the top of the search bar
-          height: Dimensions.get("screen").height,
-        })}
-      >
-        {/*<View style={tw.style(`flew-row justify-content`)}>*/}
-        <View>
-        {/*  <BackButton/>*/}
+  if (search === "") {
+    return (
+      <SafeAreaView style={tw.style(`flex bg-black`)}>
+        <View
+          style={tw.style(styles.container, {
+            height: Dimensions.get("screen").height,
+          })}
+        >
           <SearchBar
-              containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
-              inputContainerStyle={tw.style(`bg-gray-50`)}
-              style={tw.style(`bg-gray-50`)}
-              round={false}
-              searchIcon={{ size: 24 }}
-              onChangeText={(text) => searchFilterFunction(text)}
-              onClear={(text) => searchFilterFunction("")}
-              placeholder="Search for restaurant"
-              value={search}
+            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+            inputContainerStyle={tw.style(`bg-gray-50`)}
+            style={tw.style(`bg-gray-50`)}
+            round={false}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text) => searchFilterFunction(text)}
+            onClear={(text) => searchFilterFunction("")}
+            placeholder="Search for restaurant"
+            value={search}
+          />
+          <Text
+            style={tw.style(
+              `px-2 text-2xl font-bold bg-gray-100 pt-3`,
+              styleOrangeColor.textOrange
+            )}
+          >
+            &#128293; Featured &#128293;
+          </Text>
+
+          <RestaurantCategory category={"featured"} navigation={navigation} />
+          <Text
+            style={tw.style(
+              `px-2 text-2xl font-bold bg-gray-100 text-gray-800 pt-3`
+            )}
+          >
+            New
+          </Text>
+          <RestaurantCategory category={"recent"} navigation={navigation} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (filteredDataSource.length <= 0) {
+    return (
+      <SafeAreaView style={tw.style(`flex bg-black`)}>
+        <View
+          style={tw.style(styles.container, {
+            height: Dimensions.get("screen").height,
+          })}
+        >
+          <SearchBar
+            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+            inputContainerStyle={tw.style(`bg-gray-50`)}
+            style={tw.style(`bg-gray-50`)}
+            round={false}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text) => searchFilterFunction(text)}
+            onClear={(text) => searchFilterFunction("")}
+            placeholder="Search for restaurant"
+            value={search}
+          />
+          <TouchableOpacity
+            onPress={() => setSearch("")}
+            style={tw.style(
+              {
+                top: 66,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                zIndex: 10,
+                backgroundColor: "white",
+              },
+              `opacity-90`
+            )}
+          >
+            <View style={tw``}>
+              <Text>hey</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={tw``}>
+            <Text
+              style={tw.style(
+                `px-2 text-2xl font-bold bg-gray-100 pt-3`,
+                styleOrangeColor.textOrange
+              )}
+            >
+              &#128293; Featured &#128293;
+            </Text>
+
+            <RestaurantCategory category={"featured"} navigation={navigation} />
+            <Text
+              style={tw.style(
+                `px-2 text-2xl font-bold bg-gray-100 text-gray-800 pt-3`
+              )}
+            >
+              New
+            </Text>
+            <RestaurantCategory category={"recent"} navigation={navigation} />
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (search !== "") {
+    return (
+      <SafeAreaView style={tw.style(`flex bg-black`)}>
+        <View
+          style={tw.style(styles.container, {
+            height: Dimensions.get("screen").height,
+          })}
+        >
+          <SearchBar
+            containerStyle={tw.style(`bg-gray-50 border border-gray-200`)}
+            inputContainerStyle={tw.style(`bg-gray-50`)}
+            style={tw.style(`bg-gray-50`)}
+            round={false}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text) => searchFilterFunction(text)}
+            onClear={(text) => searchFilterFunction("")}
+            placeholder="Search for restaurant"
+            value={search}
+          />
+          <SearchListRestaurants
+            scrollY={scrollY}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            filteredDataSource={filteredDataSource}
+            navigation={navigation}
           />
         </View>
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              tintColor="white"
-              style={styleOrangeColor.backgroundColor}
-              // style={tw`bg-gray-500`}
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          /*ItemSeparatorComponent={ItemSeparatorView}*/
-          renderItem={ItemView}
+      </SafeAreaView>
+    );
+  }
+};
+
+const SearchListRestaurants = ({
+  scrollY,
+  refreshing,
+  onRefresh,
+  filteredDataSource,
+  navigation,
+}) => {
+  return (
+    <Animated.FlatList
+      style={tw.style(`bg-gray-100`, { marginBottom: 50 })}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        { useNativeDriver: true }
+      )}
+      refreshControl={
+        <RefreshControl
+          tintColor="white"
+          style={styleOrangeColor.backgroundColor}
+          // style={tw`bg-gray-500`}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
         />
-      </View>
-    </SafeAreaView>
+      }
+      data={filteredDataSource}
+      keyExtractor={(item, index) => index.toString()}
+      /*ItemSeparatorComponent={ItemSeparatorView}*/
+      renderItem={({ item, index }) => {
+        //make small animation
+        return (
+          <FlatListItem
+            item={item}
+            index={index}
+            scrollY={scrollY}
+            navigation={navigation}
+          />
+        );
+      }}
+    />
+  );
+};
+
+const RestaurantCategory = ({ category, navigation }) => {
+  const restaurants = data.filter((element) => element[category] == true);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  return (
+    <View style={tw` bg-gray-100`}>
+      <FlatList
+        data={restaurants}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal={true}
+        /*ItemSeparatorComponent={ItemSeparatorView}*/
+        renderItem={({ item, index }) => {
+          //make small animation
+          return (
+            <FlatListItem
+              item={item}
+              index={index}
+              scrollY={scrollY}
+              navigation={navigation}
+            />
+          );
+        }}
+      />
+    </View>
   );
 };
 
