@@ -48,7 +48,11 @@ export default function App() {
             component={QrScanScreen}
             options={{ title: "QR Scan", headerShown: true }}
           />
-          <Stack.Screen name="Item" component={ItemScreen} />
+          <Stack.Screen
+            name="Item"
+            component={ItemScreen}
+            options={{ title: "item", headerShown: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -10,6 +10,9 @@ export default {
     sesame: require("../assets/allergenesphotos/sesame.jpg"),
     shellfish: require("../assets/allergenesphotos/shellfish.jpg"),
     sulfates: require("../assets/allergenesphotos/sulfates.jpg")
+    },
+    arrows: {
+        expandArrow: require("../assets/expand-arrow.png"),
     }
     
 }
