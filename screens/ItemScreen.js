@@ -27,7 +27,7 @@ const ItemScreen = ({ route }) => {
   const [fadeAnim1, setFadeAnmin1] = useState(new Animated.Value(1));
 
   const swipeConfig = {
-    velocityThreshold: 0.4,
+    velocityThreshold: 0.5,
     directionalOffsetThreshold: 80
   };
   const restaurantID = restId
