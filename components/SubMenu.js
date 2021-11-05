@@ -10,7 +10,7 @@ const SubMenu = (props) => {
   const screenWidth = dimensions.width;
 
   return (
-    <View style={tw.style(`pt-4 mt-24`)}>
+    <View style={tw.style(``)}>
       <FlatList
         data={props.items}
         renderItem={({ item }) => (

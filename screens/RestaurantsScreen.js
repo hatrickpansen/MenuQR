@@ -25,7 +25,7 @@ import { SearchBar, Overlay } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
-import {useFocusEffect} from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 
 import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
@@ -116,7 +116,7 @@ const RestaurantsScreen = ({ navigation }) => {
   }, []);
   if (search === "") {
     return (
-      <SafeAreaView style={tw.style(`flex bg-black`)}>
+      <SafeAreaView style={tw.style(`flex`)}>
         <View
           style={tw.style(styles.container, {
             height: Dimensions.get("screen").height,
@@ -158,7 +158,7 @@ const RestaurantsScreen = ({ navigation }) => {
 
   if (filteredDataSource.length <= 0) {
     return (
-      <SafeAreaView style={tw.style(`flex bg-black`)}>
+      <SafeAreaView style={tw.style(`flex`)}>
         <View
           style={tw.style(styles.container, {
             height: Dimensions.get("screen").height,
