@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import placeholderDataResturants from "../components/browseRestaurants/placeholderDataRestaurants.json";
+import placeholderDataResturants from "../db/placeholderDataRestaurants.json";
 import {
   ActivityIndicator,
   SafeAreaView,

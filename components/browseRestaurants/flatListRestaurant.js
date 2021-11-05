@@ -8,11 +8,12 @@ const SPACING = 1;
 const AVATAR_SIZE = 60;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
-const FlatListItem = ({ item, index, scrollY, navigation }) => {
+const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
-    navigation.navigate("QR Scan"); //navigation testing get item
-    alert("Id : " + item.id + " Title : " + item.title);
+    navigation.navigate("Menu", {
+      restaurantID: item.id
+    }); //navigation testing get item
   };
 
   const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];
@@ -95,4 +96,4 @@ const FlatListItem = ({ item, index, scrollY, navigation }) => {
   );
 };
 
-export default FlatListItem;
+export default FlatListRestaurant;

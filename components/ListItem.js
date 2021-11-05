@@ -16,6 +16,7 @@ const ListItem = ({ item }) => {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Item", {
+            id: item.id,
             name: item.name,
             description: item.description,
             image: item.image,

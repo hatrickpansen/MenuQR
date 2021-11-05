@@ -7,9 +7,10 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
+import Allergene from "../components/Allergene";
 
 const ItemScreen = ({ route }) => {
-  const { name, description, image, price } = route.params;
+  const {id, name, description, image, price } = route.params;
   return (
     <SafeAreaView>
       <View style={{ alignItems: "center" }}>
@@ -24,6 +25,7 @@ const ItemScreen = ({ route }) => {
           </Text>
           {description}
         </Text>
+        <Allergene id={id}/>
       </View>
     </SafeAreaView>
   );
