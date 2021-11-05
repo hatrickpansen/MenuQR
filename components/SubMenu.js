@@ -8,9 +8,9 @@ import tw from "tailwind-react-native-classnames";
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
-  
+
   return (
-    <View style={tw.style(`pt-4`)}>
+    <View style={tw.style(`pt-4 mt-24`)}>
       <FlatList
         data={props.items}
         renderItem={({ item }) => (
