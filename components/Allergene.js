@@ -107,8 +107,8 @@ const Allergene = (props) => {
                     <Text style={styles.header}>
                         Allergenes 
                     </Text>
-                    <Animated.Image source={arrow} style={[styles.arrowImage, {
-                        transform: [{ rotateX: spin}]}]}></Animated.Image>
+                    <Animated.Image source={arrow} style={[styles.arrowImage, {flexGrow: 0, 
+                        transform: [{ rotateX: spin}]} ]}></Animated.Image>
                 </View>
             </TouchableOpacity>
 
