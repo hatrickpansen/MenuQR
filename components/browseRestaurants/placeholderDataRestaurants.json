@@ -23,30 +23,35 @@
     "id": 4,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 5,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 6,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 7,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 8,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {

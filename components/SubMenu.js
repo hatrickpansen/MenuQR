@@ -3,13 +3,14 @@ import React from "react";
 import { StyleSheet, FlatList, Dimensions, View, Image } from "react-native";
 import ListItem from "./ListItem";
 const { width, height } = Dimensions.get("screen");
+import tw from "tailwind-react-native-classnames";
 
 const SubMenu = (props) => {
   const dimensions = Dimensions.get("window");
   const screenWidth = dimensions.width;
-  
+
   return (
-    <View>
+    <View style={tw.style(`pt-4 mt-24`)}>
       <FlatList
         data={props.items}
         renderItem={({ item }) => (

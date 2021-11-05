@@ -25,7 +25,8 @@ import { SearchBar, Overlay } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
-import { useFocusEffect } from "@react-navigation/native";
+import {useFocusEffect} from "@react-navigation/native";
+import BackButton from "../components/BackButton";
 
 import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
 import data from "../components/browseRestaurants/placeholderDataRestaurants.json";

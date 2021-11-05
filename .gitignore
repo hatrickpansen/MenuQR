@@ -13,3 +13,5 @@ package-lock.json
 .expo
 
 .idea/
+
+yarn.lock

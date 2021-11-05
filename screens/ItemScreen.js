@@ -12,6 +12,8 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
 
+import tw from "tailwind-react-native-classnames";
+
 const ItemScreen = ({ route }) => {
   const { id, name, description, image, price, restId } = route.params;
   const navigation = useNavigation();

@@ -9,4 +9,10 @@ export const styleOrangeColor = StyleSheet.create({
   backgroundColor: {
     backgroundColor: "#FF470B",
   },
+  titleOrange: {
+    fontSize: 40,
+    color: "#FF470B",
+    fontWeight: "bold",
+
+  }
 });

@@ -10,6 +10,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import ItemScreen from "./screens/ItemScreen";
 import RestaurantsScreen from "./screens/RestaurantsScreen";
 import QrScanScreen from "./screens/QrScanScreen";
+import TestScreen from "./screens/TestScreen";
+import { Icon } from "react-native-elements";
+import tw from "tailwind-react-native-classnames";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +44,8 @@ export default function App() {
           <Stack.Screen
             name="Menu"
             component={MenuScreen}
-            options={{ title: "Menu", headerShown: true }}
+            // options={{ title: "Menu", headerShown: true }}
+            options={headerIconOptions}
           />
           <Stack.Screen
             name="QR Scan"
@@ -51,7 +55,12 @@ export default function App() {
           <Stack.Screen
             name="Item"
             component={ItemScreen}
-            options={{ title: "item", headerShown: true }}
+            options={headerIconOptions}
+          />
+          <Stack.Screen
+            name="Test"
+            component={TestScreen}
+            options={headerIconOptions}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -68,3 +77,12 @@ export default function App() {
     );
   }
 }
+
+const headerIconOptions = {
+  title: "",
+  headerShown: true,
+  headerTransparent: true,
+  headerBackTitleVisible: false,
+  backgroundColor: "#FF470B",
+  style: "#FF470B",
+};

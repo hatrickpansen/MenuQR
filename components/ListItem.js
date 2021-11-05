@@ -12,8 +12,8 @@ import { useNavigation } from "@react-navigation/core";
 const ListItem = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <View style={ListItemStyle.card}>
-      <TouchableOpacity
+    <TouchableOpacity
+        style={ListItemStyle.card}
         onPress={() => {
           navigation.navigate("Item", {
             id: item.id,
@@ -26,14 +26,13 @@ const ListItem = ({ item }) => {
         }}
       >
         <Image source={{ uri: item.image }} style={ListItemStyle.image} />
-      </TouchableOpacity>
       <View>
-        <Text style={ListItemStyle.title}>
-          {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
-        </Text>
-        <Text style={ListItemStyle.description}>{item.description}</Text>
+          <Text style={ListItemStyle.title}>
+              {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
+          </Text>
+          <Text style={ListItemStyle.description}>{item.description}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -61,7 +60,8 @@ const ListItemStyle = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    padding: 10,
+    paddingTop: 5,
+    // paddingLeft: -8,
     marginBottom: 10,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     shadowColor: "#000",
