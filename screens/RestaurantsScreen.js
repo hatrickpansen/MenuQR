@@ -166,11 +166,13 @@ const RestaurantsScreen = ({ navigation }) => {
             )}
           >
             <View
-              style={tw.style(`flex items-center justify-center h-20`, {
+              style={tw.style(`flex items-center justify-center h-48`, {
                 width: Dimensions.get("screen").width,
               })}
             >
-              <Text style={tw`text-center text-lg`}>Not found</Text>
+              <Text style={tw`text-center text-lg font-semibold text-gray-400`}>
+                Not found
+              </Text>
             </View>
           </TouchableOpacity>
           <View style={tw``}>
