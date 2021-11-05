@@ -190,8 +190,12 @@ const RestaurantsScreen = ({ navigation }) => {
               `opacity-90`
             )}
           >
-            <View style={tw``}>
-              <Text>hey</Text>
+            <View
+              style={tw.style(`flex items-center justify-center h-20`, {
+                width: Dimensions.get("screen").width,
+              })}
+            >
+              <Text style={tw`text-center text-lg`}>Not found</Text>
             </View>
           </TouchableOpacity>
           <View style={tw``}>
