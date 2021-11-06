@@ -224,15 +224,15 @@ const TestScreen = () => {
     tabBarInactiveTintColor: "black",
     tabBarPressOpacity: 1,
     tabBarStyle: {
-      borderRadius: "30",
+      borderRadius: "30px",
     },
     style: {
-      borderRadius: "30",
+      borderRadius: "30px",
     },
     tabBarIndicatorStyle: {
       backgroundColor: "#FF470B",
       height: "100%",
-      borderRadius: "30",
+      borderRadius: "30px",
     },
   };
 
