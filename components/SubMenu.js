@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get("screen");
 import tw from "tailwind-react-native-classnames";
 
 const SubMenu = (props) => {
-  const dimensions = Dimensions.get("window");
+  const dimensions = Dimensions.get("screen");
   const screenWidth = dimensions.width;
 
   return (

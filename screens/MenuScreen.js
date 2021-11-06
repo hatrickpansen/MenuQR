@@ -45,13 +45,14 @@ const AllScreen = ({ route }) => {
   return (
     <View
       style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: 60,
-        borderBottomColor: "gray",
-        boxShadow:
-          "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 0.41,
+        elevation: 2,
       }}
     >
       {/*<Text>All foods!</Text>*/}
@@ -111,7 +112,7 @@ const MenuScreen = ({ route }) => {
               <View>
                 <MaterialCommunityIcons
                   name="food"
-                  size={32}
+                  size={30}
                   color={focused ? "white" : "black"}
                 />
               </View>
@@ -119,8 +120,34 @@ const MenuScreen = ({ route }) => {
           }}
           children={() => <AllScreen route={route} />}
         />
-        <Tab.Screen name="A La Carte" component={AlacarteScreen} />
-        <Tab.Screen name="Drinks" component={DrinksScreen} />
+        <Tab.Screen
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <View>
+                <MaterialCommunityIcons
+                  name="hamburger"
+                  size={24}
+                  color={focused ? "white" : "black"}
+                />
+              </View>
+            ),
+          }}
+          name="A La Carte"
+          component={AlacarteScreen}
+        />
+        <Tab.Screen
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <View>
+                <Entypo name="drink" size={24} color="black" />
+              </View>
+            ),
+          }}
+          name="Drinks"
+          component={DrinksScreen}
+        />
       </Tab.Navigator>
     </SafeAreaProvider>
   );
@@ -131,17 +158,26 @@ const screenOptions = {
   tabBarInactiveTintColor: "black",
   tabBarPressOpacity: 1,
   tabBarStyle: {
-    borderRadius: "30",
-    boxShadow:
-      "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;",
+    marginLeft: 24,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 0.41,
+
+    elevation: 2,
+    marginRight: 24,
+    borderRadius: "10px",
   },
   style: {
-    borderRadius: "30",
+    borderRadius: "10px",
   },
   tabBarIndicatorStyle: {
     backgroundColor: "#FF470B",
     height: "100%",
-    borderRadius: "30",
+    borderRadius: "10px",
   },
 };
 

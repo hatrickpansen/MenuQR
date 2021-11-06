@@ -13,24 +13,24 @@ const ListItem = ({ item }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-        style={ListItemStyle.card}
-        onPress={() => {
-          navigation.navigate("Item", {
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            image: item.image,
-            price: item.price,
-            restId: item.restId
-          });
-        }}
-      >
-        <Image source={{ uri: item.image }} style={ListItemStyle.image} />
+      style={ListItemStyle.card}
+      onPress={() => {
+        navigation.navigate("Item", {
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          image: item.image,
+          price: item.price,
+          restId: item.restId,
+        });
+      }}
+    >
+      <Image source={{ uri: item.image }} style={ListItemStyle.image} />
       <View>
-          <Text style={ListItemStyle.title}>
-              {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
-          </Text>
-          <Text style={ListItemStyle.description}>{item.description}</Text>
+        <Text style={ListItemStyle.title}>
+          {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
+        </Text>
+        <Text style={ListItemStyle.description}>{item.description}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -69,9 +69,10 @@ const ListItemStyle = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.1,
     shadowRadius: 20,
     borderRadius: 12,
+    margin: 12,
   },
 });
 
