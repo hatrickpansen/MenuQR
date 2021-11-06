@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({ navigation }: any) => {
+const HomeScreen = ({ navigation }) => {
   return (
     // <SafeAreaView style={styles.container}>
     <SafeAreaView style={tw.style(`flex bg-black`)}>
