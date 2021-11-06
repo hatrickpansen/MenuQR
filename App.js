@@ -39,30 +39,27 @@ export default function App() {
           <Stack.Screen
             name="Restaurants"
             component={RestaurantsScreen}
-            // options={{ title: "Restaurants", headerShown: true }}
-            options={headerIconOptions}
+            options={headerOptions}
           />
           <Stack.Screen
             name="Menu"
             component={MenuScreen}
-            // options={{ title: "Menu", headerShown: true }}
-            options={headerIconOptions}
+            options={headerOptions}
           />
           <Stack.Screen
             name="QR Scan"
             component={QrScanScreen}
-            // options={{ title: "QR Scan", headerShown: true }}
-            options={headerIconOptions}
+            options={headerOptions}
           />
           <Stack.Screen
             name="Item"
             component={ItemScreen}
-            options={headerIconOptions}
+            options={headerOptions}
           />
           <Stack.Screen
             name="Test"
             component={TestScreen}
-            options={headerIconOptions}
+            options={headerOptions}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -80,11 +77,10 @@ export default function App() {
   }
 }
 
-const headerIconOptions = {
+const headerOptions = {
   title: "",
   headerShown: true,
   headerTransparent: true,
   headerBackTitleVisible: false,
-  backgroundColor: "#FF470B",
-  style: "#FF470B",
+  headerTintColor: "#FF470B",
 };
