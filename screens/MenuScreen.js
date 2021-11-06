@@ -158,7 +158,6 @@ const screenOptions = {
   tabBarInactiveTintColor: "black",
   tabBarPressOpacity: 1,
   tabBarStyle: {
-    marginLeft: 24,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -168,7 +167,8 @@ const screenOptions = {
     shadowRadius: 0.41,
 
     elevation: 2,
-    marginRight: 24,
+    marginLeft: 12,
+    marginRight: 12,
     borderRadius: "10px",
   },
   style: {
