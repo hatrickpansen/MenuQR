@@ -38,9 +38,9 @@ const AllScreen = ({ route }) => {
   const { restaurantID, title } = route.params;
   const newTitle = title + " - Menu";
   const items = data.filter((element) => element.restId === restaurantID);
-  useEffect(() => {
-    navigation.setOptions(navigation.setOptions({ title: newTitle }));
-  });
+  // useEffect(() => {
+  //   navigation.setOptions(navigation.setOptions({ title: newTitle }));
+  // });
   return (
     <View
       style={{
@@ -78,25 +78,7 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   //   const { id, title, address, openingHours} = route.params;
-
-  const screenOptions = {
-    tabBarActiveTintColor: "white",
-    tabBarInactiveTintColor: "black",
-    tabBarPressOpacity: 1,
-    tabBarStyle: {
-      borderRadius: "30",
-      boxShadow:
-        "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;",
-    },
-    style: {
-      borderRadius: "30",
-    },
-    tabBarIndicatorStyle: {
-      backgroundColor: "#FF470B",
-      height: "100%",
-      borderRadius: "30",
-    },
-  };
+  const { restaurantID, title } = route.params;
 
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
@@ -104,7 +86,8 @@ const MenuScreen = ({ route }) => {
         <Text
           style={tw.style(`pt-2 text-center`, styleOrangeColor.titleOrange)}
         >
-          Restaurant Name Heeeere
+          {/*Restaurant Name Heeeere*/}
+          {title}
         </Text>
         <Text>Opening hours:</Text>
         <Text>Address:</Text>
@@ -122,6 +105,25 @@ const MenuScreen = ({ route }) => {
       </Tab.Navigator>
     </SafeAreaProvider>
   );
+};
+
+const screenOptions = {
+  tabBarActiveTintColor: "white",
+  tabBarInactiveTintColor: "black",
+  tabBarPressOpacity: 1,
+  tabBarStyle: {
+    borderRadius: "30",
+    boxShadow:
+      "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;",
+  },
+  style: {
+    borderRadius: "30",
+  },
+  tabBarIndicatorStyle: {
+    backgroundColor: "#FF470B",
+    height: "100%",
+    borderRadius: "30",
+  },
 };
 
 export default MenuScreen;
