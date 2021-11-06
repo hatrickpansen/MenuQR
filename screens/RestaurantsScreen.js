@@ -46,18 +46,6 @@ const RestaurantsScreen = ({ navigation }) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
 
-  /*useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);*/
-
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
     if (text) {
@@ -79,19 +67,6 @@ const RestaurantsScreen = ({ navigation }) => {
       setFilteredDataSource(masterDataSource);
       setSearch(text);
     }
-  };
-
-  const ItemSeparatorView = () => {
-    return (
-      // Flat List Item Separator
-      <View
-        style={tw.style({
-          height: 0.4,
-          width: "100%",
-          backgroundColor: "#FF470B",
-        })}
-      />
-    );
   };
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -190,8 +165,14 @@ const RestaurantsScreen = ({ navigation }) => {
               `opacity-90`
             )}
           >
-            <View style={tw``}>
-              <Text>hey</Text>
+            <View
+              style={tw.style(`flex items-center justify-center h-48`, {
+                width: Dimensions.get("screen").width,
+              })}
+            >
+              <Text style={tw`text-center text-lg font-semibold text-gray-400`}>
+                Not found
+              </Text>
             </View>
           </TouchableOpacity>
           <View style={tw``}>

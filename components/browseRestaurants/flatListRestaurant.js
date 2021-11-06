@@ -6,14 +6,14 @@ import React, { useRef } from "react";
 
 const SPACING = 1;
 const AVATAR_SIZE = 60;
-const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
+const ITEM_SIZE = AVATAR_SIZE + SPACING * 100;
 
 const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
   const getItem = (item) => {
     // Function for click on an item
     navigation.navigate("Menu", {
       restaurantID: item.id,
-      title: item.title
+      title: item.title,
     }); //navigation testing get item
   };
 
@@ -47,7 +47,7 @@ const FlatListRestaurant = ({ item, index, scrollY, navigation }) => {
         },
         `bg-gray-100`
       )}
-    /* style={tw.style(
+      /* style={tw.style(
             {
               padding: SPACING,
               transform: [{ scale }],
