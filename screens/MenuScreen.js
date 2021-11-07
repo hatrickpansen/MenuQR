@@ -37,8 +37,10 @@ import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 const AllScreen = ({ route }) => {
   const navigation = useNavigation();
   const { restaurantID, title } = route.params;
+  console.log(restaurantID);
   const newTitle = title + " - Menu";
   const items = data.filter((element) => element.restId === restaurantID);
+  /*console.log(items);*/
   // useEffect(() => {
   //   navigation.setOptions(navigation.setOptions({ title: newTitle }));
   // });
@@ -82,9 +84,18 @@ const Tab = createMaterialTopTabNavigator();
 
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
-  //   const { id, title, address, openingHours} = route.params;
-  const { restaurantID, title } = route.params;
+  const { restaurantID } = route.params;
+  const title = RestaurantsData?.filter(
+    (item) => item?.id === restaurantID
+  )?.pop()?.title;
 
+  if (title === undefined) {
+    return (
+      <View style={tw`h-56 flex justify-center `}>
+        <Text>Not working</Text>
+      </View>
+    );
+  }
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
       <View style={tw.style(`items-center pb-4`)}>
@@ -92,7 +103,7 @@ const MenuScreen = ({ route }) => {
           style={tw.style(`pt-2 text-center`, styleOrangeColor.titleOrange)}
         >
           {/*Restaurant Name Heeeere*/}
-          {title}
+          {title === undefined ? "cant find name" : title}
         </Text>
         <Text>Opening hours:</Text>
         <Text>Address:</Text>
