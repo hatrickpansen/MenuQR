@@ -85,7 +85,7 @@ const Allergene = (props) => {
             setFlat(<FlatList style={styles.al}
                 data={alData}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 horizontal={true}
             />)
             setIsFlatExpanded(true);
