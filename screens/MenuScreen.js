@@ -169,15 +169,15 @@ const screenOptions = {
     elevation: 2,
     marginLeft: 12,
     marginRight: 12,
-    borderRadius: "10px",
+    borderRadius: 10,
   },
   style: {
-    borderRadius: "10px",
+    borderRadius: 10,
   },
   tabBarIndicatorStyle: {
     backgroundColor: "#FF470B",
     height: "100%",
-    borderRadius: "10px",
+    borderRadius: 10,
   },
 };
 
