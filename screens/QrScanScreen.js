@@ -61,7 +61,7 @@ const QrScanScreen = ({ navigation }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setText(data);
-    console.log("type: " + type + "" + "Data: " + data);
+    /*console.log("type: " + type + "" + "Data: " + data);*/
 
     navigation.navigate("Menu", {
       restaurantID: parseInt(data.replace("restaurantid: ", ""), 10), //restaruants

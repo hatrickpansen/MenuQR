@@ -37,13 +37,9 @@ import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 const AllScreen = ({ route }) => {
   const navigation = useNavigation();
   const { restaurantID, title } = route.params;
-  console.log(restaurantID);
   const newTitle = title + " - Menu";
   const items = data.filter((element) => element.restId === restaurantID);
-  /*console.log(items);*/
-  // useEffect(() => {
-  //   navigation.setOptions(navigation.setOptions({ title: newTitle }));
-  // });
+
   return (
     <View
       style={{
