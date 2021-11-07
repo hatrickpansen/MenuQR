@@ -63,9 +63,9 @@ const QrScanScreen = ({ navigation }) => {
     setText(data);
     console.log("type: " + type + "" + "Data: " + data);
 
-    if (data === "7340011321903") {
-      navigation.push("Restaurants");
-    }
+    navigation.navigate("Menu", {
+      restaurantID: data.replace("restaurantid: ", ""), //restaruants
+    });
   };
 
   //if user dont have permission ask them:
