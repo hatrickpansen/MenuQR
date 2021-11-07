@@ -11,6 +11,7 @@ import Allergene from "../components/Allergene";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
+import ReadMore from '@fawazahmed/react-native-read-more';
 
 import tw from "tailwind-react-native-classnames";
 
@@ -123,7 +124,8 @@ const ItemScreen = ({ route }) => {
       onSwipeRight={onSwipeRight}
       config={swipeConfig}
     >
-      <SafeAreaView>
+      <SafeAreaView >
+        <ScrollView style={ItemScreenStyle.container}>
         <Animated.View style={{ translateX: fadeAnim, opacity: fadeAnim1 }}>
           <View style={{ alignItems: "center" }}>
 
@@ -138,17 +140,28 @@ const ItemScreen = ({ route }) => {
               <Text style={{ fontSize: 24, fontWeight: "bold", color: "#ff4b3a" }}>
                 {"Description \n"}
               </Text>
-              {dynDesc}
+              <View style={ItemScreenStyle.readmoreContainer}>
+              <ReadMore numberOfLines={3} style={ItemScreenStyle.descriptionText} seeMoreStyle={ItemScreenStyle.readmoreAndLessbtnStyle} seeLessStyle={ItemScreenStyle.readmoreAndLessbtnStyle}>
+                {dynDesc}
+              </ReadMore>
+              </View>
             </Text>
-            <Allergene allergenes={dynAl} reset={reset} />
+            <View>
+              <Allergene allergenes={dynAl} reset={reset} />
+            </View>
+            
           </View>
         </Animated.View>
+        </ScrollView>
       </SafeAreaView>
     </GestureRecognizer>
   )
 };
 
 const ItemScreenStyle = StyleSheet.create({
+  container: {
+    
+  },
   image: {
     borderRadius: 125,
     width: 250,
@@ -171,8 +184,22 @@ const ItemScreenStyle = StyleSheet.create({
   },
   description: {
     color: "#ff4b3a",
-    fontSize: 24,
+    fontSize: 24,  
   },
+  descriptionText: {
+    
+    color: "#ff4b3a",
+    fontSize: 20, 
+  },
+  readmoreContainer: {
+    flex: 1
+  },
+  readmoreAndLessbtnStyle: {
+    color: "#ff4b3a",
+    fontWeight: "bold",
+    fontSize: 20,
+    opacity: 0.9
+  }
 });
 
 // add shadow to image using shadowopacity and stuff

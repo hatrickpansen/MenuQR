@@ -10,6 +10,7 @@
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@expo/vector-icons": "^12.0.5",
+    "@fawazahmed/react-native-read-more": "^2.2.0",
     "@react-navigation/core": "^6.1.0",
     "@react-navigation/material-top-tabs": "^6.0.6",
     "@react-navigation/native": "^6.0.2",
