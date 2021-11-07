@@ -85,9 +85,17 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   const { restaurantID } = route.params;
-  const title = RestaurantsData.filter((item) => item.id === restaurantID).pop()
-    .title;
+  const title = RestaurantsData?.filter(
+    (item) => item?.id.toString() === restaurantID
+  )?.pop()?.title;
 
+  if (title === undefined) {
+    return (
+      <View style={tw`h-56 flex justify-center `}>
+        <Text>Not working</Text>
+      </View>
+    );
+  }
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
       <View style={tw.style(`items-center pb-4`)}>
