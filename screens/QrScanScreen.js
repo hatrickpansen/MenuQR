@@ -64,7 +64,7 @@ const QrScanScreen = ({ navigation }) => {
     console.log("type: " + type + "" + "Data: " + data);
 
     navigation.navigate("Menu", {
-      restaurantID: data.replace("restaurantid: ", ""), //restaruants
+      restaurantID: parseInt(data.replace("restaurantid: ", ""), 10), //restaruants
     });
   };
 

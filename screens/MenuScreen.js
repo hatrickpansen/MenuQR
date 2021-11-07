@@ -86,7 +86,7 @@ const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   const { restaurantID } = route.params;
   const title = RestaurantsData?.filter(
-    (item) => item?.id.toString() === restaurantID
+    (item) => item?.id === restaurantID
   )?.pop()?.title;
 
   if (title === undefined) {
