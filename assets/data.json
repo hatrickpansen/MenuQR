@@ -7,8 +7,8 @@
     "description": "Kæmpe burger kæmpe bøf",
     "price": 69,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
+    "allergenes": {
+      "egg": true,
       "peanuts": true,
       "crustacean": true,
       "fish": true,
@@ -18,8 +18,7 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-      }
-    
+    }
   },
   {
     "id": 1,
@@ -29,10 +28,7 @@
     "description": "Sprøde døde kyllinger",
     "price": 42,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
-      "peanuts": false
-      }
+    "allergenes": { "egg": true, "peanuts": false }
   },
   {
     "id": 2,
@@ -42,8 +38,8 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
+    "allergenes": {
+      "egg": true,
       "peanuts": true,
       "crustacean": true,
       "fish": true,
@@ -53,7 +49,7 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-      }
+    }
   },
   {
     "id": 3,
@@ -63,10 +59,7 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
-      "peanuts": false
-      }
+    "allergenes": { "egg": true, "peanuts": false }
   },
   {
     "id": 4,
@@ -76,8 +69,8 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
+    "allergenes": {
+      "egg": true,
       "peanuts": true,
       "crustacean": true,
       "fish": true,
@@ -87,7 +80,7 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-      }
+    }
   },
   {
     "id": 5,
@@ -97,9 +90,17 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": 
-      {"egg": true,
-      "peanuts": false
-      }
+    "allergenes": { "egg": true, "peanuts": false }
+  },
+  {
+    "id": 6,
+    "title": "mcd",
+    "name": "Coca cola",
+    "image": "https://www.mcdonalds.com/content/dam/dk/nfl/productimages/thumbs/mcdonalds_coca-cola-mellem.jpg",
+    "description": "0,5 l tasty sugar juice",
+    "price": 25,
+    "restId": 1,
+    "allergenes": {},
+    "type": "drink"
   }
 ]

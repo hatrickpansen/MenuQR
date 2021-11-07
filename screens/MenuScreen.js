@@ -34,11 +34,17 @@ import { useNavigation } from "@react-navigation/core";
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const AllScreen = ({ route }) => {
+const FilterScreen = ({ route, type }) => {
   const navigation = useNavigation();
   const { restaurantID, title } = route.params;
   const newTitle = title + " - Menu";
-  const items = data.filter((element) => element.restId === restaurantID);
+  let items = [];
+
+  type === ""
+    ? (items = data.filter((element) => element.restId === restaurantID))
+    : (items = data.filter(
+        (element) => element.restId === restaurantID && element.type === type
+      ));
 
   return (
     <View
@@ -125,7 +131,7 @@ const MenuScreen = ({ route }) => {
               </View>
             ),
           }}
-          children={() => <AllScreen route={route} />}
+          children={() => <FilterScreen route={route} type={""} />}
         />
         <Tab.Screen
           options={{
@@ -141,7 +147,8 @@ const MenuScreen = ({ route }) => {
             ),
           }}
           name="A La Carte"
-          component={AlacarteScreen}
+          //component={AlacarteScreen}
+          children={() => <FilterScreen route={route} type={""} />}
         />
         <Tab.Screen
           options={{
@@ -153,7 +160,8 @@ const MenuScreen = ({ route }) => {
             ),
           }}
           name="Drinks"
-          component={DrinksScreen}
+          //component={DrinksScreen}
+          children={() => <FilterScreen route={route} type={"drink"} />}
         />
       </Tab.Navigator>
     </SafeAreaProvider>
