@@ -66,22 +66,6 @@ const FilterScreen = ({ route, type }) => {
   );
 };
 
-const AlacarteScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>A La Carte!</Text>
-    </View>
-  );
-};
-
-const DrinksScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Drinks!</Text>
-    </View>
-  );
-};
-
 const Tab = createMaterialTopTabNavigator();
 
 const MenuScreen = ({ route }) => {
@@ -124,14 +108,14 @@ const MenuScreen = ({ route }) => {
             tabBarIcon: ({ focused }) => (
               <View>
                 <MaterialCommunityIcons
-                  name="food"
+                  name="hamburger"
                   size={30}
                   color={focused ? "white" : "black"}
                 />
               </View>
             ),
           }}
-          children={() => <FilterScreen route={route} type={""} />}
+          children={() => <FilterScreen route={route} type={"food"} />}
         />
         <Tab.Screen
           options={{
@@ -139,7 +123,7 @@ const MenuScreen = ({ route }) => {
             tabBarIcon: ({ focused }) => (
               <View>
                 <MaterialCommunityIcons
-                  name="hamburger"
+                  name="food-drumstick"
                   size={24}
                   color={focused ? "white" : "black"}
                 />
@@ -148,7 +132,7 @@ const MenuScreen = ({ route }) => {
           }}
           name="A La Carte"
           //component={AlacarteScreen}
-          children={() => <FilterScreen route={route} type={""} />}
+          children={() => <FilterScreen route={route} type={"snack"} />}
         />
         <Tab.Screen
           options={{

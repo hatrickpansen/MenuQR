@@ -18,7 +18,8 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-    }
+    },
+    "type": "food"
   },
   {
     "id": 1,
@@ -28,7 +29,8 @@
     "description": "Sprøde døde kyllinger",
     "price": 42,
     "restId": 1,
-    "allergenes": { "egg": true, "peanuts": false }
+    "allergenes": { "egg": true, "peanuts": false },
+    "type": "snack"
   },
   {
     "id": 2,
@@ -49,7 +51,8 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-    }
+    },
+    "type": "food"
   },
   {
     "id": 3,
@@ -59,7 +62,8 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": { "egg": true, "peanuts": false }
+    "allergenes": { "egg": true, "peanuts": false },
+    "type": "food"
   },
   {
     "id": 4,
@@ -80,7 +84,8 @@
       "sesame": true,
       "shellfish": true,
       "sulfates": true
-    }
+    },
+    "type": "food"
   },
   {
     "id": 5,
@@ -90,7 +95,8 @@
     "description": "burger",
     "price": 40,
     "restId": 1,
-    "allergenes": { "egg": true, "peanuts": false }
+    "allergenes": { "egg": true, "peanuts": false },
+    "type": "food"
   },
   {
     "id": 6,
