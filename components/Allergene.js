@@ -14,6 +14,7 @@ const Allergene = (props) => {
     const [spinValue, setSpinValue] = useState(new Animated.Value(0))
     
     useEffect( () => {
+        console.log("allergene id" + reset);
        if(reset){
            arrowSpinUp();
            setFlat();

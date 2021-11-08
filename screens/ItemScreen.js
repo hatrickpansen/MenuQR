@@ -5,134 +5,76 @@ import {
   ScrollView,
   View,
   Text,
-  StyleSheet, Animated
+  StyleSheet, Animated, Dimensions
 } from "react-native";
 import Allergene from "../components/Allergene";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
 import ReadMore from '@fawazahmed/react-native-read-more';
+import Carousel from 'react-native-snap-carousel';
+import {styleOrangeColor} from "../styles/customStyles"
+const ScreenWidth = Dimensions.get('window').width;
+const ScreenHeight = Dimensions.get('window').height;
+const orangeColor = styleOrangeColor.textOrange.color
 
-import tw from "tailwind-react-native-classnames";
+function wp (percentage) {
+  const value = (percentage * ScreenWidth) / 100;
+  return Math.round(value);
+}
+
+const slideHeight = ScreenHeight * 0.36;
+const slideWidth = wp(85);
+const itemHorizontalMargin = wp(2);
 
 const ItemScreen = ({ route }) => {
   const { id, name, description, image, price, restId } = route.params;
-  const navigation = useNavigation();
-  const [dynId, setDynId] = useState(id);
-  const [dynName, setDynName] = useState(name);
-  const [dynDesc, setDynDesc] = useState(description);
-  const [dynImage, setDynImage] = useState(image);
-  const [dynPrice, setDynPrice] = useState(price);
+  const [activeItemId, setActiveItemId] = useState(id);
   const [reset, setReset] = useState(false);
-
-
-
-  const [fadeAnim, setFadeAnmin] = useState(new Animated.Value(1));
-  const [fadeAnim1, setFadeAnmin1] = useState(new Animated.Value(1));
-
-  const swipeConfig = {
-    velocityThreshold: 1.7,
-    directionalOffsetThreshold: 80
-  };
   const restaurantID = restId
   const items = data.filter(element => element.restId == restaurantID)
-  const [dynAl, setDynAl] = useState(loadFirstAllergenes(id));
-
-  var ids = []
-  items.forEach(element => {
-    ids.push(element["id"])
-  });
-
-
-  useEffect(() => {
-    fadeInAnimation();
-    loadNewItem(dynId);
-    navigation.setOptions({ title: dynName })
-    setReset(false);
-  });
-  
-
-  function swipeLeftAnimation() {
-    fadeAnim.setValue(0);
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: -400,
-        duration: 300,
-        useNativeDriver: false,
-      }
-    ).start(() => {
-      fadeAnim.setValue(0);;
-    });
-  }
-  function fadeInAnimation() {
-    fadeAnim1.setValue(0);
-    Animated.timing(
-      fadeAnim1,
-      {
-        toValue: 1,
-        duration: 800,
-        useNativeDriver: false,
-      }
-    ).start(() => {
-    });
-  }
-  function swipeRightAnimation() {
-    fadeAnim.setValue(0);
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 400,
-        duration: 300,
-        useNativeDriver: false,
-      }
-    ).start(() => {
-      fadeAnim.setValue(0);;
-    });
-  }
-
-  const onSwipeLeft = () => {
-    swipeLeftAnimation()
-    setDynId(ids[(dynId + 1) % ids.length]);
-    setReset(true)
-  }
-  const onSwipeRight = () => {
-    if (dynId > 0) {
-      swipeRightAnimation()
-      setDynId(ids[(dynId - 1) % ids.length]);
-    } else if (dynId == 0) {
-      swipeRightAnimation()
-      setDynId(ids[ids.length - 1]);
+  const isActiveA = () => {
+    let arr = [];
+    for(let i = 0; i< items.length; i++){
+      arr.push({id: items[i].id, isActive: false});
     }
-    setReset(true)
+    return arr;
+  } 
+  const [isActiveArr, setIsActiveArr] = useState(isActiveA)
+  useEffect(()=> {
+    /* console.log("reload");
+    console.log(activeItemId); */
+    
+  })
+  function updateIsActiveArr(activeId){
+      let arr = [];
+      for(let i = 0; i<isActiveArr.length; i++){
+        if(isActiveArr[i].id == activeId){
+          arr.push({isActive: true, id: isActiveArr[i].id})
+          
+        } else {
+          arr.push({isActive: false, id: isActiveArr[i].id})
+        }
+      }
+      /* console.log(arr) */
+      return arr;
   }
-  function loadFirstAllergenes(id) {
-    const item = items.filter(element => element.id == id)[0];
-    return item.allergenes;
-  }
-  function loadNewItem(id) {
-    const item = items.filter(element => element.id == id)[0];
-    setDynName(item.name);
-    setDynPrice(item.price);
-    setDynDesc(item.description);
-    setDynImage(item.image);
-    setDynAl(item.allergenes);
-  }
-  return (
-    <GestureRecognizer
-      onSwipeLeft={onSwipeLeft}
-      onSwipeRight={onSwipeRight}
-      config={swipeConfig}
-    >
-      <SafeAreaView >
-        <ScrollView style={ItemScreenStyle.container}>
-        <Animated.View style={{ translateX: fadeAnim, opacity: fadeAnim1 }}>
+  function carouselRender({item, index}){
+    let ind = 0;
+    for(let i = 0; i<isActiveArr.length; i++){
+      if(isActiveArr[i].id == item.id){
+        ind = isActiveArr[i].id
+      }
+    }
+    return ( <ItemCard item={item} isActive={isActiveArr[ind].id}/>
+      /* <ScrollView style={ItemScreenStyle.container}>
+        <Animated.View>
           <View style={{ alignItems: "center" }}>
 
-            <Image source={{ uri: dynImage }} style={ItemScreenStyle.image}></Image>
+            <Image source={{ uri: item.item.image }} style={ItemScreenStyle.image}></Image>
 
-            <Text style={ItemScreenStyle.name}>{dynName}</Text>
-            <Text style={ItemScreenStyle.prices}>{dynPrice} DKK</Text>
+            <Text style={ItemScreenStyle.name}>{item.item.name}</Text>
+            <Text style={ItemScreenStyle.prices}>{item.item.price} DKK</Text>
           </View>
 
           <View style={{ paddingLeft: 10 }}>
@@ -142,25 +84,44 @@ const ItemScreen = ({ route }) => {
               </Text>
               <View style={ItemScreenStyle.readmoreContainer}>
               <ReadMore numberOfLines={3} style={ItemScreenStyle.descriptionText} seeMoreStyle={ItemScreenStyle.readmoreAndLessbtnStyle} seeLessStyle={ItemScreenStyle.readmoreAndLessbtnStyle}>
-                {dynDesc}
+                {item.item.description}
               </ReadMore>
               </View>
             </Text>
             <View>
-              <Allergene allergenes={dynAl} reset={reset} />
+              <Allergene allergenes={item.item.allergenes} reset={reset} />
             </View>
             
           </View>
         </Animated.View>
-        </ScrollView>
-      </SafeAreaView>
-    </GestureRecognizer>
+        </ScrollView> */
+        )
+  }
+  return (
+    <View style={ItemScreenStyle.carouselContainer}>
+
+    
+    <Carousel
+              
+              data={items}
+              renderItem={carouselRender}
+              sliderWidth={ScreenWidth}
+              itemWidth={slideWidth}
+              loop={false}
+              firstItem={activeItemId}
+              onSnapToItem={(index) => {
+                setActiveItemId(index);
+                setIsActiveArr(updateIsActiveArr(index)); 
+              }}
+              inactiveSlideOpacity={0.1}
+            />
+            </View>
   )
 };
 
 const ItemScreenStyle = StyleSheet.create({
   container: {
-    
+    marginTop: 100
   },
   image: {
     borderRadius: 125,
@@ -170,37 +131,80 @@ const ItemScreenStyle = StyleSheet.create({
     marginBottom: 5,
   },
   name: {
-    fontSize: 64,
+    fontSize: 48,
     fontWeight: "bold",
-    color: "#ff4b3a",
+    color: orangeColor,
   },
   text: {
-    color: "#ff4b3a",
+    color: orangeColor,
   },
   prices: {
-    color: "#ff4b3a",
+    color: orangeColor,
     fontSize: 24,
     fontWeight: "bold",
   },
   description: {
-    color: "#ff4b3a",
+    color: orangeColor,
     fontSize: 24,  
   },
   descriptionText: {
     
-    color: "#ff4b3a",
+    color: orangeColor,
     fontSize: 20, 
   },
   readmoreContainer: {
     flex: 1
   },
   readmoreAndLessbtnStyle: {
-    color: "#ff4b3a",
+    color: orangeColor,
     fontWeight: "bold",
     fontSize: 20,
     opacity: 0.9
+  },
+  carouselContainer: {
+    flex: 1,
+    width: ScreenWidth,
+    justifyContent: "center"
   }
 });
+
+const ItemCard = ({item, isActive}) => {
+  const [reset, setReset]= useState(!isActive);
+  useEffect(()=>{
+    setReset(!isActive);
+  })
+ 
+  return (
+    <ScrollView style={ItemScreenStyle.container}>
+        <Animated.View>
+          <View style={{ alignItems: "center" }}>
+
+            <Image source={{ uri: item.image }} style={ItemScreenStyle.image}></Image>
+
+            <Text style={ItemScreenStyle.name}>{item.name}</Text>
+            <Text style={ItemScreenStyle.prices}>{item.price} DKK</Text>
+          </View>
+
+          <View style={{ paddingLeft: 10 }}>
+            <Text style={ItemScreenStyle.description}>
+              <Text style={{ fontSize: 24, fontWeight: "bold", color: "#ff4b3a" }}>
+                {"Description \n"}
+              </Text>
+              <View style={ItemScreenStyle.readmoreContainer}>
+              <ReadMore numberOfLines={3} style={ItemScreenStyle.descriptionText} seeMoreStyle={ItemScreenStyle.readmoreAndLessbtnStyle} seeLessStyle={ItemScreenStyle.readmoreAndLessbtnStyle}>
+                {item.description}
+              </ReadMore>
+              </View>
+            </Text>
+            <View>
+              <Allergene allergenes={item.allergenes} reset={reset} />
+            </View>
+            
+          </View>
+        </Animated.View>
+        </ScrollView>
+  )
+}
 
 // add shadow to image using shadowopacity and stuff
 export default ItemScreen;
