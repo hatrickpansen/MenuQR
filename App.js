@@ -13,6 +13,7 @@ import QrScanScreen from "./screens/QrScanScreen";
 import TestScreen from "./screens/TestScreen";
 import { Icon } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
+import LoginScreen from "./screens/LoginScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
 
 const Stack = createNativeStackNavigator();
@@ -60,6 +61,11 @@ export default function App() {
             name="Test"
             component={TestScreen}
             options={headerOptions}
+          />
+          <Stack.Screen
+          name="login"
+          component={LoginScreen}
+          options={headerOptions}
           />
         </Stack.Navigator>
       </NavigationContainer>
