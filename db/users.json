@@ -3,7 +3,7 @@
         "id": 1,
         "email": "markusmunks@gmail.com",
         "password": "sutmig123",
-        "auth": 1,
+        "auth": true,
         "restId": 1
     }
 ]

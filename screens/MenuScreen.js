@@ -22,7 +22,7 @@
 //
 // export default MenuScreen;
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
@@ -33,6 +33,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useNavigation } from "@react-navigation/core";
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import EditButton from "../components/authComponents/EditButton";
 
 const FilterScreen = ({ route, type }) => {
   const navigation = useNavigation();
@@ -70,11 +71,12 @@ const Tab = createMaterialTopTabNavigator();
 
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
-  const { restaurantID } = route.params;
+  const { restaurantID, auth } = route.params;
+  const [editBtnAuth, setEditBtn] = useState(auth);
+
   const title = RestaurantsData?.filter(
     (item) => item?.id === restaurantID
   )?.pop()?.title;
-
   if (title === undefined) {
     return (
       <View style={tw`h-56 flex justify-center `}>
@@ -148,6 +150,7 @@ const MenuScreen = ({ route }) => {
           children={() => <FilterScreen route={route} type={"drink"} />}
         />
       </Tab.Navigator>
+      <EditButton auth={editBtnAuth}></EditButton>
     </SafeAreaProvider>
   );
 };

@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import data from "../db/users.json";
 
+import { useNavigation } from "@react-navigation/core";
+
 export default function LoginScreen() {
   const [authenticated, setAuthenticated] = useState(false);
   const [id, setId] = useState(-1);
@@ -20,6 +22,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [emailPlace, setEmailPlace] = useState("Email");
   const [passPlace, setPassPlace] = useState("Password");
+  const navigation = useNavigation();
 
   return (
     <View style={[styles.container, tw` bg-gray-100`]}>
@@ -72,8 +75,10 @@ export default function LoginScreen() {
             ) {
               setAuthenticated(true);
               setId(data[i].id);
-              console.log("hey");
-              break;
+              navigation.navigate("Menu", {
+                restaurantID: data[i].restId,
+                auth: data[i].auth,
+              });
             }
           }
         }}
