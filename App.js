@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import { Platform } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
@@ -63,9 +64,9 @@ export default function App() {
             options={headerOptions}
           />
           <Stack.Screen
-          name="login"
-          component={LoginScreen}
-          options={headerOptions}
+            name="login"
+            component={LoginScreen}
+            options={headerOptions}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -87,6 +88,11 @@ const headerOptions = {
   title: "",
   headerShown: true,
   headerTransparent: true,
+  ...Platform.select({
+    android: {
+      headerShadowVisible: false,
+    },
+  }),
   headerBackTitleVisible: false,
   headerTintColor: "#FF470B",
 };
