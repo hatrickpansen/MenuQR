@@ -10,7 +10,7 @@ import {
   FlatList,
   SectionList,
 } from "react-native";
-import imageManager from "./imageManager";
+import imageManager from "../imageManager";
 import AllergeneCard from "./AllergeneCard";
 
 const Allergene = (props) => {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   al: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginRight: 20,
+    marginRight: 5,
   },
   card: {},
   imgContainer: {

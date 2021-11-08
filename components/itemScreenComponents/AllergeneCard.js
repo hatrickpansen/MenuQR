@@ -8,7 +8,7 @@ import {
   Easing,
   Animated,
 } from "react-native";
-import { styleOrangeColor } from "../styles/customStyles";
+import { styleOrangeColor } from "../../styles/customStyles";
 
 const AllergeneCard = (props) => {
   const [alName, setAlName] = useState(<Text></Text>);
