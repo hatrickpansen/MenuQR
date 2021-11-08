@@ -15,6 +15,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   Animated,
+  Platform,
 } from "react-native";
 
 /*
@@ -302,6 +303,11 @@ const RestaurantCategory = ({ category, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
+    ...Platform.select({
+      android: {
+        paddingTop: Dimensions.get("window").height * 0.11,
+      },
+    }),
   },
   search: {
     fontSize: 24,
