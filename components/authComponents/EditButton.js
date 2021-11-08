@@ -3,10 +3,18 @@ import { Button, View } from "react-native";
 import { styleOrangeColor } from "../../styles/customStyles";
 const orangeColor = styleOrangeColor.textOrange.color;
 
-const EditButton = ({ auth, callBack }) => {
-  console.log("auth: ");
+const EditButton = ({ auth, callback }) => {
+  const sendDataToParent = () => {
+    callback(true);
+  };
   if (auth) {
-    return <Button title="Edit" color={orangeColor}></Button>;
+    return (
+      <Button
+        title="Edit"
+        color={orangeColor}
+        onPress={sendDataToParent}
+      ></Button>
+    );
   } else {
     return <View></View>;
   }

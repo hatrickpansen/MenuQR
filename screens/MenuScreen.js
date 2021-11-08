@@ -73,6 +73,7 @@ const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
+  const [isEditState, setIsEditState] = useState(false);
 
   const title = RestaurantsData?.filter(
     (item) => item?.id === restaurantID
@@ -84,6 +85,9 @@ const MenuScreen = ({ route }) => {
       </View>
     );
   }
+  const callbackFromEditBtn = (childData) => {
+    setIsEditState(childData);
+  };
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
       <View style={tw.style(`items-center pb-4`)}>
@@ -150,7 +154,10 @@ const MenuScreen = ({ route }) => {
           children={() => <FilterScreen route={route} type={"drink"} />}
         />
       </Tab.Navigator>
-      <EditButton auth={editBtnAuth}></EditButton>
+      <EditButton
+        auth={editBtnAuth}
+        callback={callbackFromEditBtn}
+      ></EditButton>
     </SafeAreaProvider>
   );
 };
