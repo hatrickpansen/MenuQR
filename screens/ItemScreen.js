@@ -12,7 +12,7 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
 import ReadMore from '@fawazahmed/react-native-read-more';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {styleOrangeColor} from "../styles/customStyles"
 const ScreenWidth = Dimensions.get('window').width;
 const ScreenHeight = Dimensions.get('window').height;
@@ -26,7 +26,7 @@ function wp (percentage) {
 const slideHeight = ScreenHeight * 0.36;
 const slideWidth = wp(85);
 const itemHorizontalMargin = wp(2);
-
+var sliderRef;
 const ItemScreen = ({ route }) => {
   const { id, name, description, image, price, restId } = route.params;
   const [activeItemId, setActiveItemId] = useState(id);
@@ -102,7 +102,7 @@ const ItemScreen = ({ route }) => {
 
     
     <Carousel
-              
+              ref={c => sliderRef = c}
               data={items}
               renderItem={carouselRender}
               sliderWidth={ScreenWidth}
@@ -115,7 +115,25 @@ const ItemScreen = ({ route }) => {
               }}
               inactiveSlideOpacity={0.1}
             />
+            <Pagination
+              dotsLength={items.length}
+              activeDotIndex={activeItemId}
+              dotColor={orangeColor}
+              inactiveDotColor="#000"
+              inactiveDotOpacity={0.2}
+              dotStyle={
+                {
+                  width: 12,
+                  height: 12,
+                  borderRadius: 6,
+                  marginHorizontal: 1
+              }
+              }
+              carouselRef={sliderRef}
+              tappableDots={true}
+            />
             </View>
+
   )
 };
 
