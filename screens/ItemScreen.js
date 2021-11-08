@@ -40,7 +40,9 @@ const ItemScreen = ({ route }) => {
   return (
     <View style={ItemScreenStyle.carouselContainer}>
       <Carousel
-        ref={(c) => (sliderRef = c)}
+        ref={(c) => {
+          sliderRef = c;
+        }}
         data={items}
         renderItem={carouselRender}
         sliderWidth={ScreenWidth}
@@ -65,7 +67,7 @@ const ItemScreen = ({ route }) => {
           marginHorizontal: 1,
         }}
         carouselRef={sliderRef}
-        tappableDots={true}
+        tappableDots={!!sliderRef}
       />
     </View>
   );
