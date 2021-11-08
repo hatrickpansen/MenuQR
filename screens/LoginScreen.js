@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styleOrangeColor } from "../styles/customStyles";
 import tw from "tailwind-react-native-classnames";
 import {
@@ -11,26 +11,28 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import data from "../db/users.json";
 
 export default function LoginScreen() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [id, setId] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailPlace, setEmailPlace] = useState("Email")
-  const [passPlace, setPassPlace] = useState("Password")
+  const [emailPlace, setEmailPlace] = useState("Email");
+  const [passPlace, setPassPlace] = useState("Password");
 
   return (
     <View style={[styles.container, tw` bg-gray-100`]}>
-        <View style={styles.imageContainer}>
-            <Image
-              style={{ height: 150, width: 150 }}
-              source={require("../assets/logo.png")}
-              resizeMode="contain"
-              resizeMethod="resize"
-            />
-        </View>
-        
-      <View style={styles.inputView
-              }>
+      <View style={styles.imageContainer}>
+        <Image
+          style={{ height: 150, width: 150 }}
+          source={require("../assets/logo.png")}
+          resizeMode="contain"
+          resizeMethod="resize"
+        />
+      </View>
+
+      <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder={emailPlace}
@@ -38,7 +40,6 @@ export default function LoginScreen() {
           keyboardType="email-address"
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
-         
           onChangeText={(email) => setEmail(email)}
         />
       </View>
@@ -51,7 +52,6 @@ export default function LoginScreen() {
           secureTextEntry={true}
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
-          
           onChangeText={(password) => setPassword(password)}
         />
       </View>
@@ -60,7 +60,24 @@ export default function LoginScreen() {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => {
+          for (let i = 0; i < data.length; i++) {
+            console.log(data[i].email);
+            console.log(email.trim().toLowerCase());
+            if (
+              data[i].email === email.trim().toLowerCase() &&
+              password === data[i].password
+            ) {
+              setAuthenticated(true);
+              setId(data[i].id);
+              console.log("hey");
+              break;
+            }
+          }
+        }}
+      >
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
     </View>
@@ -99,7 +116,7 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     marginBottom: 30,
-    color: styleOrangeColor.textOrange.color
+    color: styleOrangeColor.textOrange.color,
   },
 
   loginBtn: {
@@ -110,12 +127,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     backgroundColor: styleOrangeColor.textOrange.color,
-    
   },
   imageContainer: {
-      marginBottom: 30
+    marginBottom: 30,
   },
   loginText: {
-      color: "#fff"
-  }
+    color: "#fff",
+  },
 });

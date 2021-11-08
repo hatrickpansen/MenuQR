@@ -1,0 +1,9 @@
+[
+    { 
+        "id": 1,
+        "email": "markusmunks@gmail.com",
+        "password": "sutmig123",
+        "auth": 1,
+        "restId": 1
+    }
+]
