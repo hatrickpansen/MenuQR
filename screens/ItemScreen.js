@@ -10,9 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import Allergene from "../components/Allergene";
-import GestureRecognizer, {
-  swipeDirections,
-} from "react-native-swipe-gestures";
+
 import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
 import ReadMore from "@fawazahmed/react-native-read-more";
@@ -27,42 +25,17 @@ function wp(percentage) {
   return Math.round(value);
 }
 
-const slideHeight = ScreenHeight * 0.36;
 const slideWidth = wp(85);
-const itemHorizontalMargin = wp(2);
+
 var sliderRef;
 const ItemScreen = ({ route }) => {
-  const { id, name, description, image, price, restId } = route.params;
+  const { id, restId } = route.params;
   const [activeItemId, setActiveItemId] = useState(id);
   const restaurantID = restId;
   const items = data.filter((element) => element.restId == restaurantID);
-  const isActiveA = () => {
-    let arr = [];
-    for (let i = 0; i < items.length; i++) {
-      arr.push({ id: items[i].id, isActive: false });
-    }
-    return arr;
-  };
-  const [isActiveArr, setIsActiveArr] = useState(isActiveA);
-  function updateIsActiveArr(activeId) {
-    let arr = [];
-    for (let i = 0; i < isActiveArr.length; i++) {
-      if (isActiveArr[i].id == activeId) {
-        arr.push({ isActive: true, id: isActiveArr[i].id });
-      } else {
-        arr.push({ isActive: false, id: isActiveArr[i].id });
-      }
-    }
-    return arr;
-  }
+
   function carouselRender({ item, index }) {
-    let ind = 0;
-    for (let i = 0; i < isActiveArr.length; i++) {
-      if (isActiveArr[i].id == item.id) {
-        ind = isActiveArr[i].id;
-      }
-    }
-    return <ItemCard item={item} isActive={isActiveArr[ind].id} />;
+    return <ItemCard item={item} />;
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
@@ -76,7 +49,6 @@ const ItemScreen = ({ route }) => {
         firstItem={activeItemId}
         onSnapToItem={(index) => {
           setActiveItemId(index);
-          setIsActiveArr(updateIsActiveArr(index));
         }}
         inactiveSlideOpacity={0.1}
       />
@@ -99,9 +71,60 @@ const ItemScreen = ({ route }) => {
   );
 };
 
+const ItemCard = ({ item }) => {
+  return (
+    <ScrollView style={ItemScreenStyle.container}>
+      <Animated.View>
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={{ uri: item.image }}
+            style={ItemScreenStyle.image}
+          ></Image>
+
+          <Text style={ItemScreenStyle.name}>{item.name}</Text>
+          <Text style={ItemScreenStyle.prices}>{item.price} DKK</Text>
+        </View>
+
+        <View style={{ paddingLeft: 10 }}>
+          <Text style={ItemScreenStyle.description}>
+            <Text
+              style={{ fontSize: 24, fontWeight: "bold", color: "#ff4b3a" }}
+            >
+              {"Description \n"}
+            </Text>
+            <View style={ItemScreenStyle.readmoreContainer}>
+              <ReadMore
+                numberOfLines={3}
+                style={ItemScreenStyle.descriptionText}
+                seeMoreStyle={ItemScreenStyle.readmoreAndLessbtnStyle}
+                seeLessStyle={ItemScreenStyle.readmoreAndLessbtnStyle}
+              >
+                {item.description}
+              </ReadMore>
+            </View>
+          </Text>
+          <View>
+            <Allergene allergenes={item.allergenes} />
+          </View>
+        </View>
+      </Animated.View>
+    </ScrollView>
+  );
+};
+
 const ItemScreenStyle = StyleSheet.create({
   container: {
     marginTop: 100,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    borderRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 2.0,
+    padding: 20,
   },
   image: {
     borderRadius: 125,
@@ -146,47 +169,5 @@ const ItemScreenStyle = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-const ItemCard = ({ item }) => {
-  return (
-    <ScrollView style={ItemScreenStyle.container}>
-      <Animated.View>
-        <View style={{ alignItems: "center" }}>
-          <Image
-            source={{ uri: item.image }}
-            style={ItemScreenStyle.image}
-          ></Image>
-
-          <Text style={ItemScreenStyle.name}>{item.name}</Text>
-          <Text style={ItemScreenStyle.prices}>{item.price} DKK</Text>
-        </View>
-
-        <View style={{ paddingLeft: 10 }}>
-          <Text style={ItemScreenStyle.description}>
-            <Text
-              style={{ fontSize: 24, fontWeight: "bold", color: "#ff4b3a" }}
-            >
-              {"Description \n"}
-            </Text>
-            <View style={ItemScreenStyle.readmoreContainer}>
-              <ReadMore
-                numberOfLines={3}
-                style={ItemScreenStyle.descriptionText}
-                seeMoreStyle={ItemScreenStyle.readmoreAndLessbtnStyle}
-                seeLessStyle={ItemScreenStyle.readmoreAndLessbtnStyle}
-              >
-                {item.description}
-              </ReadMore>
-            </View>
-          </Text>
-          <View>
-            <Allergene allergenes={item.allergenes} />
-          </View>
-        </View>
-      </Animated.View>
-    </ScrollView>
-  );
-};
-
 // add shadow to image using shadowopacity and stuff
 export default ItemScreen;

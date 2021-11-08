@@ -17,10 +17,6 @@ const ListItem = ({ item }) => {
       onPress={() => {
         navigation.navigate("Item", {
           id: item.id,
-          name: item.name,
-          description: item.description,
-          image: item.image,
-          price: item.price,
           restId: item.restId,
         });
       }}
