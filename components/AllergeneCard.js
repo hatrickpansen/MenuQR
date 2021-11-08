@@ -11,30 +11,19 @@ import {
 import { styleOrangeColor } from "../styles/customStyles";
 
 const AllergeneCard = (props) => {
-  const [animatedValue, setAnimatedValue] = useState(new Animated.Value(1));
-  const [alName, setAlName] = useState("");
+  const [alName, setAlName] = useState(<Text></Text>);
   const { name, image } = props;
   const [isNameVisible, setVisible] = useState(false);
   function clickImage(name) {
     if (!isNameVisible) {
-      setAlName(name);
+      setAlName(<Text style={styleOrangeColor.textOrange}>{name}</Text>);
       setVisible(true);
     } else {
-      setAlName("");
+      setAlName(<Text></Text>);
       setVisible(false);
     }
-
-    imageAnimation();
   }
 
-  function imageAnimation() {
-    Animated.timing(animatedValue, {
-      toValue: 2,
-      duration: 1000,
-      easing: Easing.ease,
-      useNativeDriver: true,
-    }).start(() => {});
-  }
   return (
     <TouchableOpacity
       style={styles.imgContainer}
@@ -43,7 +32,7 @@ const AllergeneCard = (props) => {
       }}
     >
       <Animated.Image source={image} style={[styles.pic]} />
-      <Text style={styleOrangeColor.textOrange}>{alName}</Text>
+      {alName}
     </TouchableOpacity>
   );
 };

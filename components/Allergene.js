@@ -18,7 +18,6 @@ const Allergene = (props) => {
   const allergenesImages = imageManager.allergenes;
   const arrow = imageManager.arrows.expandArrow;
   const alData = createImageAlRelation();
-  const [animatedValue, setAnimatedValue] = useState(new Animated.Value(1));
   const [flat, setFlat] = useState(<Text></Text>);
   const [isFlatExpanded, setIsFlatExpanded] = useState(false);
   const [spinValue, setSpinValue] = useState(new Animated.Value(0));
