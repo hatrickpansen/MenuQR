@@ -1,43 +1,17 @@
-// import React, { useEffect } from "react";
-// import { View, Text } from "react-native";
-// import SubMenu from "../components/SubMenu";
-// import data from "../assets/data.json";
-// import { useNavigation } from "@react-navigation/core";
-//
-// const MenuScreen = ({ route }) => {
-//   // TODO: take in params from RestaurantCard to load correct restaurant data
-//   const navigation = useNavigation();
-//   const { restaurantID, title } = route.params;
-//   var newTitle = title + " - Menu";
-//   const items = data.filter((element) => element.restId == restaurantID);
-//   useEffect(() => {
-//     navigation.setOptions(navigation.setOptions({ title: newTitle }));
-//   });
-//   return (
-//     <View style={{ alignItems: "center" }}>
-//       <SubMenu items={items}></SubMenu>
-//     </View>
-//   );
-// };
-//
-// export default MenuScreen;
-
-import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import React from "react";
+import { Text, View } from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
 import RestaurantsData from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaContext";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useNavigation } from "@react-navigation/core";
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const FilterScreen = ({ route, type }) => {
-  const navigation = useNavigation();
-  const { restaurantID, title } = route.params;
-  const newTitle = title + " - Menu";
+  const { restaurantID } = route.params;
+
   let items = [];
 
   type === ""
@@ -59,9 +33,7 @@ const FilterScreen = ({ route, type }) => {
         elevation: 2,
       }}
     >
-      {/*<Text>All foods!</Text>*/}
       <SubMenu items={items} />
-      {/*<SubMenu />*/}
     </View>
   );
 };
@@ -71,15 +43,15 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   const { restaurantID } = route.params;
-  const title = RestaurantsData?.filter(
-    (item) => item?.id === restaurantID
-  )?.pop()?.title;
-  const address = RestaurantsData?.filter(
-    (item) => item?.id === restaurantID
-  )?.pop()?.address;
-  const openingHours = RestaurantsData?.filter(
-    (item) => item?.id === restaurantID
-  )?.pop()?.openingHours;
+  // Gets data from the json file
+  function dataGetter(what) {
+    return RestaurantsData?.filter(
+      (item) => item?.id === restaurantID
+    )?.pop()?.[what];
+  }
+  const title = dataGetter("title");
+  const address = dataGetter("address");
+  const openingHours = dataGetter("openingHours");
 
   if (title === undefined) {
     return (
