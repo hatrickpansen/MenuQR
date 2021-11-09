@@ -75,81 +75,112 @@ const ItemEditCard = ({ item }) => {
           </View>);
         
     }
-  return (
-      <View>
-    <ScrollView style={styles.container}>
-      <View style={styles.secContainer}>
-        <View>
-          <Image source={{ uri: item.image }} style={styles.image}></Image>
-            <View style={styles.row}>
-                <Text>Item Name</Text>
-                <View style={styles.inputView}>
-                    <TextInput 
-                    style={styles.textInput} 
-                    value={itemName}
-                    onChangeText={(val) => setItemName(val)}
-                    />
-                    
+  return ( 
+    <View style={styles.outerContainer}>
+        <ScrollView style={styles.scrollContainer}>
+            <View styles={styles.container}>
+                <Image source={{ uri: item.image }} style={styles.image}/>
+                <View style={{flex:1, flexDirection: "row", paddingTop: 20}}>
+                    <View style={{flex: 1, justifyContent: "center"}}>
+                              <View style={{flex: 1}}>
+                                <Text style={styles.name}>Item Name</Text>
+                              </View>
+                              <View style={{flex: 1}}>
+                                <Text style={styles.name}>Item Price</Text>
+                              </View>
+                              <View style={{flex: 3}}>
+                                <Text style={styles.name}>Item Description</Text>
+                              </View>
                     </View>
-            </View>
-            <View style={styles.row}>
-                <Text>Item Price</Text>
-                <View style={styles.inputView}>
-                    <TextInput 
-                    style={styles.textInput} 
-                    value={itemPrice.toString()}
-                    keyboardType="numeric"
-                    onChangeText={(val) => setItemPrice(val)}
-                    />
-                    <Text style={{opacity: 0.7, paddingRight: 5}}>DKK</Text>
+                    <View style={{flex: 2}}>
+                          <View style={{flex:1}}>
+                                  <View style={styles.inputView}>
+                                      <TextInput 
+                                          style={styles.textInput} 
+                                          value={itemName}
+                                          onChangeText={(val) => setItemName(val)}
+                                      />                    
+                                  </View>
+                        </View>
+                      <View style={{flex: 1}}>
+                            <View style={[styles.inputView]}>
+                                  <TextInput 
+                                    style={styles.textInput} 
+                                    value={itemPrice.toString()}
+                                    keyboardType="numeric"
+                                    onChangeText={(val) => setItemPrice(val)}
+                                  />
+                                  <Text style={{opacity: 0.7, paddingRight: 5}}>DKK</Text>
+                            </View>
+                      </View>
+                      <View style={{flex: 1}}>
+                            <View style={[styles.inputView, styles.inputViewDesc]}>
+                              <TextInput 
+                                style={[styles.textInput, styles.textInputDesc]} 
+                                value={itemDesc}
+                                keyboardType="default"
+                                multiline
+                                onChangeText={(val) => setItemDesc(val)}
+                              />
+                          
+                            </View>
+                      </View>
                     </View>
+                </View>
+                <Text style={styles.name}>{"Allergenes\n"}</Text>
+                <View style={styles.alContainer}>        
+                  {data}
+                </View>
             </View>
-            <View style={styles.row}>
-                <Text>Item Price</Text>
-                <View style={[styles.inputView, styles.inputViewDesc]}>
-                    <TextInput 
-                    style={[styles.textInput, styles.textInputDesc]} 
-                    value={itemDesc}
-                    keyboardType="default"
-                    multiline
-                    onChangeText={(val) => setItemDesc(val)}
-                    />
-                    
-                    </View>
-            </View>
-            <Text>{"Allergenes \n\n"}</Text>
-            <View style={styles.alContainer}>        
-                {data}
-            </View>
-          
+        </ScrollView>
+        <View style={{justifyContent: "flex-end" }}>
+            <Button
+                title="save changes"
+                onPress={storeChanges}
+            />
         </View>
-      </View>
-     
-    </ScrollView>
-    <Button
-    title="save changes"
-    onPress={storeChanges}
-    />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        justifyContent: "space-between",
+        backgroundColor: "rgba(255, 255, 255, 0.5)",
+    },
+    scrollContainer: {
+        //flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 40,
+    paddingVertical: 0,
+    height: screenHeight*0.9,
+  },
   container: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    padding: 20,
-    height: screenHeight,
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      
+  },
+  inputView: {
+    backgroundColor: "#e1e1e1",
+    borderRadius: 10,
+    width: "85%",
+    height: 45,
+    marginBottom: 20,
+    marginLeft: 20,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    alignItems: "center"
   },
   secContainer: {
-    marginVertical: 20
+    marginVertical: 20,
+    flex: 1
   },
  
   image: {
     borderRadius: 125,
     width: 250,
     height: 250,
-    marginLeft: 15,
-    marginBottom: 5,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -159,7 +190,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.0,
   },
   name: {
-    fontSize: 48,
+    fontSize: 14,
     fontWeight: "bold",
     color: orangeColor,
   },
@@ -192,23 +223,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-start"
   },
-  inputView: {
-    backgroundColor: "#e1e1e1",
-    borderRadius: 10,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-    marginLeft: 20,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    alignItems: "center"
-  },
+  
   inputViewDesc: {
-    height: 80,
+    height: 135,
   },
   textInputDesc: {
-    height: 70,
+    height: 125,
     padding: 5
   },
   textInput: {
