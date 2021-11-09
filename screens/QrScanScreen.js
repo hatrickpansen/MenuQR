@@ -18,6 +18,7 @@ import loader from "../components/qrscanner/loader.json";
 import dotsLoader from "../components/qrscanner/dotsLoader.json";
 import LottieView from "lottie-react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 const QrScanScreen = ({ navigation }) => {
   const useToggle = (initialState = false) => {
@@ -117,6 +118,7 @@ const QrScanScreen = ({ navigation }) => {
   //return the barcode scanner view
   return (
     <SafeAreaView style={tw.style(``)}>
+      <StatusBar hidden={false} statusBarStyle={"dark-content"} />
       <View style={tw.style(``)}>
         <View style={tw`flex justify-center items-center`}>
           <Camera

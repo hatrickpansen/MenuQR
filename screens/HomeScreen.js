@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
 
 const HomeScreen = ({ navigation }) => {
   return (
-    // <SafeAreaView style={styles.container}>
     <SafeAreaView style={tw.style(`flex bg-black`)}>
+      {/*<StatusBar hidden={false} statusBarStyle={"light-content"} />*/}
       <ImageBackground
         style={{
           width: Dimensions.get("screen").width,
@@ -82,16 +82,17 @@ const HomeScreen = ({ navigation }) => {
           <View
             style={tw`flex-row flex-wrap justify-between pt-8 px-4 items-center`}
           >
-
             <Image
               style={{ height: 60, width: 60 }}
               source={require("../assets/logo.png")}
               resizeMode="contain"
               resizeMethod="resize"
             />
-            <TouchableHighlight onPress={()=> {
-              navigation.navigate("login")
-            }}>
+            <TouchableHighlight
+              onPress={() => {
+                navigation.navigate("login");
+              }}
+            >
               <Image
                 style={{ height: 20, width: 20, resizeMode: "contain" }}
                 source={require("../assets/user.png")}

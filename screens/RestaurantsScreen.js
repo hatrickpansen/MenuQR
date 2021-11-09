@@ -32,6 +32,7 @@ import BackButton from "../components/BackButton";
 import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
 import data from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 /*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
 const RestaurantsScreen = ({ navigation }) => {
@@ -93,6 +94,7 @@ const RestaurantsScreen = ({ navigation }) => {
   if (search === "") {
     return (
       <SafeAreaView style={tw.style(`flex`)}>
+        <StatusBar hidden={false} statusBarStyle={"dark-content"} />
         <View
           style={tw.style(styles.container, {
             height: Dimensions.get("screen").height,
