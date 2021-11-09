@@ -18,9 +18,8 @@ const ListItem = ({ item, editMode }) => {
   })
 
   function callbackEdit(childData){
-    navigation.navigate("Item", {
-      id: item.id,
-      restId: item.restId,
+    navigation.navigate("ItemEdit", {
+      item: item
     })
   }
 
