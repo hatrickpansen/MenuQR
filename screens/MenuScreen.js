@@ -74,6 +74,12 @@ const MenuScreen = ({ route }) => {
   const title = RestaurantsData?.filter(
     (item) => item?.id === restaurantID
   )?.pop()?.title;
+  const address = RestaurantsData?.filter(
+    (item) => item?.id === restaurantID
+  )?.pop()?.address;
+  const openingHours = RestaurantsData?.filter(
+    (item) => item?.id === restaurantID
+  )?.pop()?.openingHours;
 
   if (title === undefined) {
     return (
@@ -88,11 +94,10 @@ const MenuScreen = ({ route }) => {
         <Text
           style={tw.style(`pt-2 text-center`, styleOrangeColor.titleOrange)}
         >
-          {/*Restaurant Name Heeeere*/}
           {title === undefined ? "cant find name" : title}
         </Text>
-        <Text>Opening hours:</Text>
-        <Text>Address:</Text>
+        <Text>Opening hours: {openingHours}</Text>
+        <Text>{address}</Text>
       </View>
 
       <Tab.Navigator
