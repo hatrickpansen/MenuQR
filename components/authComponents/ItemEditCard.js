@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 40,
     paddingVertical: 0,
-    height: screenHeight*0.9,
+    height: screenHeight*0.975,
   },
   container: {
       flex: 1,
