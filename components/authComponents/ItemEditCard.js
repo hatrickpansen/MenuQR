@@ -34,17 +34,28 @@ const ItemEditCard = ({ item }) => {
     }
     function setSelection(alName, val){
         let data = {};
-        for(var key in allergenes){
-            if(key == alName){
-                data[key]  = val;
+        console.log(allAls)
+        for(let i = 0; i < allAls.length; i++){
+            if(!allergenes.hasOwnProperty(allAls[i]["name"])){
+                if(allAls[i]["name"] == alName){
+                    data[allAls[i]["name"]]  = val;
+                } else {
+                    data[allAls[i]["name"]] = false;
+                }
             } else {
-                data[key] = allergenes[key];
+                if(allAls[i]["name"] == alName){
+                    data[allAls[i]["name"]]  = val;
+                } else {
+                    data[allAls[i]["name"]] = allergenes[allAls[i]["name"]];
+                }
             }
         }
+        
+        
         setAllergenes(data);
     }
     function storeChanges(){
-        
+
     }
 
     for (let i = 0; i < allAls.length; i++) {

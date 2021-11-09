@@ -34,12 +34,17 @@ const ListItem = ({ item, editMode }) => {
       }}
     >
       <Image source={{ uri: item.image }} style={ListItemStyle.image} />
-      <View>
+      <View style={ListItemStyle.textAndEditBtnContainer}>
+      <View >
         <Text style={ListItemStyle.title}>
           {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
         </Text>
         <Text style={ListItemStyle.description}>{item.description}</Text>
-        <EditIcon size={24} editMode={editState} itemData={item} callback={callbackEdit}></EditIcon>
+        
+      </View>
+        <View style={ListItemStyle.editBtnContainer}>
+          <EditIcon style={ListItemStyle.edit} size={24} editMode={editState} itemData={item} callback={callbackEdit}/>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -81,8 +86,17 @@ const ListItemStyle = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 20,
     borderRadius: 12,
-    margin: 12,
+    //margin: 12,
   },
+  textAndEditBtnContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  editBtnContainer: {
+    justifyContent: "flex-end",
+    padding: 20
+  }
 });
 
 export default ListItem;
