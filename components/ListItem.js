@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   TouchableHighlight,
   View,
@@ -8,9 +8,22 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import EditIcon from "./authComponents/EditIcon";
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, editMode }) => {
   const navigation = useNavigation();
+  const [editState, setEditState] = useState(editMode);
+  useEffect(() => {
+    setEditState(editMode)
+  })
+
+  function callbackEdit(childData){
+    navigation.navigate("Item", {
+      id: item.id,
+      restId: item.restId,
+    })
+  }
+
   return (
     <TouchableOpacity
       style={ListItemStyle.card}
@@ -27,6 +40,7 @@ const ListItem = ({ item }) => {
           {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
         </Text>
         <Text style={ListItemStyle.description}>{item.description}</Text>
+        <EditIcon size={24} editMode={editState} itemData={item} callback={callbackEdit}></EditIcon>
       </View>
     </TouchableOpacity>
   );

@@ -33,12 +33,15 @@ const ItemCard = ({ item }) => {
             </Text>
             <View style={styles.readmoreContainer}>
               <ReadMore
-                numberOfLines={3}
+                 numberOfLines={5}
                 style={styles.descriptionText}
                 seeMoreStyle={styles.readmoreAndLessbtnStyle}
                 seeLessStyle={styles.readmoreAndLessbtnStyle}
+                seeMoreText="more"
+                seeLessText="less"
               >
                 {item.description}
+                
               </ReadMore>
             </View>
           </Text>
@@ -55,13 +58,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     borderRadius: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.4,
-    shadowRadius: 2.0,
     padding: 20,
   },
   image: {
@@ -70,6 +66,13 @@ const styles = StyleSheet.create({
     height: 250,
     marginLeft: 15,
     marginBottom: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    }, 
+     shadowOpacity: 0.4,
+    shadowRadius: 2.0,
   },
   name: {
     fontSize: 48,

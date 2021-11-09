@@ -14,7 +14,7 @@ const SubMenu = (props) => {
       <FlatList
         data={props.items}
         renderItem={({ item }) => (
-          <ListItem item={item} navigation={props.navigation} />
+          <ListItem item={item} navigation={props.navigation} editMode={props.editMode} />
         )}
         keyExtractor={(item) => item.id.toString()}
         style={{

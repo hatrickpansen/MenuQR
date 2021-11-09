@@ -35,7 +35,8 @@ import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
 
-const FilterScreen = ({ route, type }) => {
+const FilterScreen = ({ route, type, editMode }) => {
+  
   const navigation = useNavigation();
   const { restaurantID, title } = route.params;
   const newTitle = title + " - Menu";
@@ -61,7 +62,7 @@ const FilterScreen = ({ route, type }) => {
       }}
     >
       {/*<Text>All foods!</Text>*/}
-      <SubMenu items={items} />
+      <SubMenu items={items} editMode={editMode}/>
       {/*<SubMenu />*/}
     </View>
   );
@@ -121,7 +122,7 @@ const MenuScreen = ({ route }) => {
               </View>
             ),
           }}
-          children={() => <FilterScreen route={route} type={"food"} />}
+          children={() => <FilterScreen route={route} type={"food"} editMode={isEditState} />}
         />
         <Tab.Screen
           options={{
@@ -138,7 +139,7 @@ const MenuScreen = ({ route }) => {
           }}
           name="A La Carte"
           //component={AlacarteScreen}
-          children={() => <FilterScreen route={route} type={"snack"} />}
+          children={() => <FilterScreen route={route} type={"snack"} editMode={isEditState} />}
         />
         <Tab.Screen
           options={{
@@ -151,12 +152,13 @@ const MenuScreen = ({ route }) => {
           }}
           name="Drinks"
           //component={DrinksScreen}
-          children={() => <FilterScreen route={route} type={"drink"} />}
+          children={() => <FilterScreen route={route} type={"drink"} editMode={isEditState} />}
         />
       </Tab.Navigator>
       <EditButton
         auth={editBtnAuth}
         callback={callbackFromEditBtn}
+        editMode={isEditState}
       ></EditButton>
     </SafeAreaProvider>
   );
