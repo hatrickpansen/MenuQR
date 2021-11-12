@@ -14,8 +14,7 @@ import {
 import data from "../db/users.json";
 
 import { useNavigation } from "@react-navigation/core";
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
-
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
 export default function LoginScreen() {
   const [authenticated, setAuthenticated] = useState(false);
   const [id, setId] = useState(-1);
@@ -25,7 +24,7 @@ export default function LoginScreen() {
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
   async function authenticate(){
-    
+    console.log(baseUrl + '/login');
     const rawResponse = await fetch(baseUrl + '/login', {
       method: 'POST',
       headers: {

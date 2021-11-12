@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet, button, SafeAreaView, Platform } from 'react-native';
 import ItemEditCard from "../components/authComponents/ItemEditCard"
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
 
 
 

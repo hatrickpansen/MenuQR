@@ -10,7 +10,7 @@ import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
 import { useIsFocused } from '@react-navigation/native';
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
 
 const FilterScreen = ({ route, type, editMode, items }) => {
   const { restaurantID } = route.params;
