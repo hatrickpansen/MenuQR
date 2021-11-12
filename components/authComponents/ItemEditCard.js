@@ -14,7 +14,7 @@ import Allergene from "../itemScreenComponents/Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
 import AllergeneCard from "../itemScreenComponents/AllergeneCard";
 import imageManager from "../imageManager"
-
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
 const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditCard = ({ item }) => {
@@ -54,8 +54,32 @@ const ItemEditCard = ({ item }) => {
         
         setAllergenes(data);
     }
-    function storeChanges(){
-
+    async function storeChanges(){
+      const rawResponse = await fetch(baseUrl + '/editItem', {
+        method: 'POST',
+        headers: {
+        Accept: 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: item.id,
+          name: itemName,
+          price: itemPrice,
+          description: itemDesc,
+          allergenes: allergenes,
+          restId: item.restId,
+          type: item.type,
+          image: item.image,
+          title: item.title
+        })
+      })
+      .then(function(res){ 
+        return res.text(); 
+      })
+      .catch((err) => {
+      console.log(err);
+    })
+    console.log(rawResponse);
     }
 
     for (let i = 0; i < allAls.length; i++) {
@@ -136,7 +160,9 @@ const ItemEditCard = ({ item }) => {
         <View style={{justifyContent: "flex-end" }}>
             <Button
                 title="save changes"
-                onPress={storeChanges}
+                onPress={async () => {
+                  storeChanges()
+                } }
             />
         </View>
     </View>
