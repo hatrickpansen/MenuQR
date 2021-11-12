@@ -9,11 +9,12 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity,
+  TouchableOpacity, Platform
 } from "react-native";
 import data from "../db/users.json";
 
 import { useNavigation } from "@react-navigation/core";
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
 
 export default function LoginScreen() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -23,6 +24,28 @@ export default function LoginScreen() {
   const [emailPlace, setEmailPlace] = useState("Email");
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
+  async function authenticate(){
+    
+    const rawResponse = await fetch(baseUrl + '/login', {
+      method: 'POST',
+      headers: {
+      Accept: 'application/json',
+              'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    .then(function(res){ 
+      return res.json(); 
+    })
+    .catch((err) => {
+    console.log(err);
+  })
+  console.log(rawResponse);
+  return rawResponse;
+  }
 
   return (
     <View style={[styles.container, tw` bg-gray-100`]}>
@@ -65,22 +88,15 @@ export default function LoginScreen() {
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => {
-          for (let i = 0; i < data.length; i++) {
-            console.log(data[i].email);
-            console.log(email.trim().toLowerCase());
-            if (
-              data[i].email === email.trim().toLowerCase() &&
-              password === data[i].password
-            ) {
-              setAuthenticated(true);
-              setId(data[i].id);
+        onPress={ async () => {
+            let obj = await authenticate();
+            console.log(obj)
+            if(obj.auth){
               navigation.navigate("Menu", {
-                restaurantID: data[i].restId,
-                auth: data[i].auth,
-              });
+                restaurantID: obj.restId,
+                auth: obj.auth,
+              })
             }
-          }
         }}
       >
         <Text style={styles.loginText}>Login</Text>
