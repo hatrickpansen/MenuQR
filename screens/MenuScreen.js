@@ -43,18 +43,21 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   // Gets data from the json file
+  const { restaurantID, auth } = route.params;
+  const [editBtnAuth, setEditBtn] = useState(auth);
+  const [isEditState, setIsEditState] = useState(false);
+  console.log(RestaurantsData);
   function dataGetter(what) {
     return RestaurantsData?.filter(
       (item) => item?.id === restaurantID
     )?.pop()?.[what];
   }
   const title = dataGetter("title");
+  console.log(title)
   const address = dataGetter("address");
   const openingHours = dataGetter("openingHours");
 
-  const { restaurantID, auth } = route.params;
-  const [editBtnAuth, setEditBtn] = useState(auth);
-  const [isEditState, setIsEditState] = useState(false);
+ 
   if (title === undefined) {
     return (
       <View style={tw`h-56 flex justify-center `}>
