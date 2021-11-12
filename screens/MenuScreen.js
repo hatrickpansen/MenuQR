@@ -1,27 +1,3 @@
-// import React, { useEffect } from "react";
-// import { View, Text } from "react-native";
-// import SubMenu from "../components/SubMenu";
-// import data from "../assets/data.json";
-// import { useNavigation } from "@react-navigation/core";
-//
-// const MenuScreen = ({ route }) => {
-//   // TODO: take in params from RestaurantCard to load correct restaurant data
-//   const navigation = useNavigation();
-//   const { restaurantID, title } = route.params;
-//   var newTitle = title + " - Menu";
-//   const items = data.filter((element) => element.restId == restaurantID);
-//   useEffect(() => {
-//     navigation.setOptions(navigation.setOptions({ title: newTitle }));
-//   });
-//   return (
-//     <View style={{ alignItems: "center" }}>
-//       <SubMenu items={items}></SubMenu>
-//     </View>
-//   );
-// };
-//
-// export default MenuScreen;
-
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import SubMenu from "../components/SubMenu";
@@ -30,16 +6,12 @@ import { styleOrangeColor } from "../styles/customStyles";
 import RestaurantsData from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaContext";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useNavigation } from "@react-navigation/core";
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
 
 const FilterScreen = ({ route, type, editMode }) => {
-  
-  const navigation = useNavigation();
-  const { restaurantID, title } = route.params;
-  const newTitle = title + " - Menu";
+  const { restaurantID } = route.params;
   let items = [];
 
   type === ""
@@ -61,9 +33,7 @@ const FilterScreen = ({ route, type, editMode }) => {
         elevation: 2,
       }}
     >
-      {/*<Text>All foods!</Text>*/}
       <SubMenu items={items} editMode={editMode}/>
-      {/*<SubMenu />*/}
     </View>
   );
 };
@@ -72,13 +42,19 @@ const Tab = createMaterialTopTabNavigator();
 
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
+  // Gets data from the json file
+  function dataGetter(what) {
+    return RestaurantsData?.filter(
+      (item) => item?.id === restaurantID
+    )?.pop()?.[what];
+  }
+  const title = dataGetter("title");
+  const address = dataGetter("address");
+  const openingHours = dataGetter("openingHours");
+
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
   const [isEditState, setIsEditState] = useState(false);
-
-  const title = RestaurantsData?.filter(
-    (item) => item?.id === restaurantID
-  )?.pop()?.title;
   if (title === undefined) {
     return (
       <View style={tw`h-56 flex justify-center `}>
@@ -95,11 +71,10 @@ const MenuScreen = ({ route }) => {
         <Text
           style={tw.style(`pt-2 text-center`, styleOrangeColor.titleOrange)}
         >
-          {/*Restaurant Name Heeeere*/}
           {title === undefined ? "cant find name" : title}
         </Text>
-        <Text>Opening hours:</Text>
-        <Text>Address:</Text>
+        <Text>Opening hours: {openingHours}</Text>
+        <Text>{address}</Text>
       </View>
 
       <Tab.Navigator
