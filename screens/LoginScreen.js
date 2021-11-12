@@ -9,12 +9,14 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity, Platform
+  TouchableOpacity,
+  Platform,
 } from "react-native";
 import data from "../db/users.json";
 
 import { useNavigation } from "@react-navigation/core";
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
+import Url from "../assets/Url";
+const baseUrl = Url.url.url;
 export default function LoginScreen() {
   const [authenticated, setAuthenticated] = useState(false);
   const [id, setId] = useState(-1);
@@ -23,27 +25,26 @@ export default function LoginScreen() {
   const [emailPlace, setEmailPlace] = useState("Email");
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
-  async function authenticate(){
-    console.log(baseUrl + '/login');
-    const rawResponse = await fetch(baseUrl + '/login', {
-      method: 'POST',
+  async function authenticate() {
+    const rawResponse = await fetch(baseUrl + "/login", {
+      method: "POST",
       headers: {
-      Accept: 'application/json',
-              'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: email,
-        password: password
+        password: password,
+      }),
+    })
+      .then(function (res) {
+        return res.json();
       })
-    })
-    .then(function(res){ 
-      return res.json(); 
-    })
-    .catch((err) => {
-    console.log(err);
-  })
-  console.log(rawResponse);
-  return rawResponse;
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(rawResponse);
+    return rawResponse;
   }
 
   return (
@@ -87,15 +88,15 @@ export default function LoginScreen() {
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={ async () => {
-            let obj = await authenticate();
-            console.log(obj)
-            if(obj.auth){
-              navigation.navigate("Menu", {
-                restaurantID: obj.restId,
-                auth: obj.auth,
-              })
-            }
+        onPress={async () => {
+          let obj = await authenticate();
+          console.log(obj);
+          if (obj.auth) {
+            navigation.navigate("Menu", {
+              restaurantID: obj.restId,
+              auth: obj.auth,
+            });
+          }
         }}
       >
         <Text style={styles.loginText}>Login</Text>

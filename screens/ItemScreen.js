@@ -7,7 +7,8 @@ import {
   Text,
   StyleSheet,
   Animated,
-  Dimensions, Platform
+  Dimensions,
+  Platform,
 } from "react-native";
 import Allergene from "../components/itemScreenComponents/Allergene";
 
@@ -18,7 +19,8 @@ import { styleOrangeColor } from "../styles/customStyles";
 const ScreenWidth = Dimensions.get("window").width;
 const ScreenHeight = Dimensions.get("window").height;
 const orangeColor = styleOrangeColor.textOrange.color;
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
+import Url from "../assets/Url";
+const baseUrl = Url.url.url;
 
 function wp(percentage) {
   const value = (percentage * ScreenWidth) / 100;

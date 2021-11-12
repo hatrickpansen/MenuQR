@@ -9,20 +9,18 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
-import { useIsFocused } from '@react-navigation/native';
-const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://192.168.123.36:5000';
+import { useIsFocused } from "@react-navigation/native";
+import Url from "../assets/Url";
+const baseUrl = Url.url.url;
 
 const FilterScreen = ({ route, type, editMode, items }) => {
   const { restaurantID } = route.params;
   let items2 = [];
-  
 
-//incooperate later
+  //incooperate later
   type === ""
     ? (items2 = items)
-    : (items2 = items.filter(
-        (element) =>  element.type === type
-      ));
+    : (items2 = items.filter((element) => element.type === type));
 
   return (
     <View
@@ -37,7 +35,7 @@ const FilterScreen = ({ route, type, editMode, items }) => {
         elevation: 2,
       }}
     >
-      <SubMenu items={items2} editMode={editMode}/>
+      <SubMenu items={items2} editMode={editMode} />
     </View>
   );
 };
@@ -47,7 +45,7 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   // Gets data from the json file
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
   const [isEditState, setIsEditState] = useState(false);
@@ -66,7 +64,7 @@ const MenuScreen = ({ route }) => {
     setLoadingItems(false);
   };
   const fetchRestaurant = async () => {
-    const resp = await fetch(baseUrl + '/rest/' + restaurantID);
+    const resp = await fetch(baseUrl + "/rest/" + restaurantID);
     const data = await resp.json();
     setDataRests(data);
     setAddress(data.address);
@@ -85,17 +83,16 @@ const MenuScreen = ({ route }) => {
     fetchRestaurant();
   }, [isFocused]);
 
- /*  function dataGetter(what) {
+  /*  function dataGetter(what) {
     return RestaurantsData?.filter(
       (item) => item?.id === restaurantID
     )?.pop()?.[what];
   } */
- /*  const title = dataGetter("title");
+  /*  const title = dataGetter("title");
   const address = dataGetter("address");
   const openingHours = dataGetter("openingHours"); */
 
- 
-  if (title === undefined ||loadingItems || loadingRests) {
+  if (title === undefined || loadingItems || loadingRests) {
     return (
       <View style={tw`h-56 flex justify-center `}>
         <Text>Loading</Text>
@@ -137,7 +134,14 @@ const MenuScreen = ({ route }) => {
               </View>
             ),
           }}
-          children={() => <FilterScreen route={route} type={"food"} editMode={isEditState} items={dataItems} />}
+          children={() => (
+            <FilterScreen
+              route={route}
+              type={"food"}
+              editMode={isEditState}
+              items={dataItems}
+            />
+          )}
         />
         <Tab.Screen
           options={{
@@ -154,7 +158,14 @@ const MenuScreen = ({ route }) => {
           }}
           name="A La Carte"
           //component={AlacarteScreen}
-          children={() => <FilterScreen route={route} type={"snack"} editMode={isEditState} items={dataItems} />}
+          children={() => (
+            <FilterScreen
+              route={route}
+              type={"snack"}
+              editMode={isEditState}
+              items={dataItems}
+            />
+          )}
         />
         <Tab.Screen
           options={{
@@ -167,7 +178,14 @@ const MenuScreen = ({ route }) => {
           }}
           name="Drinks"
           //component={DrinksScreen}
-          children={() => <FilterScreen route={route} type={"drink"} editMode={isEditState} items={dataItems} />}
+          children={() => (
+            <FilterScreen
+              route={route}
+              type={"drink"}
+              editMode={isEditState}
+              items={dataItems}
+            />
+          )}
         />
       </Tab.Navigator>
       <EditButton
