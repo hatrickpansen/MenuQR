@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
@@ -8,10 +8,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaCon
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import EditButton from "../components/authComponents/EditButton";
 
-const FilterScreen = ({ route, type }) => {
+const FilterScreen = ({ route, type, editMode }) => {
   const { restaurantID } = route.params;
-
   let items = [];
 
   type === ""
@@ -33,7 +33,7 @@ const FilterScreen = ({ route, type }) => {
         elevation: 2,
       }}
     >
-      <SubMenu items={items} />
+      <SubMenu items={items} editMode={editMode}/>
     </View>
   );
 };
@@ -42,17 +42,22 @@ const Tab = createMaterialTopTabNavigator();
 
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
-  const { restaurantID } = route.params;
   // Gets data from the json file
+  const { restaurantID, auth } = route.params;
+  const [editBtnAuth, setEditBtn] = useState(auth);
+  const [isEditState, setIsEditState] = useState(false);
+  console.log(RestaurantsData);
   function dataGetter(what) {
     return RestaurantsData?.filter(
       (item) => item?.id === restaurantID
     )?.pop()?.[what];
   }
   const title = dataGetter("title");
+  console.log(title)
   const address = dataGetter("address");
   const openingHours = dataGetter("openingHours");
 
+ 
   if (title === undefined) {
     return (
       <View style={tw`h-56 flex justify-center `}>
@@ -60,6 +65,9 @@ const MenuScreen = ({ route }) => {
       </View>
     );
   }
+  const callbackFromEditBtn = (childData) => {
+    setIsEditState(childData);
+  };
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
       <View style={tw.style(`items-center pb-4`)}>
@@ -92,7 +100,7 @@ const MenuScreen = ({ route }) => {
               </View>
             ),
           }}
-          children={() => <FilterScreen route={route} type={"food"} />}
+          children={() => <FilterScreen route={route} type={"food"} editMode={isEditState} />}
         />
         <Tab.Screen
           options={{
@@ -109,7 +117,7 @@ const MenuScreen = ({ route }) => {
           }}
           name="A La Carte"
           //component={AlacarteScreen}
-          children={() => <FilterScreen route={route} type={"snack"} />}
+          children={() => <FilterScreen route={route} type={"snack"} editMode={isEditState} />}
         />
         <Tab.Screen
           options={{
@@ -122,9 +130,14 @@ const MenuScreen = ({ route }) => {
           }}
           name="Drinks"
           //component={DrinksScreen}
-          children={() => <FilterScreen route={route} type={"drink"} />}
+          children={() => <FilterScreen route={route} type={"drink"} editMode={isEditState} />}
         />
       </Tab.Navigator>
+      <EditButton
+        auth={editBtnAuth}
+        callback={callbackFromEditBtn}
+        editMode={isEditState}
+      ></EditButton>
     </SafeAreaProvider>
   );
 };

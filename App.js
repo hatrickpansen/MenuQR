@@ -12,6 +12,7 @@ import ItemScreen from "./screens/ItemScreen";
 import RestaurantsScreen from "./screens/RestaurantsScreen";
 import QrScanScreen from "./screens/QrScanScreen";
 import TestScreen from "./screens/TestScreen";
+import ItemEditScreen from "./screens/ItemEditScreen"
 import { Icon } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import LoginScreen from "./screens/LoginScreen";
@@ -66,6 +67,11 @@ export default function App() {
           <Stack.Screen
             name="login"
             component={LoginScreen}
+            options={headerOptions}
+          />
+          <Stack.Screen
+            name="ItemEdit"
+            component={ItemEditScreen}
             options={headerOptions}
           />
         </Stack.Navigator>
