@@ -7,6 +7,7 @@ import {
   Text,
   StyleSheet, TextInput, CheckBox, Button, Dimensions
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const screenHeight = Dimensions.get("window").height;
 import ReadMore from "@fawazahmed/react-native-read-more";
@@ -18,15 +19,14 @@ const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://loc
 const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditCard = ({ item }) => {
+  const navigation = useNavigation();
     const allergenesImages = imageManager.allergenes;
     const allAls = createImageAlRelation(allergenesImages);
     const [allergenes, setAllergenes] = useState(item.allergenes)
-    console.log(allergenes)
     const [itemName, setItemName] = useState(item.name)
     const [itemPrice, setItemPrice] = useState(item.price)
     const [itemDesc, setItemDesc] = useState(item.description)
     var data = []
-
     function isSelected(alName){
         if(allergenes.hasOwnProperty(alName)){
             return allergenes[alName];
@@ -34,7 +34,6 @@ const ItemEditCard = ({ item }) => {
     }
     function setSelection(alName, val){
         let data = {};
-        console.log(allAls)
         for(let i = 0; i < allAls.length; i++){
             if(!allergenes.hasOwnProperty(allAls[i]["name"])){
                 if(allAls[i]["name"] == alName){
@@ -80,6 +79,12 @@ const ItemEditCard = ({ item }) => {
       console.log(err);
     })
     console.log(rawResponse);
+    }
+    function routeBackToMenu(){
+      navigation.navigate("Menu", {
+        restaurantID: item.restId,
+        auth: true
+      })
     }
 
     for (let i = 0; i < allAls.length; i++) {
@@ -162,6 +167,7 @@ const ItemEditCard = ({ item }) => {
                 title="save changes"
                 onPress={async () => {
                   storeChanges()
+                  routeBackToMenu()
                 } }
             />
         </View>

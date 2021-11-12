@@ -7,7 +7,7 @@ import {
   Text,
   StyleSheet,
   Animated,
-  Dimensions,
+  Dimensions, Platform
 } from "react-native";
 import Allergene from "../components/itemScreenComponents/Allergene";
 

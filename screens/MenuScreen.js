@@ -46,14 +46,12 @@ const MenuScreen = ({ route }) => {
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
   const [isEditState, setIsEditState] = useState(false);
-  console.log(RestaurantsData);
   function dataGetter(what) {
     return RestaurantsData?.filter(
       (item) => item?.id === restaurantID
     )?.pop()?.[what];
   }
   const title = dataGetter("title");
-  console.log(title)
   const address = dataGetter("address");
   const openingHours = dataGetter("openingHours");
 
