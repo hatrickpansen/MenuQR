@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import Allergene from "../components/itemScreenComponents/Allergene";
 
-import data from "../assets/data.json";
 import { useNavigation } from "@react-navigation/core";
 import ItemCard from "../components/itemScreenComponents/ItemCard";
 import Carousel, { Pagination } from "react-native-snap-carousel";
@@ -19,6 +18,7 @@ import { styleOrangeColor } from "../styles/customStyles";
 const ScreenWidth = Dimensions.get("window").width;
 const ScreenHeight = Dimensions.get("window").height;
 const orangeColor = styleOrangeColor.textOrange.color;
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
 
 function wp(percentage) {
   const value = (percentage * ScreenWidth) / 100;
@@ -32,18 +32,31 @@ const ItemScreen = ({ route }) => {
   const { id, restId } = route.params;
   const [activeItemId, setActiveItemId] = useState(id);
   const restaurantID = restId;
-  const items = data.filter((element) => element.restId == restaurantID);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async (restId) => {
+    const resp = await fetch(baseUrl + "/items/" + restaurantID);
+    const data = await resp.json();
+    setData(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   function carouselRender({ item, index }) {
     return <ItemCard item={item} />;
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
+      {loading && <Text>Loading..</Text>}
       <Carousel
         ref={(c) => {
           sliderRef = c;
         }}
-        data={items}
+        data={data}
         renderItem={carouselRender}
         sliderWidth={ScreenWidth}
         itemWidth={slideWidth}
@@ -55,7 +68,7 @@ const ItemScreen = ({ route }) => {
         inactiveSlideOpacity={0.1}
       />
       <Pagination
-        dotsLength={items.length}
+        dotsLength={data.length}
         activeDotIndex={activeItemId}
         dotColor={orangeColor}
         inactiveDotColor="#000"
