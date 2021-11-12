@@ -9,15 +9,19 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
+import { useIsFocused } from '@react-navigation/native';
+const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
 
-const FilterScreen = ({ route, type, editMode }) => {
+const FilterScreen = ({ route, type, editMode, items }) => {
   const { restaurantID } = route.params;
-  let items = [];
+  let items2 = [];
+  
 
+//incooperate later
   type === ""
-    ? (items = data.filter((element) => element.restId === restaurantID))
-    : (items = data.filter(
-        (element) => element.restId === restaurantID && element.type === type
+    ? (items2 = items)
+    : (items2 = items.filter(
+        (element) =>  element.type === type
       ));
 
   return (
@@ -33,7 +37,7 @@ const FilterScreen = ({ route, type, editMode }) => {
         elevation: 2,
       }}
     >
-      <SubMenu items={items} editMode={editMode}/>
+      <SubMenu items={items2} editMode={editMode}/>
     </View>
   );
 };
@@ -43,23 +47,58 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   // Gets data from the json file
+  const isFocused = useIsFocused()
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
   const [isEditState, setIsEditState] = useState(false);
-  function dataGetter(what) {
+  const [dataItems, setDataItems] = useState([]);
+  const [dataRests, setDataRests] = useState([]);
+  const [loadingItems, setLoadingItems] = useState(true);
+  const [loadingRests, setLoadingRests] = useState(true);
+  const [title, setTitle] = useState("title");
+  const [address, setAddress] = useState("address");
+  const [openingHours, setOpeningHours] = useState("openingHours");
+
+  const fetchItems = async () => {
+    const resp = await fetch(baseUrl + "/items/" + restaurantID);
+    const data = await resp.json();
+    setDataItems(data);
+    setLoadingItems(false);
+  };
+  const fetchRestaurant = async () => {
+    const resp = await fetch(baseUrl + '/rest/' + restaurantID);
+    const data = await resp.json();
+    setDataRests(data);
+    setAddress(data.address);
+    setTitle(data.title);
+    setOpeningHours(data.openingHours);
+    setLoadingRests(false);
+  };
+
+  useEffect(() => {
+    fetchItems();
+    fetchRestaurant();
+  }, []);
+  //triggered when going back to this screen.
+  useEffect(() => {
+    fetchItems();
+    fetchRestaurant();
+  }, [isFocused]);
+
+ /*  function dataGetter(what) {
     return RestaurantsData?.filter(
       (item) => item?.id === restaurantID
     )?.pop()?.[what];
-  }
-  const title = dataGetter("title");
+  } */
+ /*  const title = dataGetter("title");
   const address = dataGetter("address");
-  const openingHours = dataGetter("openingHours");
+  const openingHours = dataGetter("openingHours"); */
 
  
-  if (title === undefined) {
+  if (title === undefined ||loadingItems || loadingRests) {
     return (
       <View style={tw`h-56 flex justify-center `}>
-        <Text>Not working</Text>
+        <Text>Loading</Text>
       </View>
     );
   }
@@ -98,7 +137,7 @@ const MenuScreen = ({ route }) => {
               </View>
             ),
           }}
-          children={() => <FilterScreen route={route} type={"food"} editMode={isEditState} />}
+          children={() => <FilterScreen route={route} type={"food"} editMode={isEditState} items={dataItems} />}
         />
         <Tab.Screen
           options={{
@@ -115,7 +154,7 @@ const MenuScreen = ({ route }) => {
           }}
           name="A La Carte"
           //component={AlacarteScreen}
-          children={() => <FilterScreen route={route} type={"snack"} editMode={isEditState} />}
+          children={() => <FilterScreen route={route} type={"snack"} editMode={isEditState} items={dataItems} />}
         />
         <Tab.Screen
           options={{
@@ -128,7 +167,7 @@ const MenuScreen = ({ route }) => {
           }}
           name="Drinks"
           //component={DrinksScreen}
-          children={() => <FilterScreen route={route} type={"drink"} editMode={isEditState} />}
+          children={() => <FilterScreen route={route} type={"drink"} editMode={isEditState} items={dataItems} />}
         />
       </Tab.Navigator>
       <EditButton

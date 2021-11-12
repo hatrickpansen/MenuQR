@@ -69,7 +69,7 @@ const ItemEditCard = ({ item }) => {
           restId: item.restId,
           type: item.type,
           image: item.image,
-          title: item.title
+          title: item.title,
         })
       })
       .then(function(res){ 
