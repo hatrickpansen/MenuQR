@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const screenHeight = Dimensions.get("window").height;
+const screenHeight = Dimensions.get("screen").height;
 import ReadMore from "@fawazahmed/react-native-read-more";
 import Allergene from "../itemScreenComponents/Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 40,
     paddingVertical: 0,
-    height: screenHeight * 0.975,
+    height: screenHeight * 0.92,
   },
   container: {
     flex: 1,

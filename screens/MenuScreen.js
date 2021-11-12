@@ -11,6 +11,7 @@ import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
 import { useIsFocused } from "@react-navigation/native";
 import Url from "../assets/Url";
+import LoadingIndicator from "../components/LoadingIndicator";
 const baseUrl = Url.url.url;
 
 const FilterScreen = ({ route, type, editMode, items }) => {
@@ -95,7 +96,7 @@ const MenuScreen = ({ route }) => {
   if (title === undefined || loadingItems || loadingRests) {
     return (
       <View style={tw`h-56 flex justify-center `}>
-        <Text>Loading</Text>
+        <LoadingIndicator></LoadingIndicator>
       </View>
     );
   }

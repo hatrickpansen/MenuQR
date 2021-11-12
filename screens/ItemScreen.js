@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/core";
 import ItemCard from "../components/itemScreenComponents/ItemCard";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { styleOrangeColor } from "../styles/customStyles";
+import LoadingIndicator from "../components/LoadingIndicator";
 const ScreenWidth = Dimensions.get("window").width;
 const ScreenHeight = Dimensions.get("window").height;
 const orangeColor = styleOrangeColor.textOrange.color;
@@ -53,7 +54,7 @@ const ItemScreen = ({ route }) => {
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
-      {loading && <Text>Loading..</Text>}
+      {loading && <LoadingIndicator></LoadingIndicator>}
       <Carousel
         ref={(c) => {
           sliderRef = c;

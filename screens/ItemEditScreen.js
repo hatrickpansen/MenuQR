@@ -11,8 +11,11 @@ import {
   Platform,
 } from "react-native";
 import ItemEditCard from "../components/authComponents/ItemEditCard";
+import LoadingIndicator from "../components/LoadingIndicator";
 import Url from "../assets/Url";
+import { styleOrangeColor } from "../styles/customStyles";
 const baseUrl = Url.url.url;
+const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditScreen = ({ route }) => {
   const [data, setData] = useState([]);
@@ -29,8 +32,8 @@ const ItemEditScreen = ({ route }) => {
   };
   if (loading) {
     return (
-      <SafeAreaView>
-        <Text>Loading..</Text>
+      <SafeAreaView style={styles.loadingContainer}>
+        <LoadingIndicator></LoadingIndicator>
       </SafeAreaView>
     );
   } else {
@@ -41,5 +44,12 @@ const ItemEditScreen = ({ route }) => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+});
 
 export default ItemEditScreen;
