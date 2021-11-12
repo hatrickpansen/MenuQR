@@ -7,7 +7,6 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import ReadMore from "@fawazahmed/react-native-read-more";
 import Allergene from "./Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
 
@@ -32,17 +31,10 @@ const ItemCard = ({ item }) => {
               {"Description \n"}
             </Text>
             <View style={styles.readmoreContainer}>
-              <ReadMore
-                 numberOfLines={5}
-                style={styles.descriptionText}
-                seeMoreStyle={styles.readmoreAndLessbtnStyle}
-                seeLessStyle={styles.readmoreAndLessbtnStyle}
-                seeMoreText="more"
-                seeLessText="less"
-              >
+              <Text style={styles.descriptionText}>
                 {item.description}
                 
-              </ReadMore>
+              </Text>
             </View>
           </Text>
           <View>
