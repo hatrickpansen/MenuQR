@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 40,
     paddingVertical: 0,
-    height: screenHeight * 0.92,
+    height: screenHeight * 0.85,
   },
   container: {
     flex: 1,

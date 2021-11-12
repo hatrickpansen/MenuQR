@@ -13,12 +13,14 @@ import {
   Platform,
 } from "react-native";
 import data from "../db/users.json";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 import { useNavigation } from "@react-navigation/core";
 import Url from "../assets/Url";
 const baseUrl = Url.url.url;
 export default function LoginScreen() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +43,8 @@ export default function LoginScreen() {
         return res.json();
       })
       .catch((err) => {
-        console.log(err);
+        console.log("networking issue when trying to login");
+        return undefined;
       });
     console.log(rawResponse);
     return rawResponse;
@@ -85,17 +88,22 @@ export default function LoginScreen() {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
+      <LoadingIndicator animating={isLoading} />
 
       <TouchableOpacity
         style={styles.loginBtn}
         onPress={async () => {
+          setIsLoading(true);
           let obj = await authenticate();
           console.log(obj);
-          if (obj.auth) {
-            navigation.navigate("Menu", {
-              restaurantID: obj.restId,
-              auth: obj.auth,
-            });
+          if (obj != undefined) {
+            if (obj.auth) {
+              setIsLoading(false);
+              navigation.navigate("Menu", {
+                restaurantID: obj.restId,
+                auth: obj.auth,
+              });
+            }
           }
         }}
       >
