@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import placeholderDataResturants from "../db/placeholderDataRestaurants.json";
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -28,19 +27,16 @@ import { styleOrangeColor } from "../styles/customStyles";
 import Svg, { Path } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
-
+import placeholderDataResturants from "../db/placeholderDataRestaurants.json"
 import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
-import data from "../components/browseRestaurants/placeholderDataRestaurants.json";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 /*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
-const RestaurantsScreen = ({ navigation }) => {
+const RestaurantsScreen = /* async */ ({ navigation }) => {
   const [visible, setVisible] = useState(false);
-
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-
   const scrollY = useRef(new Animated.Value(0)).current; //remember initial value
 
   const [search, setSearch] = useState("");
@@ -90,6 +86,7 @@ const RestaurantsScreen = ({ navigation }) => {
     setMasterDataSource(placeholderDataResturants);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
   if (search === "") {
     return (
       <SafeAreaView style={tw.style(`flex`)}>
@@ -274,8 +271,9 @@ const SearchListRestaurants = ({
   );
 };
 
-const RestaurantCategory = ({ category, navigation }) => {
-  const restaurants = data.filter((element) => element[category] == true);
+const  RestaurantCategory = ({ category, navigation }) => {
+  //const [restaurants, setRestaurants] = useState();
+  const restaurants = placeholderDataResturants.filter((element) => element[category] == true);
   const scrollY = useRef(new Animated.Value(0)).current;
   return (
     <View style={tw` bg-gray-100`}>

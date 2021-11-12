@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
-import RestaurantsData from "../components/browseRestaurants/placeholderDataRestaurants.json";
+import RestaurantsData from "../db/placeholderDataRestaurants.json";
 import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaContext";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import data from "../assets/data.json";

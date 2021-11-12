@@ -1,80 +1,89 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "title": "Flammen",
     "address": "Campusvej 55",
-    "featured": false
-  },
-  {
-  "id": 1,
-  "title": "Flammen",
-  "address": "Campusvej 55",
-  "featured": false
+    "openingHours": "08:00 - 20:00",
+    "featured": true
   },
   {
     "id": 2,
     "title": "Dirst Item",
     "address": "Campusvej 55",
-    "featured": false
+    "openingHours": "08:00 - 20:00",
+    "featured": true
   },
   {
     "id": 3,
     "title": "First Item",
     "address": "Campusvej 55",
-    "featured": false
+    "openingHours": "08:00 - 20:00",
+    "featured": false,
+    "recent": true
   },
   {
     "id": 4,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 5,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 6,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 7,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 8,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 9,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 10,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   },
   {
     "id": 11,
     "title": "First Item",
     "address": "Campusvej 55",
-    "featured": false
+    "openingHours": "08:00 - 20:00",
+    "featured": false,
+    "recent": true
+
   },
   {
     "id": 12,
     "title": "First Item",
     "address": "Campusvej 55",
+    "openingHours": "08:00 - 20:00",
     "featured": false
   }
 ]
