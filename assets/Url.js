@@ -1,5 +1,6 @@
 import React from "react";
 import * as Device from "expo-device";
+import config from "../config";
 
 function isEmulator() {
   if (Device.osName === "Android") {
@@ -11,8 +12,10 @@ function isEmulator() {
   }
 }
 
+const expoIP = "http://" + config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP + ":5000";
+
 export default {
   url: {
-    url: Device.isDevice ? "http://192.168.0.45:5000" : isEmulator(),
+    url: Device.isDevice ? expoIP : isEmulator(),
   },
 };

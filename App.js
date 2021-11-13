@@ -12,11 +12,15 @@ import ItemScreen from "./screens/ItemScreen";
 import RestaurantsScreen from "./screens/RestaurantsScreen";
 import QrScanScreen from "./screens/QrScanScreen";
 import TestScreen from "./screens/TestScreen";
-import ItemEditScreen from "./screens/ItemEditScreen"
+import ItemEditScreen from "./screens/ItemEditScreen";
 import { Icon } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import LoginScreen from "./screens/LoginScreen";
 /*https://docs.expo.dev/versions/latest/sdk/app-loading/*/
+
+console.log(
+  "Using current ip: " + process.env.IP_ADDRESS_WITHOUT_PORT_AND_HTTP
+);
 
 const Stack = createNativeStackNavigator();
 
