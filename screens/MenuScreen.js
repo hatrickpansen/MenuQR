@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
 import SubMenu from "../components/SubMenu";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
@@ -95,7 +101,7 @@ const MenuScreen = ({ route }) => {
 
   if (title === undefined || loadingItems || loadingRests) {
     return (
-      <View style={tw`h-56 flex justify-center `}>
+      <View style={styles.loadingContainer}>
         <LoadingIndicator></LoadingIndicator>
       </View>
     );
@@ -225,5 +231,11 @@ const screenOptions = {
     borderRadius: 10,
   },
 };
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+});
 
 export default MenuScreen;

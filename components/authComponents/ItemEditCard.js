@@ -14,6 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 const screenHeight = Dimensions.get("screen").height;
+const screenwidth = Dimensions.get("screen").width;
 import ReadMore from "@fawazahmed/react-native-read-more";
 import Allergene from "../itemScreenComponents/Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
@@ -112,60 +113,73 @@ const ItemEditCard = ({ item }) => {
   }
   return (
     <View style={styles.outerContainer}>
-      <ScrollView style={styles.scrollContainer}>
-        <View styles={styles.container}>
-          <Image source={{ uri: item.image }} style={styles.image} />
-          <View style={{ flex: 1, flexDirection: "row", paddingTop: 20 }}>
-            <View style={{ flex: 1, justifyContent: "center" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.name}>Item Name</Text>
+      <View style={{ flex: 10 }}>
+        <ScrollView style={styles.scrollContainer}>
+          <View /* styles={styles.container} */>
+            <Image source={{ uri: item.image }} style={styles.image} />
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                paddingTop: 20,
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.name}>Item Name</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.name}>Item Price</Text>
+                </View>
+                <View style={{ flex: 3 }}>
+                  <Text style={styles.name}>Item Description</Text>
+                </View>
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.name}>Item Price</Text>
-              </View>
-              <View style={{ flex: 3 }}>
-                <Text style={styles.name}>Item Description</Text>
+              <View style={{ flex: 2 }}>
+                <View style={{ flex: 1 }}>
+                  <View style={styles.inputView}>
+                    <TextInput
+                      style={styles.textInput}
+                      value={itemName}
+                      onChangeText={(val) => setItemName(val)}
+                    />
+                  </View>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={[styles.inputView]}>
+                    <TextInput
+                      style={styles.textInput}
+                      value={itemPrice.toString()}
+                      keyboardType="numeric"
+                      onChangeText={(val) => setItemPrice(val)}
+                    />
+                    <Text style={{ opacity: 0.5, paddingRight: 5 }}>DKK</Text>
+                  </View>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={[styles.inputView, styles.inputViewDesc]}>
+                    <TextInput
+                      style={[styles.textInput, styles.textInputDesc]}
+                      value={itemDesc}
+                      keyboardType="default"
+                      multiline
+                      onChangeText={(val) => setItemDesc(val)}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
-            <View style={{ flex: 2 }}>
-              <View style={{ flex: 1 }}>
-                <View style={styles.inputView}>
-                  <TextInput
-                    style={styles.textInput}
-                    value={itemName}
-                    onChangeText={(val) => setItemName(val)}
-                  />
-                </View>
-              </View>
-              <View style={{ flex: 1 }}>
-                <View style={[styles.inputView]}>
-                  <TextInput
-                    style={styles.textInput}
-                    value={itemPrice.toString()}
-                    keyboardType="numeric"
-                    onChangeText={(val) => setItemPrice(val)}
-                  />
-                  <Text style={{ opacity: 0.7, paddingRight: 5 }}>DKK</Text>
-                </View>
-              </View>
-              <View style={{ flex: 1 }}>
-                <View style={[styles.inputView, styles.inputViewDesc]}>
-                  <TextInput
-                    style={[styles.textInput, styles.textInputDesc]}
-                    value={itemDesc}
-                    keyboardType="default"
-                    multiline
-                    onChangeText={(val) => setItemDesc(val)}
-                  />
-                </View>
-              </View>
-            </View>
+            <Text style={styles.name}>{"Allergenes\n"}</Text>
+            <View style={styles.alContainer}>{data}</View>
           </View>
-          <Text style={styles.name}>{"Allergenes\n"}</Text>
-          <View style={styles.alContainer}>{data}</View>
-        </View>
-      </ScrollView>
-      <View style={{ justifyContent: "flex-end" }}>
+        </ScrollView>
+      </View>
+      <View style={{ flex: 1, height: 20 }}>
         <Button
           title="save changes"
           onPress={async () => {
@@ -180,15 +194,17 @@ const ItemEditCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   outerContainer: {
+    height: "100%",
+    width: "100%",
+    flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   scrollContainer: {
-    //flex: 1,
+    flex: 1,
     paddingHorizontal: 20,
     marginTop: 40,
     paddingVertical: 0,
-    height: screenHeight * 0.85,
   },
   container: {
     flex: 1,
@@ -203,7 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 20,
     flexDirection: "row",
-    alignItems: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   secContainer: {
@@ -265,7 +281,7 @@ const styles = StyleSheet.create({
   },
   textInputDesc: {
     height: 125,
-    padding: 5,
+    padding: 2,
   },
   textInput: {
     height: 50,

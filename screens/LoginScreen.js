@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { styleOrangeColor } from "../styles/customStyles";
 import tw from "tailwind-react-native-classnames";
 import {
@@ -19,6 +19,9 @@ import { useNavigation } from "@react-navigation/core";
 import Url from "../assets/Url";
 const baseUrl = Url.url.url;
 export default function LoginScreen() {
+  const emailInput = useRef(null);
+  const passwordInput = useRef(null);
+  const loginBtn = useRef(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState(-1);
@@ -50,6 +53,25 @@ export default function LoginScreen() {
     return rawResponse;
   }
 
+  async function onLoginPress() {
+    setIsLoading(true);
+    let obj = await authenticate();
+    console.log(obj);
+    if (obj != undefined) {
+      if (obj.auth) {
+        setIsLoading(false);
+        if (emailInput.current != null || passwordInput.current != null) {
+          emailInput.current.clear();
+          passwordInput.current.clear();
+        }
+        navigation.navigate("Menu", {
+          restaurantID: obj.restId,
+          auth: obj.auth,
+        });
+      }
+    }
+  }
+
   return (
     <View style={[styles.container, tw` bg-gray-100`]}>
       <View style={styles.imageContainer}>
@@ -63,25 +85,35 @@ export default function LoginScreen() {
 
       <View style={styles.inputView}>
         <TextInput
+          ref={emailInput}
           style={styles.TextInput}
           placeholder={emailPlace}
           placeholderTextColor="#003f5c"
           keyboardType="email-address"
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
+          returnKeyType="next"
           onChangeText={(email) => setEmail(email)}
+          onSubmitEditing={() => {
+            passwordInput.current.focus();
+          }}
         />
       </View>
 
       <View style={styles.inputView}>
         <TextInput
+          ref={passwordInput}
           style={styles.TextInput}
           placeholder={passPlace}
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
+          returnKeyType="go"
           onChangeText={(password) => setPassword(password)}
+          onSubmitEditing={() => {
+            onLoginPress();
+          }}
         />
       </View>
 
@@ -91,20 +123,10 @@ export default function LoginScreen() {
       <LoadingIndicator animating={isLoading} />
 
       <TouchableOpacity
+        ref={loginBtn}
         style={styles.loginBtn}
-        onPress={async () => {
-          setIsLoading(true);
-          let obj = await authenticate();
-          console.log(obj);
-          if (obj != undefined) {
-            if (obj.auth) {
-              setIsLoading(false);
-              navigation.navigate("Menu", {
-                restaurantID: obj.restId,
-                auth: obj.auth,
-              });
-            }
-          }
+        onPress={() => {
+          onLoginPress();
         }}
       >
         <Text style={styles.loginText}>Login</Text>
