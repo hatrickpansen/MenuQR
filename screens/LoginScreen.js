@@ -60,6 +60,8 @@ export default function LoginScreen() {
     if (obj != undefined) {
       if (obj.auth) {
         setIsLoading(false);
+        setEmail("");
+        setPassword("");
         if (emailInput.current != null || passwordInput.current != null) {
           emailInput.current.clear();
           passwordInput.current.clear();
