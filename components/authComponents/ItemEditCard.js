@@ -10,6 +10,7 @@ import {
   CheckBox,
   Button,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -21,11 +22,28 @@ import { styleOrangeColor } from "../../styles/customStyles";
 import AllergeneCard from "../itemScreenComponents/AllergeneCard";
 import imageManager from "../imageManager";
 import Url from "../../assets/Url";
+import DateTimePicker from "@react-native-community/datetimepicker";
 const baseUrl = Url.url.url;
 const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditCard = ({ item }) => {
   const navigation = useNavigation();
+  const [available, setAvailable] = useState(item.available);
+
+  const [startTime, setStartTime] = useState(
+    setZeroInfront(available.start.hour) +
+      ":" +
+      setZeroInfront(available.start.min)
+  );
+  const [startPickerTime, setStartPickerTime] = useState(new Date());
+  const [showStartPicker, setShowStartPicker] = useState(false);
+
+  const [endTime, setEndTime] = useState(
+    available.end.hour + ":" + available.end.min
+  );
+  const [endPickerTime, setEndPickerTime] = useState(new Date());
+  const [showEndPicker, setShowEndPicker] = useState(false);
+
   const allergenesImages = imageManager.allergenes;
   const allAls = createImageAlRelation(allergenesImages);
   const [allergenes, setAllergenes] = useState(item.allergenes);
@@ -75,6 +93,7 @@ const ItemEditCard = ({ item }) => {
         type: item.type,
         image: item.image,
         title: item.title,
+        available: available,
       }),
     })
       .then(function (res) {
@@ -111,6 +130,52 @@ const ItemEditCard = ({ item }) => {
       </View>
     );
   }
+  function onStartPicking(event, date) {
+    if (event.type == "dismissed") {
+      setShowStartPicker(false);
+    } else {
+      let hour = setZeroInfront(date.getHours());
+      let min = setZeroInfront(date.getMinutes());
+      setStartTime(hour + ":" + min);
+      setShowStartPicker(false);
+      mutateStartAvailable(parseInt(hour), parseInt(min));
+    }
+  }
+
+  function onEndPicking(event, date) {
+    if (event.type == "dismissed") {
+      setShowEndPicker(false);
+    } else {
+      let hour = setZeroInfront(date.getHours());
+      let min = setZeroInfront(date.getMinutes());
+      setEndTime(hour + ":" + min);
+      setShowEndPicker(false);
+      mutateEndAvailable(parseInt(hour), parseInt(min));
+    }
+  }
+  function mutateStartAvailable(hour, min) {
+    let endHour = available.end.hour;
+    let endMin = available.end.min;
+    setAvailable({
+      start: { hour: hour, min: min },
+      end: { hour: endHour, min: endMin },
+    });
+  }
+  function mutateEndAvailable(hour, min) {
+    let startHour = available.start.hour;
+    let startMin = available.start.min;
+    setAvailable({
+      start: { hour: startHour, min: startMin },
+      end: { hour: hour, min: min },
+    });
+  }
+  function setZeroInfront(number) {
+    if (number < 10) {
+      return "0" + number;
+    } else {
+      return number.toString();
+    }
+  }
   return (
     <View style={styles.outerContainer}>
       <View style={{ flex: 10 }}>
@@ -130,14 +195,17 @@ const ItemEditCard = ({ item }) => {
                   justifyContent: "center",
                 }}
               >
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginBottom: 20 }}>
                   <Text style={styles.name}>Item Name</Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginBottom: 20 }}>
                   <Text style={styles.name}>Item Price</Text>
                 </View>
-                <View style={{ flex: 3 }}>
+                <View style={{ flex: 3, marginBottom: 20 }}>
                   <Text style={styles.name}>Item Description</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.name}>Item Availability</Text>
                 </View>
               </View>
               <View style={{ flex: 2 }}>
@@ -161,7 +229,7 @@ const ItemEditCard = ({ item }) => {
                     <Text style={{ opacity: 0.5, paddingRight: 5 }}>DKK</Text>
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 3 }}>
                   <View style={[styles.inputView, styles.inputViewDesc]}>
                     <TextInput
                       style={[styles.textInput, styles.textInputDesc]}
@@ -170,6 +238,52 @@ const ItemEditCard = ({ item }) => {
                       multiline
                       onChangeText={(val) => setItemDesc(val)}
                     />
+                  </View>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={styles.availableContainer}>
+                    <View style={styles.timePickContainer}>
+                      <Text style={styles.timePickingLabel}>start:</Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setShowStartPicker(true);
+                        }}
+                      >
+                        <Text style={styles.timePickingText}>{startTime}</Text>
+                      </TouchableOpacity>
+                      {showStartPicker && (
+                        <DateTimePicker
+                          value={startPickerTime}
+                          mode="time"
+                          display="spinner"
+                          is24Hour={true}
+                          onChange={(event, date) => {
+                            onStartPicking(event, date);
+                          }}
+                        />
+                      )}
+                    </View>
+                    <View style={styles.timePickContainer}>
+                      <Text style={styles.timePickingLabel}>End:</Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setShowEndPicker(true);
+                        }}
+                      >
+                        <Text style={styles.timePickingText}>{endTime}</Text>
+                      </TouchableOpacity>
+                      {showEndPicker && (
+                        <DateTimePicker
+                          value={endPickerTime}
+                          mode="time"
+                          display="spinner"
+                          is24Hour={true}
+                          onChange={(event, date) => {
+                            onEndPicking(event, date);
+                          }}
+                        />
+                      )}
+                    </View>
                   </View>
                 </View>
               </View>
@@ -210,6 +324,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  availableContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: 20,
+    marginBottom: 20,
+  },
+  timePickContainer: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "#e1e1e1",
   },
   inputView: {
     backgroundColor: "#e1e1e1",
@@ -314,6 +439,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12.5,
+  },
+  timePickingLabel: {
+    color: "black",
+    opacity: 0.7,
+  },
+  timePickingText: {
+    color: "#03b1fc",
   },
 });
 

@@ -56,7 +56,6 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   // Gets data from the json file
-  const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [errorMessage, setErrorMessage] = useState();
   const { restaurantID, auth } = route.params;
