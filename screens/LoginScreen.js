@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useRef } from "react";
 import { styleOrangeColor } from "../styles/customStyles";
 import tw from "tailwind-react-native-classnames";
@@ -8,11 +7,8 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  Platform,
 } from "react-native";
-import data from "../db/users.json";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 import { useNavigation } from "@react-navigation/core";
@@ -22,14 +18,13 @@ export default function LoginScreen() {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
   const loginBtn = useRef(null);
-  const [authenticated, setAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [id, setId] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailPlace, setEmailPlace] = useState("Email");
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
+  const [errorMessage, setErrorMessage] = useState();
   async function authenticate() {
     const rawResponse = await fetch(baseUrl + "/login", {
       method: "POST",
@@ -54,9 +49,12 @@ export default function LoginScreen() {
   }
 
   async function onLoginPress() {
+    setErrorMessage();
+    if (email.trim() == "" || password.trim() == "") {
+      return;
+    }
     setIsLoading(true);
     let obj = await authenticate();
-    console.log(obj);
     if (obj != undefined) {
       if (obj.auth) {
         setIsLoading(false);
@@ -70,6 +68,9 @@ export default function LoginScreen() {
           restaurantID: obj.restId,
           auth: obj.auth,
         });
+      } else if (!obj.auth) {
+        setErrorMessage("Wrong login");
+        setIsLoading(false);
       }
     }
   }
@@ -123,6 +124,7 @@ export default function LoginScreen() {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
       <LoadingIndicator animating={isLoading} />
+      <Text style={styles.errorText}>{errorMessage}</Text>
 
       <TouchableOpacity
         ref={loginBtn}
@@ -186,5 +188,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#fff",
+  },
+  errorText: {
+    color: "red",
+    fontWeight: "bold",
   },
 });
