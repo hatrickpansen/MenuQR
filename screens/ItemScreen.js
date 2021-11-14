@@ -37,9 +37,23 @@ const ItemScreen = ({ route }) => {
   const restaurantID = restId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
+
+  var abortController = new AbortController();
+  var abortSignal = abortController.signal;
+
+  const abort = () => {
+    setTimeout(() => {
+      abortController.abort();
+      setErrorMessage("Can't contact Server");
+    }, 5000);
+  };
 
   const fetchData = async (restId) => {
-    const resp = await fetch(baseUrl + "/items/" + restaurantID);
+    abort();
+    const resp = await fetch(baseUrl + "/items/" + restaurantID, {
+      abortSignal,
+    });
     const data = await resp.json();
     setData(data);
     setLoading(false);
@@ -54,7 +68,12 @@ const ItemScreen = ({ route }) => {
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
-      {loading && <LoadingIndicator></LoadingIndicator>}
+      {loading && (
+        <View style={ItemScreenStyle.loadingContainer}>
+          <LoadingIndicator></LoadingIndicator>
+          <Text style={{ color: orangeColor }}>{errorMessage}</Text>
+        </View>
+      )}
       <Carousel
         ref={(c) => {
           sliderRef = c;
@@ -95,6 +114,11 @@ const ItemScreenStyle = StyleSheet.create({
     flex: 1,
     width: ScreenWidth,
     justifyContent: "center",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 // add shadow to image using shadowopacity and stuff

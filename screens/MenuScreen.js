@@ -16,9 +16,13 @@ import data from "../assets/data.json";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import EditButton from "../components/authComponents/EditButton";
 import { useIsFocused } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/core";
 import Url from "../assets/Url";
 import LoadingIndicator from "../components/LoadingIndicator";
+import { color } from "react-native-elements/dist/helpers";
+
 const baseUrl = Url.url.url;
+//
 
 const FilterScreen = ({ route, type, editMode, items }) => {
   const { restaurantID } = route.params;
@@ -52,7 +56,9 @@ const Tab = createMaterialTopTabNavigator();
 const MenuScreen = ({ route }) => {
   // TODO: take in params from RestaurantCard to load correct restaurant data
   // Gets data from the json file
+  const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const [errorMessage, setErrorMessage] = useState();
   const { restaurantID, auth } = route.params;
   const [editBtnAuth, setEditBtn] = useState(auth);
   const [isEditState, setIsEditState] = useState(false);
@@ -63,21 +69,42 @@ const MenuScreen = ({ route }) => {
   const [title, setTitle] = useState("title");
   const [address, setAddress] = useState("address");
   const [openingHours, setOpeningHours] = useState("openingHours");
+  var abortController = new AbortController();
+  var abortSignal = abortController.signal;
+
+  const abort = () => {
+    setTimeout(() => {
+      abortController.abort();
+      setErrorMessage("Can't contact Server");
+    }, 5000);
+  };
 
   const fetchItems = async () => {
-    const resp = await fetch(baseUrl + "/items/" + restaurantID);
+    abort();
+    const resp = await fetch(baseUrl + "/items/" + restaurantID, {
+      abortSignal,
+    });
     const data = await resp.json();
     setDataItems(data);
     setLoadingItems(false);
   };
   const fetchRestaurant = async () => {
-    const resp = await fetch(baseUrl + "/rest/" + restaurantID);
-    const data = await resp.json();
-    setDataRests(data);
-    setAddress(data.address);
-    setTitle(data.title);
-    setOpeningHours(data.openingHours);
-    setLoadingRests(false);
+    abort();
+    const resp = await fetch(baseUrl + "/rest/" + restaurantID, {
+      abortSignal,
+    }).catch((error) => {
+      console.error(error);
+    });
+    const statusCode = resp.status;
+    console.log("menuScreen fetch: " + statusCode);
+    if (statusCode == 200) {
+      const data = await resp.json();
+      setDataRests(data);
+      setAddress(data.address);
+      setTitle(data.title);
+      setOpeningHours(data.openingHours);
+      setLoadingRests(false);
+    }
   };
 
   useEffect(() => {
@@ -103,6 +130,9 @@ const MenuScreen = ({ route }) => {
     return (
       <View style={styles.loadingContainer}>
         <LoadingIndicator></LoadingIndicator>
+        <Text style={{ color: styleOrangeColor.textOrange.color }}>
+          {errorMessage}
+        </Text>
       </View>
     );
   }
@@ -235,6 +265,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
 });
 

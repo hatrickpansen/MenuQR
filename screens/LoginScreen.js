@@ -25,8 +25,21 @@ export default function LoginScreen() {
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState();
+
+  var abortController = new AbortController();
+  var abortSignal = abortController.signal;
+
+  const abort = () => {
+    setTimeout(() => {
+      abortController.abort();
+      setErrorMessage("Can't contact Server");
+    }, 5000);
+  };
+
   async function authenticate() {
+    abort();
     const rawResponse = await fetch(baseUrl + "/login", {
+      abortSignal,
       method: "POST",
       headers: {
         Accept: "application/json",
