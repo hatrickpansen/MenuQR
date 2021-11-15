@@ -12,7 +12,7 @@ function isEmulator() {
   }
 }
 
-const expoIP = "http://" + config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP + ":5000";
+const expoIP = config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP;
 
 export default {
   url: {
