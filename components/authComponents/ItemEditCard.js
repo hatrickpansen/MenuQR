@@ -7,12 +7,12 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  CheckBox,
   Button,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import CheckBox from '@react-native-community/checkbox';
 
 const screenHeight = Dimensions.get("screen").height;
 const screenwidth = Dimensions.get("screen").width;
@@ -121,6 +121,7 @@ const ItemEditCard = ({ item }) => {
           </Text>
         </View>
         <CheckBox
+          disabled={false}
           value={isSelected(allAls[i].name)}
           onValueChange={(val) => {
             setSelection(allAls[i].name, val);
@@ -192,7 +193,7 @@ const ItemEditCard = ({ item }) => {
               <View
                 style={{
                   flex: 1,
-                  justifyContent: "center",
+                  justifyContent: "center"
                 }}
               >
                 <View style={{ flex: 1, marginBottom: 20 }}>
@@ -201,10 +202,10 @@ const ItemEditCard = ({ item }) => {
                 <View style={{ flex: 1, marginBottom: 20 }}>
                   <Text style={styles.name}>Item Price</Text>
                 </View>
-                <View style={{ flex: 3, marginBottom: 20 }}>
+                <View style={{ flex: 2.5, marginBottom: 20 }}>
                   <Text style={styles.name}>Item Description</Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 2.5 }}>
                   <Text style={styles.name}>Item Availability</Text>
                 </View>
               </View>
@@ -244,6 +245,7 @@ const ItemEditCard = ({ item }) => {
                   <View style={styles.availableContainer}>
                     <View style={styles.timePickContainer}>
                       <Text style={styles.timePickingLabel}>start:</Text>
+                      <View style={styles.DateTimePickerContainer}>
                       <TouchableOpacity
                         onPress={() => {
                           setShowStartPicker(true);
@@ -252,19 +254,25 @@ const ItemEditCard = ({ item }) => {
                         <Text style={styles.timePickingText}>{startTime}</Text>
                       </TouchableOpacity>
                       {showStartPicker && (
+                        
                         <DateTimePicker
                           value={startPickerTime}
                           mode="time"
-                          display="spinner"
+                          display="default"
                           is24Hour={true}
                           onChange={(event, date) => {
                             onStartPicking(event, date);
                           }}
                         />
+                        
                       )}
+                      </View>
                     </View>
                     <View style={styles.timePickContainer}>
+                      
                       <Text style={styles.timePickingLabel}>End:</Text>
+                      
+                      <View style={styles.DateTimePickerContainer}>
                       <TouchableOpacity
                         onPress={() => {
                           setShowEndPicker(true);
@@ -273,16 +281,19 @@ const ItemEditCard = ({ item }) => {
                         <Text style={styles.timePickingText}>{endTime}</Text>
                       </TouchableOpacity>
                       {showEndPicker && (
+                        
                         <DateTimePicker
                           value={endPickerTime}
                           mode="time"
-                          display="spinner"
+                          display="default"
                           is24Hour={true}
                           onChange={(event, date) => {
                             onEndPicking(event, date);
                           }}
                         />
+                        
                       )}
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -327,13 +338,22 @@ const styles = StyleSheet.create({
   },
   availableContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     marginLeft: 20,
     marginBottom: 20,
+    
   },
   timePickContainer: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+    
+  },
+  DateTimePickerContainer: {
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
     backgroundColor: "#e1e1e1",
   },
   inputView: {
