@@ -7,12 +7,12 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  CheckBox,
   Button,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import CheckBox from '@react-native-community/checkbox';
 
 const screenHeight = Dimensions.get("screen").height;
 const screenwidth = Dimensions.get("screen").width;
@@ -121,6 +121,7 @@ const ItemEditCard = ({ item }) => {
           </Text>
         </View>
         <CheckBox
+          disabled={false}
           value={isSelected(allAls[i].name)}
           onValueChange={(val) => {
             setSelection(allAls[i].name, val);
@@ -192,25 +193,13 @@ const ItemEditCard = ({ item }) => {
               <View
                 style={{
                   flex: 1,
-                  justifyContent: "center",
+                  justifyContent: "center"
                 }}
               >
                 <View style={{ flex: 1, marginBottom: 20 }}>
+                <View style={styles.inputView}>
                   <Text style={styles.name}>Item Name</Text>
-                </View>
-                <View style={{ flex: 1, marginBottom: 20 }}>
-                  <Text style={styles.name}>Item Price</Text>
-                </View>
-                <View style={{ flex: 3, marginBottom: 20 }}>
-                  <Text style={styles.name}>Item Description</Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>Item Availability</Text>
-                </View>
-              </View>
-              <View style={{ flex: 2 }}>
-                <View style={{ flex: 1 }}>
-                  <View style={styles.inputView}>
+                  
                     <TextInput
                       style={styles.textInput}
                       value={itemName}
@@ -218,8 +207,10 @@ const ItemEditCard = ({ item }) => {
                     />
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <View style={[styles.inputView]}>
+                <View style={{ flex: 1, marginBottom: 20 }}>
+                <View style={[styles.inputView]}>
+                  <Text style={styles.name}>Item Price</Text>
+                  
                     <TextInput
                       style={styles.textInput}
                       value={itemPrice.toString()}
@@ -229,8 +220,9 @@ const ItemEditCard = ({ item }) => {
                     <Text style={{ opacity: 0.5, paddingRight: 5 }}>DKK</Text>
                   </View>
                 </View>
-                <View style={{ flex: 3 }}>
-                  <View style={[styles.inputView, styles.inputViewDesc]}>
+                <View style={{ flex: 2.5, marginBottom: 20 }}>
+                <View style={[styles.inputView, styles.inputViewDesc]}>
+                  <Text style={styles.name}>Item Description</Text>
                     <TextInput
                       style={[styles.textInput, styles.textInputDesc]}
                       value={itemDesc}
@@ -240,10 +232,13 @@ const ItemEditCard = ({ item }) => {
                     />
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <View style={styles.availableContainer}>
+                <View style={{ flex: 2.5 }}>
+                <View style={styles.availableContainer}>
+                  <Text style={styles.name}>Item Availability</Text>
+                  
                     <View style={styles.timePickContainer}>
                       <Text style={styles.timePickingLabel}>start:</Text>
+                      <View style={styles.DateTimePickerContainer}>
                       <TouchableOpacity
                         onPress={() => {
                           setShowStartPicker(true);
@@ -252,19 +247,25 @@ const ItemEditCard = ({ item }) => {
                         <Text style={styles.timePickingText}>{startTime}</Text>
                       </TouchableOpacity>
                       {showStartPicker && (
+                        
                         <DateTimePicker
                           value={startPickerTime}
                           mode="time"
-                          display="spinner"
+                          display="default"
                           is24Hour={true}
                           onChange={(event, date) => {
                             onStartPicking(event, date);
                           }}
                         />
+                        
                       )}
+                      </View>
                     </View>
                     <View style={styles.timePickContainer}>
+                      
                       <Text style={styles.timePickingLabel}>End:</Text>
+                      
+                      <View style={styles.DateTimePickerContainer}>
                       <TouchableOpacity
                         onPress={() => {
                           setShowEndPicker(true);
@@ -273,16 +274,19 @@ const ItemEditCard = ({ item }) => {
                         <Text style={styles.timePickingText}>{endTime}</Text>
                       </TouchableOpacity>
                       {showEndPicker && (
+                        
                         <DateTimePicker
                           value={endPickerTime}
                           mode="time"
-                          display="spinner"
+                          display="default"
                           is24Hour={true}
                           onChange={(event, date) => {
                             onEndPicking(event, date);
                           }}
                         />
+                        
                       )}
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -327,22 +331,38 @@ const styles = StyleSheet.create({
   },
   availableContainer: {
     flex: 1,
-    flexDirection: "row",
-    marginLeft: 20,
+    flexDirection: "column",
     marginBottom: 20,
+    marginHorizontal: 10,
+    
   },
   timePickContainer: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#e1e1e1",
+    alignItems: "center",
+    //justifyContent: "center",
+    borderBottomColor: "#e1e1e1",
+    borderLeftColor: "rgba(255, 255, 255, 0.0)",
+    borderRightColor: "rgba(255, 255, 255, 0.0)",
+    borderTopColor: "rgba(255, 255, 255, 0.0)",
+    borderWidth: 3,
+    
+  },
+  DateTimePickerContainer: {
+    padding: 10,
+    /* margin: 10, */
+    
   },
   inputView: {
-    backgroundColor: "#e1e1e1",
-    borderRadius: 10,
-    width: "85%",
+    borderBottomColor: "#e1e1e1",
+    borderLeftColor: "rgba(255, 255, 255, 0.0)",
+    borderRightColor: "rgba(255, 255, 255, 0.0)",
+    borderTopColor: "rgba(255, 255, 255, 0.0)",
+    borderWidth: 3,
+    width: "95%",
     height: 45,
     marginBottom: 20,
-    marginLeft: 20,
+    marginHorizontal: 10,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

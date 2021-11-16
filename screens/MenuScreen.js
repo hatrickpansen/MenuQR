@@ -27,7 +27,6 @@ const baseUrl = Url.url.url;
 const FilterScreen = ({ route, type, editMode, items }) => {
   const { restaurantID } = route.params;
   let items2 = [];
-
   //incooperate later
   type === ""
     ? (items2 = items)
