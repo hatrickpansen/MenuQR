@@ -4,11 +4,11 @@ import config from "../config";
 
 function isEmulator() {
   if (Device.osName === "Android") {
-    return "http://10.0.2.2:5000";
+    return config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP;
   } else if (Device.osName === "iOS") {
-    return "http://localhost:5000";
+    return config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP;
   } else {
-    return "http://localhost:5000";
+    return config.IP_ADDRESS_WITHOUT_PORT_AND_HTTP;
   }
 }
 
