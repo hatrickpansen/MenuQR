@@ -26,7 +26,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 const baseUrl = Url.url.url;
 const orangeColor = styleOrangeColor.textOrange.color;
 
-const ItemEditCard = ({ item }) => {
+const ItemEditCard = ({ item, isNew }) => {
   const navigation = useNavigation();
   const [available, setAvailable] = useState(item.available);
 
@@ -77,32 +77,61 @@ const ItemEditCard = ({ item }) => {
     setAllergenes(data);
   }
   async function storeChanges() {
-    const rawResponse = await fetch(baseUrl + "/editItem", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: item.id,
-        name: itemName,
-        price: itemPrice,
-        description: itemDesc,
-        allergenes: allergenes,
-        restId: item.restId,
-        type: item.type,
-        image: item.image,
-        title: item.title,
-        available: available,
-      }),
-    })
-      .then(function (res) {
-        return res.text();
+    if(isNew){
+      const rawResponse = await fetch(baseUrl + "/newItem", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: itemName,
+          price: itemPrice,
+          description: itemDesc,
+          allergenes: allergenes,
+          restId: item.restId,
+          type: item.type,
+          image: item.image,
+          title: item.title,
+          available: available,
+        }),
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(rawResponse);
+        .then(function (res) {
+          return res.text();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(rawResponse);
+    } else {
+      const rawResponse = await fetch(baseUrl + "/editItem", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: item.id,
+          name: itemName,
+          price: itemPrice,
+          description: itemDesc,
+          allergenes: allergenes,
+          restId: item.restId,
+          type: item.type,
+          image: item.image,
+          title: item.title,
+          available: available,
+        }),
+      })
+        .then(function (res) {
+          return res.text();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(rawResponse);
+    }
+   
   }
   function routeBackToMenu() {
     navigation.navigate("Menu", {
@@ -182,7 +211,18 @@ const ItemEditCard = ({ item }) => {
       <View style={{ flex: 10 }}>
         <ScrollView style={styles.scrollContainer}>
           <View /* styles={styles.container} */>
-            <Image source={{ uri: item.image }} style={styles.image} />
+            {/* <Image source={{ uri: item.image}} style={styles.image} /> */}
+            {item.image!=null && <Image
+          style={styles.image}
+          source={{
+            uri: item.image 
+          }}
+        />}
+        {item.image==null && <Image
+          style={styles.image}
+          source={imageManager.defaultItem
+          }
+        />}
             <View
               style={{
                 flex: 1,
@@ -202,6 +242,7 @@ const ItemEditCard = ({ item }) => {
                   
                     <TextInput
                       style={styles.textInput}
+                      placeholder="Dish name"
                       value={itemName}
                       onChangeText={(val) => setItemName(val)}
                     />
@@ -226,6 +267,7 @@ const ItemEditCard = ({ item }) => {
                     <TextInput
                       style={[styles.textInput, styles.textInputDesc]}
                       value={itemDesc}
+                      placeholder="Dish Description"
                       keyboardType="default"
                       multiline
                       onChangeText={(val) => setItemDesc(val)}

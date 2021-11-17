@@ -20,9 +20,45 @@ const orangeColor = styleOrangeColor.textOrange.color;
 const ItemEditScreen = ({ route }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { id } = route.params;
+  const { id, isNew, restId } = route.params;
   useEffect(() => {
-    fetchData();
+    if(isNew){
+      setData({
+          title: "",
+          name: "",
+          //might need image
+          description: "",
+          price: 0,
+          restId: restId,
+          allergenes: {
+            egg: false,
+            peanuts: false,
+            crustacean: false,
+            fish: false,
+            gluten: false,
+            milk: false,
+            nuts: false,
+            sesame: false,
+            shellfish: false,
+            sulfates: false
+          },
+          available: {
+            start: {
+              hour: 0,
+              min: 0
+            },
+            end: {
+              hour: 23,
+              min: 59
+            }
+          },
+          type: "food"
+      })
+      setLoading(false)
+    } else {
+      fetchData();
+    }
+    
   }, []);
   const fetchData = async () => {
     const resp = await fetch(baseUrl + "/item/" + id);
@@ -39,7 +75,7 @@ const ItemEditScreen = ({ route }) => {
   } else {
     return (
       <SafeAreaView>
-        <ItemEditCard item={data}></ItemEditCard>
+        <ItemEditCard item={data} isNew={isNew}></ItemEditCard>
       </SafeAreaView>
     );
   }
