@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, view, text, StyleSheet } from 'react-native';
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 
 const ItemDeleteBtn = ({callBack}) => {

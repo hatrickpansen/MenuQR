@@ -28,7 +28,7 @@ const ItemEditScreen = ({ route }) => {
           name: "",
           //might need image
           description: "",
-          price: 0,
+          price: undefined,
           restId: restId,
           allergenes: {
             egg: false,

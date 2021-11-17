@@ -15,7 +15,7 @@ const EditIcon = ({size, editMode, callback, itemData}) => {
     if(isEditMode){
         return( 
             <TouchableOpacity onPress={isClicked}>
-            <FontAwesome5 name="edit" size={size} color="black" />
+            <FontAwesome5 name="edit" size={size} color="#0E9594" />
         </TouchableOpacity>
         
         )

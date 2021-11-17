@@ -25,14 +25,15 @@ export default function LoginScreen() {
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState();
-
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
 
   const abort = () => {
     setTimeout(() => {
       abortController.abort();
-      setErrorMessage("Can't contact Server");
+      if(navigation.getState().index==1){
+        setErrorMessage("Can't contact Server");
+      }
     }, 5000);
   };
 

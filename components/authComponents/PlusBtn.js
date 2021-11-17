@@ -4,6 +4,7 @@ import imageManager from '../imageManager';
 import {styleOrangeColor} from "../../styles/customStyles"
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from "@react-navigation/core";
+import { Entypo } from "@expo/vector-icons";
 
 const PlusBtn = ({isEditMode, restId}) => {
     const [isVisible, setIsVisible] = useState(isEditMode);
@@ -24,11 +25,9 @@ const PlusBtn = ({isEditMode, restId}) => {
                     navigation.navigate("ItemEdit", {isNew: true, restId: restId});
                 }
             }}
-            /* renderRowComponent={renderDropDownComponents} */
         >
-       {/*  <TouchableOpacity > */}
-        <Image style={styles.image} source={imageManager.plusicon} /* tintColor={"black"} *//> 
-        {/* </TouchableOpacity> */}
+           <View><Entypo size={40} name= "circle-with-plus" color="#0E9594" /></View>
+        
         </ModalDropdown>
         
         
@@ -39,8 +38,7 @@ const PlusBtn = ({isEditMode, restId}) => {
 
 const styles = StyleSheet.create({
     image: {
-        height: 40,
-        width: 40,
+        backgroundColor: "black",
     },
     dropDown: {
         height: "11.5%",
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 5,
         borderRadius: 20,
-        backgroundColor: styleOrangeColor.textOrange.color,
+        backgroundColor: "#0E9594",
     },
     dropDownText: {
         borderRadius: 20,

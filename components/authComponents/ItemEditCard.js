@@ -287,7 +287,8 @@ const ItemEditCard = ({ item, isNew }) => {
                   
                     <TextInput
                       style={styles.textInput}
-                      value={itemPrice.toString()}
+                      value={itemPrice != undefined ? itemPrice.toString() : ""}
+                      placeholder="price"
                       keyboardType="numeric"
                       onChangeText={(val) => setItemPrice(val)}
                     />
