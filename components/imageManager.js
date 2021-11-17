@@ -13,6 +13,8 @@ export default {
     },
     arrows: {
         expandArrow: require("../assets/expand-arrow.png"),
-    }
+    },
+    plusicon: require("../assets/plusicon.png"),
+    defaultItem: require("../assets/food1.jpg")
     
 }

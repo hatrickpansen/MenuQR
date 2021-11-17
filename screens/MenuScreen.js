@@ -20,6 +20,7 @@ import { useNavigation } from "@react-navigation/core";
 import Url from "../assets/Url";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { color } from "react-native-elements/dist/helpers";
+import PlusBtn from "../components/authComponents/PlusBtn";
 
 const baseUrl = Url.url.url;
 //
@@ -69,7 +70,6 @@ const MenuScreen = ({ route }) => {
   const [openingHours, setOpeningHours] = useState("openingHours");
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
-
   const abort = () => {
     setTimeout(() => {
       abortController.abort();
@@ -108,6 +108,7 @@ const MenuScreen = ({ route }) => {
   useEffect(() => {
     fetchItems();
     fetchRestaurant();
+    
   }, []);
   //triggered when going back to this screen.
   useEffect(() => {
@@ -147,6 +148,9 @@ const MenuScreen = ({ route }) => {
         </Text>
         <Text>Opening hours: {openingHours}</Text>
         <Text>{address}</Text>
+        <View style={styles.plusBtn}>
+        <PlusBtn isEditMode={isEditState} restId={restaurantID}></PlusBtn>
+        </View>
       </View>
 
       <Tab.Navigator
@@ -265,6 +269,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  plusBtn: {
+    position: "absolute",
+    left: "80%",
+    top: "50%",
+    zIndex: 10
+  }
 });
 
 export default MenuScreen;
