@@ -23,6 +23,7 @@ import AllergeneCard from "../itemScreenComponents/AllergeneCard";
 import imageManager from "../imageManager";
 import Url from "../../assets/Url";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import ItemDeleteBtn from "./ItemDeleteBtn";
 const baseUrl = Url.url.url;
 const orangeColor = styleOrangeColor.textOrange.color;
 
@@ -134,6 +135,7 @@ const ItemEditCard = ({ item, isNew }) => {
    
   }
   function routeBackToMenu() {
+    console.log(item);
     navigation.navigate("Menu", {
       restaurantID: item.restId,
       auth: true,
@@ -206,6 +208,37 @@ const ItemEditCard = ({ item, isNew }) => {
       return number.toString();
     }
   }
+
+  function callBackDeleteBtn(childData){
+    if(childData){
+      //deleteitem
+      deleteItemFetch();
+      //route to menu
+      routeBackToMenu();
+    }
+  }
+
+  async function deleteItemFetch(){
+    const rawResponse = await fetch(baseUrl + "/deleteItem", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: item.id,
+      }),
+    })
+      .then(function (res) {
+        return res.text();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(rawResponse);
+  }
+
+
   return (
     <View style={styles.outerContainer}>
       <View style={{ flex: 10 }}>
@@ -337,6 +370,7 @@ const ItemEditCard = ({ item, isNew }) => {
             <Text style={styles.name}>{"Allergenes\n"}</Text>
             <View style={styles.alContainer}>{data}</View>
           </View>
+          <ItemDeleteBtn callBack={callBackDeleteBtn}/>
         </ScrollView>
       </View>
       <View style={{ flex: 1, height: 20 }}>
@@ -364,6 +398,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     marginTop: 40,
+    marginBottom: 20,
     paddingVertical: 0,
   },
   container: {
