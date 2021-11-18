@@ -21,6 +21,7 @@ import Url from "../assets/Url";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { color } from "react-native-elements/dist/helpers";
 import PlusBtn from "../components/authComponents/PlusBtn";
+import { getItems } from "../components/ItemBuffer";
 
 const baseUrl = Url.url.url;
 //
@@ -65,6 +66,7 @@ const MenuScreen = ({ route }) => {
   const [dataRests, setDataRests] = useState([]);
   const [loadingItems, setLoadingItems] = useState(true);
   const [loadingRests, setLoadingRests] = useState(true);
+  const [shouldSaveVisible, setShouldSaveVisible] = useState(false);
   const [title, setTitle] = useState("title");
   const [address, setAddress] = useState("address");
   const [openingHours, setOpeningHours] = useState("openingHours");
@@ -137,6 +139,10 @@ const MenuScreen = ({ route }) => {
   }
   const callbackFromEditBtn = (childData) => {
     setIsEditState(childData);
+    setShouldSaveVisible(childData);
+    //this shoudl be an api call to post changes on many items.
+    console.log(getItems())
+
   };
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
@@ -179,6 +185,7 @@ const MenuScreen = ({ route }) => {
               type={"food"}
               editMode={isEditState}
               items={dataItems}
+              save={shouldSaveVisible}
             />
           )}
         />
@@ -203,6 +210,7 @@ const MenuScreen = ({ route }) => {
               type={"snack"}
               editMode={isEditState}
               items={dataItems}
+              save={shouldSaveVisible}
             />
           )}
         />
@@ -223,6 +231,7 @@ const MenuScreen = ({ route }) => {
               type={"drink"}
               editMode={isEditState}
               items={dataItems}
+              save={shouldSaveVisible}
             />
           )}
         />

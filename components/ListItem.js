@@ -12,7 +12,7 @@ import EditIcon from "./authComponents/EditIcon";
 import imageManager from "./imageManager";
 import VisibleBtn from "./authComponents/VisibleBtn";
 
-const ListItem = ({ item, editMode }) => {
+const ListItem = ({ item, editMode, callback }) => {
   const navigation = useNavigation();
   const [editState, setEditState] = useState(editMode);
   useEffect(() => {
@@ -25,14 +25,15 @@ const ListItem = ({ item, editMode }) => {
     })
   }
   function callbackVisible(childData){
-    console.log(childData);
+    item.visible = childData.isVisible;
+    callback({id: item.id, visible: item.visible})
+
   }
 
   return (
     <TouchableOpacity
       style={ListItemStyle.card}
       onPress={() => {
-        console.log("touched item id:" + item.id);
         navigation.navigate("Item", {
           id: item.id,
           restId: item.restId,
@@ -60,7 +61,7 @@ const ListItem = ({ item, editMode }) => {
       </View>
         <View style={ListItemStyle.editBtnContainer}>
           <EditIcon style={ListItemStyle.edit} size={24} editMode={editState} itemData={item} callback={callbackEdit}/>
-          <VisibleBtn callback={callbackVisible}></VisibleBtn>
+          <VisibleBtn callback={callbackVisible} visible={item.visible} editMode={editState}></VisibleBtn>
         </View>
       </View>
     </TouchableOpacity>
