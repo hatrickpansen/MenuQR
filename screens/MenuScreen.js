@@ -22,7 +22,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { color } from "react-native-elements/dist/helpers";
 import PlusBtn from "../components/authComponents/PlusBtn";
 import { getItems } from "../components/ItemBuffer";
-
+import UpdateVisibleMultipleItems from "../assets/fetchMethods/updateMultipleItems"
 const baseUrl = Url.url.url;
 //
 
@@ -137,12 +137,16 @@ const MenuScreen = ({ route }) => {
       </View>
     );
   }
-  const callbackFromEditBtn = (childData) => {
+  async function callbackFromEditBtn(childData){
     setIsEditState(childData);
     setShouldSaveVisible(childData);
     //this shoudl be an api call to post changes on many items.
-    console.log(getItems())
-
+    let response;
+    if(!childData){
+      response = await UpdateVisibleMultipleItems(getItems());
+    }
+    
+    console.log(response)
   };
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
