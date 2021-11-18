@@ -102,7 +102,7 @@ const ListItemStyle = StyleSheet.create({
   },
   textAndEditBtnContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between"
   },
   editBtnContainer: {

@@ -19,7 +19,7 @@ const PlusBtn = ({isEditMode, restId}) => {
         return (
             <View>
         
-        <ModalDropdown dropdownTextStyle={styles.dropDownText} dropdownStyle={styles.dropDown} options={["Add Dish"]}
+        <ModalDropdown dropdownTextStyle={styles.dropDownText} dropdownStyle={styles.dropDown} options={["Add Dish", "Add category"]}
             dropdownTextHighlightStyle={styles.dropDownTextHigh} onSelect={ (index, value)=>{
                 if(value == "Add Dish"){
                     navigation.navigate("ItemEdit", {isNew: true, restId: restId});
@@ -41,12 +41,21 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
     },
     dropDown: {
-        height: "11.5%",
-        marginVertical: -50,
+        height: "auto",
+        marginVertical: -30,
         paddingVertical: 10,
         paddingHorizontal: 5,
         borderRadius: 20,
         backgroundColor: "#0E9594",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 20,
     },
     dropDownText: {
         borderRadius: 20,
