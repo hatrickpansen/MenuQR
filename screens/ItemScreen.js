@@ -9,6 +9,7 @@ import {
   Animated,
   Dimensions,
   Platform,
+  ProgressBarAndroidBase,
 } from "react-native";
 import Allergene from "../components/itemScreenComponents/Allergene";
 
@@ -30,14 +31,15 @@ function wp(percentage) {
 
 const slideWidth = wp(85);
 
-var sliderRef;
 const ItemScreen = ({ route }) => {
+  var sliderRef = useRef(null)
   const { id, restId } = route.params;
   const [activeItemId, setActiveItemId] = useState(id);
   const restaurantID = restId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
+  const [idPairs, setIdPairs] = useState([]);
 
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
@@ -56,15 +58,32 @@ const ItemScreen = ({ route }) => {
     });
     const data = await resp.json();
     setData(data);
+    setIdPairs(pairIds(data));
     setLoading(false);
+
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  function pairIds(data){
+    let pairs = []
+    for (let i = 0; i < data.length; i++) {
+      pairs.push(data[i].id);
+    }
+    return pairs;
+  }
+  function getCaruselId(id){
+    for (let i = 0; i < idPairs.length; i++) {
+      if(id == idPairs[i]){
+        console.log("i: " + i)
+        return i;
+      }
+    }
+  }
   function carouselRender({ item, index }) {
-    return <ItemCard item={item} />;
+    return <ItemCard item={item}/>;
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
@@ -83,7 +102,7 @@ const ItemScreen = ({ route }) => {
         sliderWidth={ScreenWidth}
         itemWidth={slideWidth}
         loop={false}
-        firstItem={activeItemId}
+        firstItem={getCaruselId(activeItemId)}
         onSnapToItem={(index) => {
           setActiveItemId(index);
         }}

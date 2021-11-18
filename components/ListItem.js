@@ -28,6 +28,7 @@ const ListItem = ({ item, editMode }) => {
     <TouchableOpacity
       style={ListItemStyle.card}
       onPress={() => {
+        console.log("touched item id:" + item.id);
         navigation.navigate("Item", {
           id: item.id,
           restId: item.restId,

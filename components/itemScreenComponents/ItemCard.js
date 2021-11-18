@@ -14,7 +14,6 @@ import imageManager from "../imageManager";
 const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemCard = ({ item }) => {
-  console.log(item);
   return (
     <ScrollView style={styles.container}>
       <Animated.View>
