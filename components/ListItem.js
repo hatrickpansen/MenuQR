@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import EditIcon from "./authComponents/EditIcon";
 import imageManager from "./imageManager";
+import VisibleBtn from "./authComponents/VisibleBtn";
 
 const ListItem = ({ item, editMode }) => {
   const navigation = useNavigation();
@@ -22,6 +23,9 @@ const ListItem = ({ item, editMode }) => {
     navigation.navigate("ItemEdit", {
       id: item.id
     })
+  }
+  function callbackVisible(childData){
+    console.log(childData);
   }
 
   return (
@@ -56,6 +60,7 @@ const ListItem = ({ item, editMode }) => {
       </View>
         <View style={ListItemStyle.editBtnContainer}>
           <EditIcon style={ListItemStyle.edit} size={24} editMode={editState} itemData={item} callback={callbackEdit}/>
+          <VisibleBtn callback={callbackVisible}></VisibleBtn>
         </View>
       </View>
     </TouchableOpacity>

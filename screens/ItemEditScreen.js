@@ -52,7 +52,8 @@ const ItemEditScreen = ({ route }) => {
               min: 59
             }
           },
-          type: "food"
+          type: "food",
+          visible: false
       })
       setLoading(false)
     } else {

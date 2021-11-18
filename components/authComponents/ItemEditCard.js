@@ -95,6 +95,7 @@ const ItemEditCard = ({ item, isNew }) => {
           image: item.image,
           title: item.title,
           available: available,
+          visible: item.visible
         }),
       })
         .then(function (res) {
@@ -122,6 +123,7 @@ const ItemEditCard = ({ item, isNew }) => {
           image: item.image,
           title: item.title,
           available: available,
+          visible: item.visible
         }),
       })
         .then(function (res) {
