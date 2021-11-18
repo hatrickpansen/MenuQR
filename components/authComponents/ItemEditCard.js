@@ -244,7 +244,6 @@ const ItemEditCard = ({ item, isNew }) => {
       <View style={{ flex: 10 }}>
         <ScrollView style={styles.scrollContainer}>
           <View /* styles={styles.container} */>
-            {/* <Image source={{ uri: item.image}} style={styles.image} /> */}
             {item.image!=null && <Image
           style={styles.image}
           source={{

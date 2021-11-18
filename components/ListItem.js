@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import EditIcon from "./authComponents/EditIcon";
+import imageManager from "./imageManager";
 
 const ListItem = ({ item, editMode }) => {
   const navigation = useNavigation();
@@ -33,7 +34,17 @@ const ListItem = ({ item, editMode }) => {
         });
       }}
     >
-      <Image source={{ uri: item.image }} style={ListItemStyle.image} />
+      {item.image!=null && <Image
+          style={ListItemStyle.image}
+          source={{
+            uri: item.image 
+          }}
+        />}
+        {item.image==null && <Image
+          style={ListItemStyle.image}
+          source={imageManager.defaultItem
+          }
+        />}
       <View style={ListItemStyle.textAndEditBtnContainer}>
       <View >
         <Text style={ListItemStyle.title}>

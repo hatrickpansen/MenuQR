@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Allergene from "./Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
+import imageManager from "../imageManager";
 
 const orangeColor = styleOrangeColor.textOrange.color;
 
@@ -18,7 +19,17 @@ const ItemCard = ({ item }) => {
     <ScrollView style={styles.container}>
       <Animated.View>
         <View style={{ alignItems: "center" }}>
-          <Image source={{ uri: item.image }} style={styles.image}></Image>
+        {item.image!=null && <Image
+          style={styles.image}
+          source={{
+            uri: item.image 
+          }}
+        />}
+        {item.image==null && <Image
+          style={styles.image}
+          source={imageManager.defaultItem
+          }
+        />}
 
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.prices}>{item.price} DKK</Text>
