@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ScrollView,
   Animated,
@@ -29,6 +29,11 @@ const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditCard = ({ item, isNew }) => {
   const navigation = useNavigation();
+
+  const nameInput = useRef(null);
+  const priceInput = useRef(null);
+  const descriptionInput = useRef(null);
+
   const [available, setAvailable] = useState(item.available);
 
   const [startTime, setStartTime] = useState(
@@ -274,9 +279,13 @@ const ItemEditCard = ({ item, isNew }) => {
 
                     <TextInput
                       style={styles.textInput}
+                      ref={nameInput}
                       placeholder="Dish name"
                       value={itemName}
                       onChangeText={(val) => setItemName(val)}
+                      onSubmitEditing={() => {
+                        priceInput.current.focus();
+                      }}
                     />
                   </View>
                 </View>
@@ -287,9 +296,13 @@ const ItemEditCard = ({ item, isNew }) => {
                     <TextInput
                       style={styles.textInput}
                       value={itemPrice != undefined ? itemPrice.toString() : ""}
+                      ref={priceInput}
                       placeholder="price"
                       keyboardType="numeric"
                       onChangeText={(val) => setItemPrice(val)}
+                      onSubmitEditing={() => {
+                        descriptionInput.current.focus();
+                      }}
                     />
                     <Text style={{ opacity: 0.5, paddingRight: 5 }}>DKK</Text>
                   </View>
@@ -300,6 +313,7 @@ const ItemEditCard = ({ item, isNew }) => {
                     <TextInput
                       style={[styles.textInput, styles.textInputDesc]}
                       value={itemDesc}
+                      ref={descriptionInput}
                       placeholder="Dish Description"
                       keyboardType="default"
                       multiline
@@ -364,8 +378,10 @@ const ItemEditCard = ({ item, isNew }) => {
                 </View>
               </View>
             </View>
-            <Text style={styles.name}>{"Allergenes\n"}</Text>
-            <View style={styles.alContainer}>{data}</View>
+            <View style={{ marginHorizontal: 10 }}>
+              <Text style={styles.name}>{"Allergenes\n"}</Text>
+              <View style={styles.alContainer}>{data}</View>
+            </View>
           </View>
           <ItemDeleteBtn callBack={callBackDeleteBtn} />
         </ScrollView>
