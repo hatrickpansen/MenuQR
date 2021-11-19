@@ -373,6 +373,7 @@ const ItemEditCard = ({ item, isNew }) => {
       <View style={{ flex: 1, paddingBottom: 10 }}>
         <Button
           title="save changes"
+          color="#0E9594"
           onPress={async () => {
             storeChanges();
             routeBackToMenu();
