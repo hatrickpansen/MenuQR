@@ -37,6 +37,7 @@ const SubMenu = (props) => {
         style={{
           width: screenWidth,
         }}
+        contentContainerStyle={{ padding: 10 }}
       />
     </View>
   );
