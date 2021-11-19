@@ -18,6 +18,7 @@ import ItemCard from "../components/itemScreenComponents/ItemCard";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { styleOrangeColor } from "../styles/customStyles";
 import LoadingIndicator from "../components/LoadingIndicator";
+import fetchAvailableItems from "../assets/fetchMethods/fetchAvailableItems";
 const ScreenWidth = Dimensions.get("window").width;
 const ScreenHeight = Dimensions.get("window").height;
 const orangeColor = styleOrangeColor.textOrange.color;
@@ -52,11 +53,8 @@ const ItemScreen = ({ route }) => {
   };
 
   const fetchData = async (restId) => {
-    abort();
-    const resp = await fetch(baseUrl + "/items/" + restaurantID, {
-      abortSignal,
-    });
-    const data = await resp.json();
+    abort()
+    const data = await fetchAvailableItems(restId, abortSignal)
     setData(data);
     setIdPairs(pairIds(data));
     setLoading(false);
@@ -64,7 +62,7 @@ const ItemScreen = ({ route }) => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(restId);
   }, []);
 
   function pairIds(data){

@@ -23,6 +23,7 @@ import { color } from "react-native-elements/dist/helpers";
 import PlusBtn from "../components/authComponents/PlusBtn";
 import { getItems } from "../components/ItemBuffer";
 import UpdateVisibleMultipleItems from "../assets/fetchMethods/updateMultipleItems"
+import fetchAvailableItems from "../assets/fetchMethods/fetchAvailableItems";
 const baseUrl = Url.url.url;
 //
 
@@ -106,16 +107,33 @@ const MenuScreen = ({ route }) => {
       setLoadingRests(false);
     }
   };
+  async function getAvailableItems(){
+    abort();
+    const data = await fetchAvailableItems(restaurantID, abortSignal)
+      setDataItems(data);
+      setLoadingItems(false);
+  }
 
   useEffect(() => {
-    fetchItems();
-    fetchRestaurant();
+    if(auth){
+      fetchItems();
+      fetchRestaurant();
+    } else {
+      getAvailableItems();
+      fetchRestaurant();
+    }
+    
     
   }, []);
   //triggered when going back to this screen.
   useEffect(() => {
-    fetchItems();
-    fetchRestaurant();
+    if(auth){
+      fetchItems();
+      fetchRestaurant();
+    } else {
+      getAvailableItems();
+      fetchRestaurant();
+    }
   }, [isFocused]);
 
   /*  function dataGetter(what) {
