@@ -22,8 +22,9 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { color } from "react-native-elements/dist/helpers";
 import PlusBtn from "../components/authComponents/PlusBtn";
 import { getItems } from "../components/ItemBuffer";
-import UpdateVisibleMultipleItems from "../assets/fetchMethods/updateMultipleItems"
+import UpdateVisibleMultipleItems from "../assets/fetchMethods/updateMultipleItems";
 import fetchAvailableItems from "../assets/fetchMethods/fetchAvailableItems";
+import { FontAwesome5 } from "@expo/vector-icons";
 const baseUrl = Url.url.url;
 //
 
@@ -107,27 +108,25 @@ const MenuScreen = ({ route }) => {
       setLoadingRests(false);
     }
   };
-  async function getAvailableItems(){
+  async function getAvailableItems() {
     abort();
-    const data = await fetchAvailableItems(restaurantID, abortSignal)
-      setDataItems(data);
-      setLoadingItems(false);
+    const data = await fetchAvailableItems(restaurantID, abortSignal);
+    setDataItems(data);
+    setLoadingItems(false);
   }
 
   useEffect(() => {
-    if(auth){
+    if (auth) {
       fetchItems();
       fetchRestaurant();
     } else {
       getAvailableItems();
       fetchRestaurant();
     }
-    
-    
   }, []);
   //triggered when going back to this screen.
   useEffect(() => {
-    if(auth){
+    if (auth) {
       fetchItems();
       fetchRestaurant();
     } else {
@@ -155,17 +154,17 @@ const MenuScreen = ({ route }) => {
       </View>
     );
   }
-  async function callbackFromEditBtn(childData){
+  async function callbackFromEditBtn(childData) {
     setIsEditState(childData);
     setShouldSaveVisible(childData);
     //this shoudl be an api call to post changes on many items.
     let response;
-    if(!childData){
+    if (!childData) {
       response = await UpdateVisibleMultipleItems(getItems());
     }
-    
-    console.log(response)
-  };
+
+    console.log(response);
+  }
   return (
     <SafeAreaProvider style={tw.style(`pt-10`)}>
       <View style={tw.style(`items-center pb-4`)}>
@@ -174,10 +173,21 @@ const MenuScreen = ({ route }) => {
         >
           {title === undefined ? "cant find name" : title}
         </Text>
-        <Text>Opening hours: {openingHours}</Text>
-        <Text>{address}</Text>
+        <View style={{ flexDirection: "row", marginVertical: 10 }}>
+          <View style={{ marginRight: 10 }}>
+            <FontAwesome5 name="clock" size={20} color="#FF470B" />
+          </View>
+          <Text>{openingHours}</Text>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ marginRight: 10 }}>
+            <FontAwesome5 name="map-marker-alt" size={20} color="#FF470B" />
+          </View>
+          <Text>{address}</Text>
+        </View>
         <View style={styles.plusBtn}>
-        <PlusBtn isEditMode={isEditState} restId={restaurantID}></PlusBtn>
+          <PlusBtn isEditMode={isEditState} restId={restaurantID}></PlusBtn>
         </View>
       </View>
 
@@ -304,8 +314,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "80%",
     top: "50%",
-    zIndex: 10
-  }
+    zIndex: 10,
+  },
 });
 
 export default MenuScreen;
