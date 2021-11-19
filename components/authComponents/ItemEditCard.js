@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import CheckBox from '@react-native-community/checkbox';
+import CheckBox from "@react-native-community/checkbox";
 
 const screenHeight = Dimensions.get("screen").height;
 const screenwidth = Dimensions.get("screen").width;
@@ -78,7 +78,7 @@ const ItemEditCard = ({ item, isNew }) => {
     setAllergenes(data);
   }
   async function storeChanges() {
-    if(isNew){
+    if (isNew) {
       const rawResponse = await fetch(baseUrl + "/newItem", {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ const ItemEditCard = ({ item, isNew }) => {
           image: item.image,
           title: item.title,
           available: available,
-          visible: item.visible
+          visible: item.visible,
         }),
       })
         .then(function (res) {
@@ -123,7 +123,7 @@ const ItemEditCard = ({ item, isNew }) => {
           image: item.image,
           title: item.title,
           available: available,
-          visible: item.visible
+          visible: item.visible,
         }),
       })
         .then(function (res) {
@@ -134,7 +134,6 @@ const ItemEditCard = ({ item, isNew }) => {
         });
       console.log(rawResponse);
     }
-   
   }
   function routeBackToMenu() {
     console.log(item);
@@ -211,8 +210,8 @@ const ItemEditCard = ({ item, isNew }) => {
     }
   }
 
-  function callBackDeleteBtn(childData){
-    if(childData){
+  function callBackDeleteBtn(childData) {
+    if (childData) {
       //deleteitem
       deleteItemFetch();
       //route to menu
@@ -220,7 +219,7 @@ const ItemEditCard = ({ item, isNew }) => {
     }
   }
 
-  async function deleteItemFetch(){
+  async function deleteItemFetch() {
     const rawResponse = await fetch(baseUrl + "/deleteItem", {
       method: "DELETE",
       headers: {
@@ -240,23 +239,22 @@ const ItemEditCard = ({ item, isNew }) => {
     console.log(rawResponse);
   }
 
-
   return (
     <View style={styles.outerContainer}>
       <View style={{ flex: 10 }}>
         <ScrollView style={styles.scrollContainer}>
           <View /* styles={styles.container} */>
-            {item.image!=null && <Image
-          style={styles.image}
-          source={{
-            uri: item.image 
-          }}
-        />}
-        {item.image==null && <Image
-          style={styles.image}
-          source={imageManager.defaultItem
-          }
-        />}
+            {item.image != null && (
+              <Image
+                style={styles.image}
+                source={{
+                  uri: item.image,
+                }}
+              />
+            )}
+            {item.image == null && (
+              <Image style={styles.image} source={imageManager.defaultItem} />
+            )}
             <View
               style={{
                 flex: 1,
@@ -267,13 +265,13 @@ const ItemEditCard = ({ item, isNew }) => {
               <View
                 style={{
                   flex: 1,
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
               >
                 <View style={{ flex: 1, marginBottom: 20 }}>
-                <View style={styles.inputView}>
-                  <Text style={styles.name}>Item Name</Text>
-                  
+                  <View style={styles.inputView}>
+                    <Text style={styles.name}>Item Name</Text>
+
                     <TextInput
                       style={styles.textInput}
                       placeholder="Dish name"
@@ -283,9 +281,9 @@ const ItemEditCard = ({ item, isNew }) => {
                   </View>
                 </View>
                 <View style={{ flex: 1, marginBottom: 20 }}>
-                <View style={[styles.inputView]}>
-                  <Text style={styles.name}>Item Price</Text>
-                  
+                  <View style={[styles.inputView]}>
+                    <Text style={styles.name}>Item Price</Text>
+
                     <TextInput
                       style={styles.textInput}
                       value={itemPrice != undefined ? itemPrice.toString() : ""}
@@ -297,8 +295,8 @@ const ItemEditCard = ({ item, isNew }) => {
                   </View>
                 </View>
                 <View style={{ flex: 2.5, marginBottom: 20 }}>
-                <View style={[styles.inputView, styles.inputViewDesc]}>
-                  <Text style={styles.name}>Item Description</Text>
+                  <View style={[styles.inputView, styles.inputViewDesc]}>
+                    <Text style={styles.name}>Item Description</Text>
                     <TextInput
                       style={[styles.textInput, styles.textInputDesc]}
                       value={itemDesc}
@@ -310,59 +308,56 @@ const ItemEditCard = ({ item, isNew }) => {
                   </View>
                 </View>
                 <View style={{ flex: 2.5 }}>
-                <View style={styles.availableContainer}>
-                  <Text style={styles.name}>Item Availability</Text>
-                  
+                  <View style={styles.availableContainer}>
+                    <Text style={styles.name}>Item Availability</Text>
+
                     <View style={styles.timePickContainer}>
                       <Text style={styles.timePickingLabel}>start:</Text>
                       <View style={styles.DateTimePickerContainer}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          setShowStartPicker(true);
-                        }}
-                      >
-                        <Text style={styles.timePickingText}>{startTime}</Text>
-                      </TouchableOpacity>
-                      {showStartPicker && (
-                        
-                        <DateTimePicker
-                          value={startPickerTime}
-                          mode="time"
-                          display="default"
-                          is24Hour={true}
-                          onChange={(event, date) => {
-                            onStartPicking(event, date);
+                        <TouchableOpacity
+                          onPress={() => {
+                            setShowStartPicker(true);
                           }}
-                        />
-                        
-                      )}
+                        >
+                          <Text style={styles.timePickingText}>
+                            {startTime}
+                          </Text>
+                        </TouchableOpacity>
+                        {showStartPicker && (
+                          <DateTimePicker
+                            value={startPickerTime}
+                            mode="time"
+                            display="default"
+                            is24Hour={true}
+                            onChange={(event, date) => {
+                              onStartPicking(event, date);
+                            }}
+                          />
+                        )}
                       </View>
                     </View>
                     <View style={styles.timePickContainer}>
-                      
                       <Text style={styles.timePickingLabel}>End:</Text>
-                      
+
                       <View style={styles.DateTimePickerContainer}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          setShowEndPicker(true);
-                        }}
-                      >
-                        <Text style={styles.timePickingText}>{endTime}</Text>
-                      </TouchableOpacity>
-                      {showEndPicker && (
-                        
-                        <DateTimePicker
-                          value={endPickerTime}
-                          mode="time"
-                          display="default"
-                          is24Hour={true}
-                          onChange={(event, date) => {
-                            onEndPicking(event, date);
+                        <TouchableOpacity
+                          onPress={() => {
+                            setShowEndPicker(true);
                           }}
-                        />
-                        
-                      )}
+                        >
+                          <Text style={styles.timePickingText}>{endTime}</Text>
+                        </TouchableOpacity>
+                        {showEndPicker && (
+                          <DateTimePicker
+                            value={endPickerTime}
+                            mode="time"
+                            display="default"
+                            is24Hour={true}
+                            onChange={(event, date) => {
+                              onEndPicking(event, date);
+                            }}
+                          />
+                        )}
                       </View>
                     </View>
                   </View>
@@ -372,10 +367,10 @@ const ItemEditCard = ({ item, isNew }) => {
             <Text style={styles.name}>{"Allergenes\n"}</Text>
             <View style={styles.alContainer}>{data}</View>
           </View>
-          <ItemDeleteBtn callBack={callBackDeleteBtn}/>
+          <ItemDeleteBtn callBack={callBackDeleteBtn} />
         </ScrollView>
       </View>
-      <View style={{ flex: 1, height: 20 }}>
+      <View style={{ flex: 1, paddingBottom: 10 }}>
         <Button
           title="save changes"
           onPress={async () => {
@@ -400,7 +395,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     marginTop: 40,
-    marginBottom: 20,
+    marginBottom: 5,
     paddingVertical: 0,
   },
   container: {
@@ -413,7 +408,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginBottom: 20,
     marginHorizontal: 10,
-    
   },
   timePickContainer: {
     flex: 1,
@@ -425,12 +419,10 @@ const styles = StyleSheet.create({
     borderRightColor: "rgba(255, 255, 255, 0.0)",
     borderTopColor: "rgba(255, 255, 255, 0.0)",
     borderWidth: 3,
-    
   },
   DateTimePickerContainer: {
     padding: 10,
     /* margin: 10, */
-    
   },
   inputView: {
     borderBottomColor: "#e1e1e1",
