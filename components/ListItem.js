@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/core";
 import EditIcon from "./authComponents/EditIcon";
 import imageManager from "./imageManager";
 import VisibleBtn from "./authComponents/VisibleBtn";
+import tw from "tailwind-react-native-classnames";
 
 const ListItem = ({ item, editMode, callback }) => {
   const navigation = useNavigation();
@@ -52,10 +53,17 @@ const ListItem = ({ item, editMode, callback }) => {
       )}
       <View style={ListItemStyle.textAndEditBtnContainer}>
         <View>
-          <Text style={ListItemStyle.title}>
-            {item.name}{" "}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingRight: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text style={ListItemStyle.title}>{item.name}</Text>
             <Text style={ListItemStyle.price}>{item.price} DKK</Text>
-          </Text>
+          </View>
           <Text style={ListItemStyle.description}>{item.description}</Text>
         </View>
         <View style={ListItemStyle.editBtnContainer}>
@@ -95,7 +103,9 @@ const ListItemStyle = StyleSheet.create({
   },
   price: {
     fontSize: 18,
-    opacity: 0.7,
+    opacity: 0.9,
+    fontWeight: "bold",
+    color: "#ff4b3a",
   },
   description: {
     fontSize: 14,
@@ -122,7 +132,6 @@ const ListItemStyle = StyleSheet.create({
   textAndEditBtnContainer: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
   },
   editBtnContainer: {
     flex: 1,
