@@ -10,6 +10,7 @@ import {
   Dimensions,
   Platform,
   ProgressBarAndroidBase,
+  TouchableOpacity,
 } from "react-native";
 import Allergene from "../components/itemScreenComponents/Allergene";
 
@@ -23,6 +24,8 @@ const ScreenWidth = Dimensions.get("window").width;
 const ScreenHeight = Dimensions.get("window").height;
 const orangeColor = styleOrangeColor.textOrange.color;
 import Url from "../assets/Url";
+import tw from "tailwind-react-native-classnames";
+import dimensions from "react-native-web/dist/exports/Dimensions";
 const baseUrl = Url.url.url;
 
 function wp(percentage) {
@@ -87,44 +90,83 @@ const ItemScreen = ({ route }) => {
   function carouselRender({ item, index }) {
     return <ItemCard item={item} />;
   }
+  function getItemId(caruoselId) {
+    return idPairs[caruoselId];
+  }
+
+  const CarouselPaginationBar = (props) => {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          props.carouselRef.current.snapToItem(props.index);
+        }}
+      >
+        <View
+          style={tw`rounded-full`}
+          width={props.width}
+          marginHorizontal={6}
+          height={props.width}
+          backgroundColor={props.inactive ? "rgba(0, 0, 0, 0.20)" : orangeColor}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const carouselRef = useRef(null);
+
+  const getPagination = () => (
+    <Pagination
+      dotsLength={data.length}
+      activeDotIndex={getCaruselId(activeItemId)}
+      containerStyle={{
+        /*backgroundColor: "white",*/
+        paddingVertical: 4,
+        paddingHorizontal: 10,
+      }}
+      tappableDots={true}
+      dotElement={
+        <CarouselPaginationBar width={width / 20} carouselRef={carouselRef} />
+      }
+      inactiveDotElement={
+        <CarouselPaginationBar
+          width={width / 24}
+          carouselRef={carouselRef}
+          inactive
+        />
+      }
+    />
+  );
+
+  const { height, width } = Dimensions.get("screen");
+
   return (
-    <View style={ItemScreenStyle.carouselContainer}>
-      {loading && (
+    <View style={{ height: Dimensions.get("screen").height }}>
+      {loading ? (
         <View style={ItemScreenStyle.loadingContainer}>
-          <LoadingIndicator></LoadingIndicator>
+          <LoadingIndicator />
           <Text style={{ color: orangeColor }}>{errorMessage}</Text>
         </View>
+      ) : (
+        <View>
+          <Carousel
+            contentContainerCustomStyle={{ marginTop: 60, marginBottom: 35 }}
+            ref={carouselRef}
+            data={data}
+            renderItem={carouselRender}
+            sliderWidth={width}
+            itemWidth={width}
+            slideStyle={{
+              width: width,
+            }}
+            loop={false}
+            firstItem={getCaruselId(activeItemId)}
+            onSnapToItem={(index) => {
+              setActiveItemId(getItemId(index));
+            }}
+          />
+          {getPagination()}
+        </View>
       )}
-      <Carousel
-        ref={(c) => {
-          sliderRef = c;
-        }}
-        data={data}
-        renderItem={carouselRender}
-        sliderWidth={ScreenWidth}
-        itemWidth={slideWidth}
-        loop={false}
-        firstItem={getCaruselId(activeItemId)}
-        onSnapToItem={(index) => {
-          setActiveItemId(getItemId(index));
-        }}
-        inactiveSlideOpacity={0.1}
-      />
-      <Pagination
-        dotsLength={data.length}
-        activeDotIndex={getCaruselId(activeItemId)}
-        dotColor={orangeColor}
-        inactiveDotColor="#000"
-        inactiveDotOpacity={0.2}
-        dotStyle={{
-          width: 12,
-          height: 12,
-          borderRadius: 6,
-          marginHorizontal: 1,
-        }}
-        carouselRef={sliderRef}
-        tappableDots={!!sliderRef}
-      />
     </View>
   );
 };

@@ -6,6 +6,7 @@ import {
   Image,
   Text,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import Allergene from "./Allergene";
 import { styleOrangeColor } from "../../styles/customStyles";
@@ -18,17 +19,17 @@ const ItemCard = ({ item }) => {
     <ScrollView style={styles.container}>
       <Animated.View>
         <View style={{ alignItems: "center" }}>
-        {item.image!=null && <Image
-          style={styles.image}
-          source={{
-            uri: item.image 
-          }}
-        />}
-        {item.image==null && <Image
-          style={styles.image}
-          source={imageManager.defaultItem
-          }
-        />}
+          {item.image != null && (
+            <Image
+              style={styles.image}
+              source={{
+                uri: item.image,
+              }}
+            />
+          )}
+          {item.image == null && (
+            <Image style={styles.image} source={imageManager.defaultItem} />
+          )}
 
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.prices}>{item.price} DKK</Text>
@@ -42,10 +43,7 @@ const ItemCard = ({ item }) => {
               {"Description \n"}
             </Text>
             <View style={styles.readmoreContainer}>
-              <Text style={styles.descriptionText}>
-                {item.description}
-                
-              </Text>
+              <Text style={styles.descriptionText}>{item.description}</Text>
             </View>
           </Text>
           <View>
@@ -62,6 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.5)",
     borderRadius: 30,
     padding: 20,
+    marginHorizontal: 20,
+    height: Dimensions.get("screen").height - 180,
   },
   image: {
     borderRadius: 125,
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 5,
-    }, 
-     shadowOpacity: 0.4,
+    },
+    shadowOpacity: 0.4,
     shadowRadius: 2.0,
   },
   name: {
