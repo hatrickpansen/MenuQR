@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableHighlight,
   View,
@@ -16,18 +16,17 @@ const ListItem = ({ item, editMode, callback }) => {
   const navigation = useNavigation();
   const [editState, setEditState] = useState(editMode);
   useEffect(() => {
-    setEditState(editMode)
-  })
+    setEditState(editMode);
+  });
 
-  function callbackEdit(childData){
+  function callbackEdit(childData) {
     navigation.navigate("ItemEdit", {
-      id: item.id
-    })
+      id: item.id,
+    });
   }
-  function callbackVisible(childData){
+  function callbackVisible(childData) {
     item.visible = childData.isVisible;
-    callback({id: item.id, visible: item.visible})
-
+    callback({ id: item.id, visible: item.visible });
   }
 
   return (
@@ -40,28 +39,42 @@ const ListItem = ({ item, editMode, callback }) => {
         });
       }}
     >
-      {item.image!=null && <Image
+      {item.image != null && (
+        <Image
           style={ListItemStyle.image}
           source={{
-            uri: item.image 
+            uri: item.image,
           }}
-        />}
-        {item.image==null && <Image
-          style={ListItemStyle.image}
-          source={imageManager.defaultItem
-          }
-        />}
+        />
+      )}
+      {item.image == null && (
+        <Image style={ListItemStyle.image} source={imageManager.defaultItem} />
+      )}
       <View style={ListItemStyle.textAndEditBtnContainer}>
-      <View >
-        <Text style={ListItemStyle.title}>
-          {item.name} <Text style={ListItemStyle.price}>{item.price} DKK</Text>
-        </Text>
-        <Text style={ListItemStyle.description}>{item.description}</Text>
-        
-      </View>
+        <View>
+          <Text style={ListItemStyle.title}>
+            {item.name}{" "}
+            <Text style={ListItemStyle.price}>{item.price} DKK</Text>
+          </Text>
+          <Text style={ListItemStyle.description}>{item.description}</Text>
+        </View>
         <View style={ListItemStyle.editBtnContainer}>
-          <EditIcon style={ListItemStyle.edit} size={24} editMode={editState} itemData={item} callback={callbackEdit}/>
-          <VisibleBtn callback={callbackVisible} visible={item.visible} editMode={editState}></VisibleBtn>
+          <View style={{ padding: 5 }}>
+            <EditIcon
+              style={ListItemStyle.edit}
+              size={24}
+              editMode={editState}
+              itemData={item}
+              callback={callbackEdit}
+            />
+          </View>
+          <View style={{ padding: 5 }}>
+            <VisibleBtn
+              callback={callbackVisible}
+              visible={item.visible}
+              editMode={editState}
+            ></VisibleBtn>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -109,12 +122,14 @@ const ListItemStyle = StyleSheet.create({
   textAndEditBtnContainer: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   editBtnContainer: {
+    flex: 1,
+    flexDirection: "row",
     justifyContent: "flex-end",
-    padding: 20
-  }
+    padding: 20,
+  },
 });
 
 export default ListItem;
