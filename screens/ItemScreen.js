@@ -33,15 +33,16 @@ function wp(percentage) {
 const slideWidth = wp(85);
 
 const ItemScreen = ({ route }) => {
-  var sliderRef = useRef(null)
+  var sliderRef = useRef(null);
   const { id, restId } = route.params;
+
   const [activeItemId, setActiveItemId] = useState(id);
   const restaurantID = restId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const [idPairs, setIdPairs] = useState([]);
-
+  console.log("id: " + activeItemId);
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
 
@@ -53,35 +54,38 @@ const ItemScreen = ({ route }) => {
   };
 
   const fetchData = async (restId) => {
-    abort()
-    const data = await fetchAvailableItems(restId, abortSignal)
+    abort();
+    const data = await fetchAvailableItems(restId, abortSignal);
     setData(data);
     setIdPairs(pairIds(data));
     setLoading(false);
-
   };
 
   useEffect(() => {
     fetchData(restId);
   }, []);
 
-  function pairIds(data){
-    let pairs = []
+  function pairIds(data) {
+    let pairs = [];
     for (let i = 0; i < data.length; i++) {
       pairs.push(data[i].id);
     }
+    console.log("idpairs: " + pairs);
     return pairs;
   }
-  function getCaruselId(id){
+  function getCaruselId(id) {
     for (let i = 0; i < idPairs.length; i++) {
-      if(id == idPairs[i]){
-        console.log("i: " + i)
+      if (id == idPairs[i]) {
+        console.log("i: " + i);
         return i;
       }
     }
   }
+  function getItemId(caruoselId) {
+    return idPairs[caruoselId];
+  }
   function carouselRender({ item, index }) {
-    return <ItemCard item={item}/>;
+    return <ItemCard item={item} />;
   }
   return (
     <View style={ItemScreenStyle.carouselContainer}>
@@ -102,13 +106,13 @@ const ItemScreen = ({ route }) => {
         loop={false}
         firstItem={getCaruselId(activeItemId)}
         onSnapToItem={(index) => {
-          setActiveItemId(index);
+          setActiveItemId(getItemId(index));
         }}
         inactiveSlideOpacity={0.1}
       />
       <Pagination
         dotsLength={data.length}
-        activeDotIndex={activeItemId}
+        activeDotIndex={getCaruselId(activeItemId)}
         dotColor={orangeColor}
         inactiveDotColor="#000"
         inactiveDotOpacity={0.2}
