@@ -69,7 +69,7 @@ export default function LoginScreen() {
 
   async function onLoginPress() {
     setErrorMessage();
-    let count = 0;
+    setErrorSecondMessage();
     if (email.trim() == "" || password.trim() == "") {
       if (email.trim() == "") {
         setIsEmailInputError(true);
@@ -128,6 +128,7 @@ export default function LoginScreen() {
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
           returnKeyType="next"
+          textAlign="center"
           onChangeText={(email) => {
             setEmail(email);
             setIsEmailInputError(false);
@@ -149,6 +150,7 @@ export default function LoginScreen() {
           secureTextEntry={true}
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
+          textAlign="center"
           returnKeyType="go"
           onChangeText={(password) => {
             setPassword(password);
@@ -163,7 +165,8 @@ export default function LoginScreen() {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
-      <LoadingIndicator animating={isLoading} />
+      {isLoading && <LoadingIndicator animating={isLoading} />}
+
       <Text style={styles.errorText}>{errorMessage}</Text>
       <Text style={styles.errorText}>{errorSecondMessage}</Text>
 
@@ -222,7 +225,7 @@ const styles = StyleSheet.create({
 
   forgot_button: {
     height: 30,
-    marginBottom: 30,
+    marginBottom: 10,
     color: styleOrangeColor.textOrange.color,
   },
 
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: styleOrangeColor.textOrange.color,
   },
   imageContainer: {
