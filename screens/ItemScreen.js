@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import {
   Image,
   SafeAreaView,
@@ -36,16 +36,17 @@ function wp(percentage) {
 const slideWidth = wp(85);
 
 const ItemScreen = ({ route }) => {
-  var sliderRef = useRef(null);
+  const carouselRef = useRef(null);
   const { id, restId } = route.params;
+  console.log("id on first item: " + id);
 
   const [activeItemId, setActiveItemId] = useState(id);
+  console.log("active item id: " + activeItemId);
   const restaurantID = restId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
   const [idPairs, setIdPairs] = useState([]);
-  console.log("id: " + activeItemId);
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
 
@@ -64,8 +65,9 @@ const ItemScreen = ({ route }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchData(restId);
+    console.log("caruosel ref index: " + carouselRef.currentIndex);
   }, []);
 
   function pairIds(data) {
@@ -73,25 +75,23 @@ const ItemScreen = ({ route }) => {
     for (let i = 0; i < data.length; i++) {
       pairs.push(data[i].id);
     }
-    console.log("idpairs: " + pairs);
+    console.log("idPairs " + pairs);
     return pairs;
   }
   function getCaruselId(id) {
     for (let i = 0; i < idPairs.length; i++) {
       if (id == idPairs[i]) {
-        console.log("i: " + i);
+        console.log("getting caruosel id : " + i);
         return i;
       }
     }
   }
   function getItemId(caruoselId) {
+    console.log("on item id: " + idPairs[caruoselId]);
     return idPairs[caruoselId];
   }
   function carouselRender({ item, index }) {
     return <ItemCard item={item} />;
-  }
-  function getItemId(caruoselId) {
-    return idPairs[caruoselId];
   }
 
   const CarouselPaginationBar = (props) => {
@@ -111,8 +111,6 @@ const ItemScreen = ({ route }) => {
       </TouchableOpacity>
     );
   };
-
-  const carouselRef = useRef(null);
 
   const getPagination = () => (
     <Pagination
@@ -161,6 +159,7 @@ const ItemScreen = ({ route }) => {
             loop={false}
             firstItem={getCaruselId(activeItemId)}
             onSnapToItem={(index) => {
+              console.log("on snap index: " + index);
               setActiveItemId(getItemId(index));
             }}
           />

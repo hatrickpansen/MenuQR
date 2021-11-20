@@ -15,6 +15,8 @@ import { useNavigation } from "@react-navigation/core";
 import Url from "../assets/Url";
 const baseUrl = Url.url.url;
 export default function LoginScreen() {
+  const [isEmailInputError, setIsEmailInputError] = useState(false);
+  const [isPasswordInputError, setIsPasswordInputError] = useState(false);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
   const loginBtn = useRef(null);
@@ -25,13 +27,14 @@ export default function LoginScreen() {
   const [passPlace, setPassPlace] = useState("Password");
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState();
+  const [errorSecondMessage, setErrorSecondMessage] = useState();
   var abortController = new AbortController();
   var abortSignal = abortController.signal;
 
   const abort = () => {
     setTimeout(() => {
       abortController.abort();
-      if(navigation.getState().index==1){
+      if (navigation.getState().index == 1) {
         setErrorMessage("Can't contact Server");
       }
     }, 5000);
@@ -64,7 +67,16 @@ export default function LoginScreen() {
 
   async function onLoginPress() {
     setErrorMessage();
+    let count = 0;
     if (email.trim() == "" || password.trim() == "") {
+      if (email.trim() == "") {
+        setIsEmailInputError(true);
+        setErrorMessage("You must specify an email");
+      }
+      if (password.trim() == "") {
+        setIsPasswordInputError(true);
+        setErrorSecondMessage("You must specify a password");
+      }
       return;
     }
     setIsLoading(true);
@@ -74,6 +86,7 @@ export default function LoginScreen() {
         setIsLoading(false);
         setEmail("");
         setPassword("");
+        setErrorSecondMessage("");
         if (emailInput.current != null || passwordInput.current != null) {
           emailInput.current.clear();
           passwordInput.current.clear();
@@ -84,6 +97,7 @@ export default function LoginScreen() {
         });
       } else if (!obj.auth) {
         setErrorMessage("Wrong login");
+        setErrorSecondMessage("");
         setIsLoading(false);
       }
     }
@@ -100,7 +114,9 @@ export default function LoginScreen() {
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View
+        style={[styles.inputView, isEmailInputError && styles.redInputView]}
+      >
         <TextInput
           ref={emailInput}
           style={styles.TextInput}
@@ -110,14 +126,19 @@ export default function LoginScreen() {
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
           returnKeyType="next"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(email) => {
+            setEmail(email);
+            setIsEmailInputError(false);
+          }}
           onSubmitEditing={() => {
             passwordInput.current.focus();
           }}
         />
       </View>
 
-      <View style={styles.inputView}>
+      <View
+        style={[styles.inputView, isPasswordInputError && styles.redInputView]}
+      >
         <TextInput
           ref={passwordInput}
           style={styles.TextInput}
@@ -127,7 +148,10 @@ export default function LoginScreen() {
           selectionColor={styleOrangeColor.textOrange.color}
           selectTextOnFocus={true}
           returnKeyType="go"
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(password) => {
+            setPassword(password);
+            setIsPasswordInputError(false);
+          }}
           onSubmitEditing={() => {
             onLoginPress();
           }}
@@ -139,6 +163,7 @@ export default function LoginScreen() {
       </TouchableOpacity>
       <LoadingIndicator animating={isLoading} />
       <Text style={styles.errorText}>{errorMessage}</Text>
+      <Text style={styles.errorText}>{errorSecondMessage}</Text>
 
       <TouchableOpacity
         ref={loginBtn}
@@ -171,7 +196,18 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 45,
     marginBottom: 20,
-
+    borderWidth: 5,
+    borderColor: "#e1e1e1",
+    alignItems: "center",
+  },
+  redInputView: {
+    backgroundColor: "#e1e1e1",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: "#eb4034",
     alignItems: "center",
   },
 
