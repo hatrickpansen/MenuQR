@@ -35,7 +35,9 @@ export default function LoginScreen() {
     setTimeout(() => {
       abortController.abort();
       if (navigation.getState().index == 1) {
-        setErrorMessage("Can't contact Server");
+        if (isLoading) {
+          setErrorMessage("Can't contact Server");
+        }
       }
     }, 5000);
   };
