@@ -95,11 +95,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   descriptionText: {
+    flexShrink: 1,
     color: orangeColor,
     fontSize: 20,
   },
   readmoreContainer: {
-    flex: 1,
+    flexDirection: "row",
+    width: Dimensions.get("screen").width - 100,
+    marginBottom: 20,
   },
   readmoreAndLessbtnStyle: {
     color: orangeColor,
