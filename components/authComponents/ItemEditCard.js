@@ -29,6 +29,9 @@ const orangeColor = styleOrangeColor.textOrange.color;
 
 const ItemEditCard = ({ item, isNew }) => {
   const navigation = useNavigation();
+  const [isFocusName, setIsFocusName] = useState(false);
+  const [isFocusPrice, setIsFocusPrice] = useState(false);
+  const [isFocusDesc, setIsFocusDesc] = useState(false);
 
   const nameInput = useRef(null);
   const priceInput = useRef(null);
@@ -278,13 +281,25 @@ const ItemEditCard = ({ item, isNew }) => {
                     <Text style={styles.name}>Item Name</Text>
 
                     <TextInput
-                      style={styles.textInput}
+                      style={[
+                        styles.textInput,
+                        isFocusName && styles.textInputFocus,
+                      ]}
                       ref={nameInput}
                       placeholder="Dish name"
                       value={itemName}
                       onChangeText={(val) => setItemName(val)}
                       onSubmitEditing={() => {
                         priceInput.current.focus();
+                        setIsFocusName(false);
+                      }}
+                      onBlur={() => {
+                        setIsFocusName(false);
+                      }}
+                      onFocus={(event) => {
+                        setIsFocusName(true);
+                        setIsFocusPrice(false);
+                        setIsFocusDesc(false);
                       }}
                     />
                   </View>
@@ -294,14 +309,26 @@ const ItemEditCard = ({ item, isNew }) => {
                     <Text style={styles.name}>Item Price</Text>
 
                     <TextInput
-                      style={styles.textInput}
+                      style={[
+                        styles.textInput,
+                        isFocusPrice && styles.textInputFocus,
+                      ]}
                       value={itemPrice != undefined ? itemPrice.toString() : ""}
                       ref={priceInput}
                       placeholder="price"
                       keyboardType="numeric"
                       onChangeText={(val) => setItemPrice(val)}
+                      onBlur={() => {
+                        setIsFocusPrice(false);
+                      }}
                       onSubmitEditing={() => {
                         descriptionInput.current.focus();
+                        setIsFocusPrice(false);
+                      }}
+                      onFocus={(event) => {
+                        setIsFocusName(false);
+                        setIsFocusPrice(true);
+                        setIsFocusDesc(false);
                       }}
                     />
                     <Text style={{ opacity: 0.5, paddingRight: 5 }}>DKK</Text>
@@ -311,13 +338,25 @@ const ItemEditCard = ({ item, isNew }) => {
                   <View style={[styles.inputView, styles.inputViewDesc]}>
                     <Text style={styles.name}>Item Description</Text>
                     <TextInput
-                      style={[styles.textInput, styles.textInputDesc]}
+                      style={[
+                        styles.textInput,
+                        styles.textInputDesc,
+                        isFocusDesc && styles.textInputDescFocus,
+                      ]}
                       value={itemDesc}
                       ref={descriptionInput}
                       placeholder="Dish Description"
                       keyboardType="default"
                       multiline
                       onChangeText={(val) => setItemDesc(val)}
+                      onBlur={() => {
+                        setIsFocusDesc(false);
+                      }}
+                      onFocus={(event) => {
+                        setIsFocusName(false);
+                        setIsFocusPrice(false);
+                        setIsFocusDesc(true);
+                      }}
                     />
                   </View>
                 </View>
@@ -516,11 +555,32 @@ const styles = StyleSheet.create({
     height: 125,
     padding: 2,
   },
+  textInputDescFocus: {
+    height: 125,
+    padding: 2,
+    borderRadius: 5,
+    width: "auto",
+    flex: 1,
+    //padding: 0,
+    paddingLeft: 5,
+    marginLeft: 20,
+    backgroundColor: "#fff",
+  },
   textInput: {
     height: 50,
     flex: 1,
     padding: 10,
     marginLeft: 20,
+  },
+  textInputFocus: {
+    height: 30,
+    borderRadius: 5,
+    width: "auto",
+    flex: 1,
+    padding: 0,
+    paddingLeft: 5,
+    marginLeft: 20,
+    backgroundColor: "#fff",
   },
   pic: {
     width: 30,
