@@ -97,12 +97,12 @@ const ListItemStyle = StyleSheet.create({
     margin: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
     color: "#ff4b3a",
   },
   price: {
-    fontSize: 18,
+    fontSize: 16,
     opacity: 0.9,
     fontWeight: "bold",
     color: "#ff4b3a",
