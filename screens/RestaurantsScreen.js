@@ -1,37 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  ActivityIndicator,
   SafeAreaView,
-  Alert,
   FlatList,
   Text,
   StyleSheet,
   View,
-  TextInput,
-  Button,
   Dimensions,
-  Image,
   RefreshControl,
   TouchableOpacity,
   Animated,
   Platform,
 } from "react-native";
 
-/*
-import { SafeAreaView } from "react-native-safe-area-context";
-*/
-/*import RestaurantCard from "../components/RestaurantCard";*/
 import { SearchBar, Overlay } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { styleOrangeColor } from "../styles/customStyles";
-import Svg, { Path } from "react-native-svg";
 import { useFocusEffect } from "@react-navigation/native";
-import BackButton from "../components/BackButton";
-import placeholderDataResturants from "../db/placeholderDataRestaurants.json"
+import placeholderDataRestaurants from "../db/placeholderDataRestaurants.json";
 import FlatListItem from "../components/browseRestaurants/flatListRestaurant";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
-/*export const scrollY = useRef(new Animated.Value(0)).current; //remember initial value*/
 const RestaurantsScreen = /* async */ ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
@@ -75,15 +62,15 @@ const RestaurantsScreen = /* async */ ({ navigation }) => {
   //focus screen on everytime page is rendered
   useFocusEffect(
     React.useCallback(() => {
-      setFilteredDataSource(placeholderDataResturants);
-      setMasterDataSource(placeholderDataResturants);
+      setFilteredDataSource(placeholderDataRestaurants);
+      setMasterDataSource(placeholderDataRestaurants);
     }, [])
   );
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    setFilteredDataSource(placeholderDataResturants);
-    setMasterDataSource(placeholderDataResturants);
+    setFilteredDataSource(placeholderDataRestaurants);
+    setMasterDataSource(placeholderDataRestaurants);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -200,7 +187,7 @@ const RestaurantsScreen = /* async */ ({ navigation }) => {
 
   if (search !== "") {
     return (
-      <SafeAreaView style={tw.style(`flex bg-black`)}>
+      <SafeAreaView style={tw.style(`flex`)}>
         <View
           style={tw.style(styles.container, {
             height: Dimensions.get("screen").height,
@@ -271,9 +258,11 @@ const SearchListRestaurants = ({
   );
 };
 
-const  RestaurantCategory = ({ category, navigation }) => {
+const RestaurantCategory = ({ category, navigation }) => {
   //const [restaurants, setRestaurants] = useState();
-  const restaurants = placeholderDataResturants.filter((element) => element[category] == true);
+  const restaurants = placeholderDataRestaurants.filter(
+    (element) => element[category] == true
+  );
   const scrollY = useRef(new Animated.Value(0)).current;
   return (
     <View style={tw` bg-gray-100`}>
